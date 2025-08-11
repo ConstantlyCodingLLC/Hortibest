@@ -99,3 +99,97 @@ footer.site-footer{ background:#0b1220; color:#dbeafe; padding:2.25rem 0; margin
   .hero{min-height:64vh; padding:3rem 1rem}
   .hero h1{ font-size: clamp(1.6rem, 7vw, 2.6rem) }
 }
+
+/* ==== Navigation Bar ==== */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--bg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 120;
+  font-family: "Poppins", "Inter", sans-serif;
+}
+
+.nav-left nav.primary-nav a {
+  margin-right: 1.5rem;
+  font-weight: 600;
+  color: #334155; /* matches existing nav primary a color */
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav-left nav.primary-nav a:hover,
+.nav-left nav.primary-nav a.active {
+  color: var(--accent-2);
+}
+
+.nav-right {
+  position: relative;
+}
+
+/* ==== Sign In/Up Dropdown ==== */
+.signin-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.signin-btn {
+  background: none;
+  border: 2px solid var(--accent-2);
+  color: var(--accent-2);
+  font-weight: 700;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.signin-btn:hover,
+.signin-btn:focus {
+  background-color: var(--accent-2);
+  color: var(--bg);
+  outline: none;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: var(--bg);
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(12,18,26,0.15);
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  z-index: 2000;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #334155;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e2e8f0; /* subtle border */
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content a:hover,
+.dropdown-content a:focus {
+  background: var(--accent-2);
+  color: var(--bg);
+  outline: none;
+}
+
+.signin-dropdown.open .dropdown-content {
+  display: block;
+}
+
