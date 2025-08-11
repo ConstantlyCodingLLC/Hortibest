@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HortiBest · Premium Grow Lighting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 <header class="site-header">
   <div class="nav-inner container">
     <div class="nav-left">
-      <div class="logo" onclick="window.location='index.html'">HortiBest</div>
+      <div class="logo" onclick="window.location='index.html'" style="cursor:pointer;">HortiBest</div>
       <nav class="primary">
         <a href="index.html" class="active">Home</a>
         <a href="indoor.html">Indoor</a>
@@ -15,15 +23,15 @@
     <div class="nav-right">
       <button class="hamburger-btn" aria-label="Toggle menu" onclick="toggleSidePanel()">☰</button>
 
-      <div class="cart-icon" aria-label="Shopping cart" onclick="alert('Cart clicked!')">
-        🛒<span class="cart-badge" id="cartCount">3</span>
+      <div class="cart-icon" aria-label="Shopping cart" onclick="alert('Cart clicked!')" style="cursor:pointer; position:relative; margin-left:1rem;">
+        🛒<span class="cart-badge" id="cartCount" style="position:absolute; top:-8px; right:-10px; background:#2f8a3a; color:#fff; border-radius:50%; padding:2px 6px; font-size:0.75rem;">3</span>
       </div>
 
-      <div class="signin-dropdown" id="signinDropdown">
-        <button class="signin-btn" onclick="toggleDropdown()">Sign In / Sign Up ▼</button>
-        <div class="dropdown-content" role="menu" aria-labelledby="signinDropdown">
-          <a href="login-commercial.html" role="menuitem">Commercial</a>
-          <a href="login-personal.html" role="menuitem">Personal</a>
+      <div class="signin-dropdown" id="signinDropdown" style="margin-left:1rem; position:relative;">
+        <button class="signin-btn" onclick="toggleDropdown()" aria-haspopup="true" aria-expanded="false">Sign In / Sign Up ▼</button>
+        <div class="dropdown-content" role="menu" aria-labelledby="signinDropdown" tabindex="-1">
+          <a href="login-commercial.html" role="menuitem" tabindex="0">Commercial</a>
+          <a href="login-personal.html" role="menuitem" tabindex="0">Personal</a>
         </div>
       </div>
     </div>
@@ -31,7 +39,7 @@
 </header>
 
 <!-- Side panel -->
-<div class="side-panel" id="sidePanel" aria-hidden="true" role="dialog" aria-label="Site navigation menu">
+<div class="side-panel" id="sidePanel" aria-hidden="true" role="dialog" aria-label="Site navigation menu" tabindex="-1">
   <h2>Menu</h2>
   <nav>
     <a href="index.html">Home</a>
@@ -45,81 +53,55 @@
 </div>
 <div class="side-panel-overlay" id="sidePanelOverlay" onclick="toggleSidePanel()"></div>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content container">
-        <h1>Grow Beyond Limits</h1>
-        <p class="subhead">Powerful, efficient LED lighting engineered for all growers — commercial and home alike.</p>
-        <div class="hero-cta">
-          <a href="indoor.html" class="btn btn-primary">Explore Indoor</a>
-          <a href="greenhouse.html" class="btn btn-ghost">Greenhouse Solutions</a>
-        </div>
-      </div>
-    </section>
+<!-- Main content -->
+<main>
+  <!-- Your page content here -->
+</main>
 
-    <section class="story container">
-      <h2>Why Choose HortiBest?</h2>
-      <p>Our lighting systems are designed for maximum yield, energy efficiency, and spectrum control — trusted by growers worldwide to optimize every stage of plant growth.</p>
-    </section>
+<footer>
+  <!-- Your footer here -->
+</footer>
 
-    <section class="image-section">
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=60" alt="Grow lights in use" />
-    </section>
+<script>
+  const signinDropdown = document.getElementById('signinDropdown');
+  const sidePanel = document.getElementById('sidePanel');
+  const sidePanelOverlay = document.getElementById('sidePanelOverlay');
+  const signinBtn = signinDropdown.querySelector('.signin-btn');
 
-    <section class="cta-dark container">
-      <h2>Ready to illuminate your growth?</h2>
-      <a href="contact.html" class="btn btn-primary">Contact Sales</a>
-    </section>
-  </main>
+  function toggleDropdown() {
+    const isOpen = signinDropdown.classList.toggle('open');
+    signinBtn.setAttribute('aria-expanded', isOpen);
+  }
 
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <h3>HortiBest</h3>
-        <p>Professional LED grow lights built for reliability and performance.</p>
-      </div>
-      <div>
-        <h4>Products</h4>
-        <a href="indoor.html">Indoor</a>
-        <a href="greenhouse.html">Greenhouse</a>
-        <a href="vertical-farm.html">Vertical Farm</a>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <a href="contact.html">Contact</a>
-        <a href="faq.html">FAQ</a>
-      </div>
-      <div>
-        <h4>Address</h4>
-        <p>2817 N. Classen Blvd, Oklahoma City, OK 73106</p>
-      </div>
-    </div>
-  </footer>
+  function closeDropdown() {
+    signinDropdown.classList.remove('open');
+    signinBtn.setAttribute('aria-expanded', false);
+  }
 
-  <script src="script.js"></script>
+  function toggleSidePanel() {
+    const isOpen = sidePanel.classList.toggle('open');
+    sidePanelOverlay.classList.toggle('open', isOpen);
+    sidePanel.setAttribute('aria-hidden', !isOpen);
+  }
+
+  // Close dropdown if clicked outside
+  document.addEventListener('click', (e) => {
+    if (!signinDropdown.contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  // Optional: close side panel with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+      if (sidePanel.classList.contains('open')) {
+        toggleSidePanel();
+      }
+      if (signinDropdown.classList.contains('open')) {
+        closeDropdown();
+      }
+    }
+  });
+</script>
 </body>
 </html>
-
-const signinDropdown = document.getElementById('signinDropdown');
-const sidePanel = document.getElementById('sidePanel');
-const sidePanelOverlay = document.getElementById('sidePanelOverlay');
-
-function toggleDropdown() {
-  signinDropdown.classList.toggle('open');
-}
-
-function closeDropdown() {
-  signinDropdown.classList.remove('open');
-}
-
-function toggleSidePanel() {
-  const isOpen = sidePanel.classList.toggle('open');
-  sidePanelOverlay.classList.toggle('open', isOpen);
-  sidePanel.setAttribute('aria-hidden', !isOpen);
-}
-
-document.addEventListener('click', (e) => {
-  if (!signinDropdown.contains(e.target)) {
-    closeDropdown();
-  }
-});
