@@ -12,14 +12,32 @@
   <div id="page-transition"></div>
 
   <header class="site-header">
-    <div class="container nav-inner">
+    <div class="container nav-inner" style="display:flex; justify-content:space-between; align-items:center;">
       <div class="nav-left" style="display:flex; align-items:center; gap:2rem;">
         <div class="logo"><a href="index.html">HortiBest</a></div>
-        <nav aria-label="Primary navigation" class="primary-nav">
+        <nav aria-label="Primary navigation" class="primary-nav" style="position:relative;">
           <a href="index.html" class="active">Home</a>
-          <a href="indoor.html">Indoor</a>
-          <a href="greenhouse.html">Greenhouse</a>
-          <a href="vertical-farm.html">Vertical Farm</a>
+
+          <!-- Products dropdown -->
+          <div class="nav-dropdown" style="position:relative; display:inline-block;">
+            <button 
+              aria-haspopup="true" 
+              aria-expanded="false" 
+              id="productsDropdownBtn" 
+              onclick="toggleProductsDropdown()" 
+              style="background:none; border:none; color:#0b5cff; font-weight:700; cursor:pointer; font-size:1rem; padding:0; margin:0 0.5rem;">
+              Products ▼
+            </button>
+            <div 
+              id="productsDropdown" 
+              role="menu" 
+              aria-labelledby="productsDropdownBtn" 
+              style="display:none; position:absolute; top:100%; left:0; background:#fff; box-shadow:0 4px 8px rgba(12,18,26,0.15); border-radius:6px; margin-top:0.5rem; min-width:160px; z-index:2000;">
+              <a href="indoor.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; border-bottom:1px solid #e2e8f0; text-decoration:none;">Indoor</a>
+              <a href="greenhouse.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; border-bottom:1px solid #e2e8f0; text-decoration:none;">Greenhouse</a>
+              <a href="vertical-farm.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; text-decoration:none;">Vertical Farm</a>
+            </div>
+          </div>
         </nav>
       </div>
 
@@ -155,6 +173,32 @@
         if (signinDropdown.classList.contains('open')) {
           closeDropdown();
         }
+      }
+    });
+
+    // Products dropdown toggle
+    const productsDropdownBtn = document.getElementById('productsDropdownBtn');
+    const productsDropdown = document.getElementById('productsDropdown');
+
+    function toggleProductsDropdown() {
+      const isOpen = productsDropdown.style.display === 'block';
+      productsDropdown.style.display = isOpen ? 'none' : 'block';
+      productsDropdownBtn.setAttribute('aria-expanded', !isOpen);
+    }
+
+    // Close products dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+      if (productsDropdown && !productsDropdown.contains(e.target) && e.target !== productsDropdownBtn) {
+        productsDropdown.style.display = 'none';
+        productsDropdownBtn.setAttribute('aria-expanded', false);
+      }
+    });
+
+    // Close products dropdown with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape" && productsDropdown.style.display === 'block') {
+        productsDropdown.style.display = 'none';
+        productsDropdownBtn.setAttribute('aria-expanded', false);
       }
     });
   </script>
