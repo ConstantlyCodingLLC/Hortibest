@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customer Login · HortiBest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="page-transition"></div>
+  <header class="site-header">
+    <div class="container nav-inner">
+      <div class="logo"><a href="index.html">HortiBest</a></div>
+      <nav aria-label="Primary navigation" class="primary-nav" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="indoor.html">Indoor</a>
+        <a href="greenhouse.html">Greenhouse</a>
+        <a href="vertical-farm.html">Vertical Farm</a>
+        <a href="login.html" class="active">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="min-height:70vh; display:flex; align-items:center; justify-content:center;">
+    <form id="loginForm" style="max-width:400px; width:100%; padding:2rem; border:1px solid #ddd; border-radius:8px;">
+      <h2>Customer Login</h2>
+      <label for="email">Email</label><br />
+      <input id="email" type="email" required placeholder="you@example.com" style="width:100%; padding:0.5rem; margin-bottom:1rem;" />
+      <label for="password">Password</label><br />
+      <input id="password" type="password" required placeholder="Enter your password" style="width:100%; padding:0.5rem; margin-bottom:1rem;" />
+      <button type="submit" class="btn btn-primary" style="width:100%; padding:0.75rem;">Login</button>
+      <p id="loginMsg" style="color:red; margin-top:1rem; display:none;"></p>
+    </form>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <!-- Same footer content as other pages -->
+      <div>
+        <h3>HortiBest</h3>
+        <p>Professional LED grow lights built for reliability and performance.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <a href="indoor.html">Indoor</a>
+        <a href="greenhouse.html">Greenhouse</a>
+        <a href="vertical-farm.html">Vertical Farm</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div>
+        <h4>Address</h4>
+        <p>2817 N. Classen Blvd, Oklahoma City, OK 73106</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginMsg = document.getElementById('loginMsg');
+
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Simple demo check - in real life, check credentials server-side
+      if(email === "customer@example.com" && password === "password123") {
+        // Store "login" in localStorage to simulate session
+        localStorage.setItem('loggedInUser', email);
+        window.location.href = "dashboard.html";
+      } else {
+        loginMsg.textContent = "Invalid email or password.";
+        loginMsg.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

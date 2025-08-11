@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customer Portal · HortiBest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="page-transition"></div>
+  <header class="site-header">
+    <div class="container nav-inner">
+      <div class="logo"><a href="index.html">HortiBest</a></div>
+      <nav aria-label="Primary navigation" class="primary-nav" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="indoor.html">Indoor</a>
+        <a href="greenhouse.html">Greenhouse</a>
+        <a href="vertical-farm.html">Vertical Farm</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="min-height:70vh; padding-top: 2rem;">
+    <h1>Welcome to Your Customer Portal</h1>
+    <p>Hi, <span id="userEmail"></span>! Here you can view your orders and manage your account.</p>
+
+    <section style="margin-top:2rem;">
+      <h2>Your Orders</h2>
+      <ul>
+        <li>Order #12345 - Octopus Series F6 - Delivered</li>
+        <li>Order #12346 - Shark-XR Series - In Transit</li>
+        <li>Order #12347 - Jellyfish-3000 - Processing</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3>HortiBest</h3>
+        <p>Professional LED grow lights built for reliability and performance.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <a href="indoor.html">Indoor</a>
+        <a href="greenhouse.html">Greenhouse</a>
+        <a href="vertical-farm.html">Vertical Farm</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div>
+        <h4>Address</h4>
+        <p>2817 N. Classen Blvd, Oklahoma City, OK 73106</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const userEmailSpan = document.getElementById('userEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    const userEmail = localStorage.getItem('loggedInUser');
+
+    if (!userEmail) {
+      // Not logged in, redirect to login page
+      window.location.href = "login.html";
+    } else {
+      userEmailSpan.textContent = userEmail;
+    }
+
+    logoutBtn.addEventListener('click', e => {
+      e.preventDefault();
+      localStorage.removeItem('loggedInUser');
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
