@@ -99,3 +99,27 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+const signinDropdown = document.getElementById('signinDropdown');
+const sidePanel = document.getElementById('sidePanel');
+const sidePanelOverlay = document.getElementById('sidePanelOverlay');
+
+function toggleDropdown() {
+  signinDropdown.classList.toggle('open');
+}
+
+function closeDropdown() {
+  signinDropdown.classList.remove('open');
+}
+
+function toggleSidePanel() {
+  const isOpen = sidePanel.classList.toggle('open');
+  sidePanelOverlay.classList.toggle('open', isOpen);
+  sidePanel.setAttribute('aria-hidden', !isOpen);
+}
+
+document.addEventListener('click', (e) => {
+  if (!signinDropdown.contains(e.target)) {
+    closeDropdown();
+  }
+});
