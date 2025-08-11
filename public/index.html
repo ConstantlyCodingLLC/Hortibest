@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HortiBest · Premium Grow Lighting</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="HortiBest — professional LED grow lights. Premium design, engineered for growers." />
-</head>
-<body>
-  <div id="page-transition"></div>
-  <header class="site-header">
-    <div class="container nav-inner">
-      <div class="logo"><a href="index.html">HortiBest</a></div>
-      <nav aria-label="Primary navigation" class="primary-nav">
+<header class="site-header">
+  <div class="nav-inner container">
+    <div class="nav-left">
+      <div class="logo" onclick="window.location='index.html'">HortiBest</div>
+      <nav class="primary">
         <a href="index.html" class="active">Home</a>
         <a href="indoor.html">Indoor</a>
         <a href="greenhouse.html">Greenhouse</a>
         <a href="vertical-farm.html">Vertical Farm</a>
       </nav>
     </div>
-  </header>
+
+    <div class="nav-right">
+      <button class="hamburger-btn" aria-label="Toggle menu" onclick="toggleSidePanel()">☰</button>
+
+      <div class="cart-icon" aria-label="Shopping cart" onclick="alert('Cart clicked!')">
+        🛒<span class="cart-badge" id="cartCount">3</span>
+      </div>
+
+      <div class="signin-dropdown" id="signinDropdown">
+        <button class="signin-btn" onclick="toggleDropdown()">Sign In / Sign Up ▼</button>
+        <div class="dropdown-content" role="menu" aria-labelledby="signinDropdown">
+          <a href="login-commercial.html" role="menuitem">Commercial</a>
+          <a href="login-personal.html" role="menuitem">Personal</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Side panel -->
+<div class="side-panel" id="sidePanel" aria-hidden="true" role="dialog" aria-label="Site navigation menu">
+  <h2>Menu</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="indoor.html">Indoor</a>
+    <a href="greenhouse.html">Greenhouse</a>
+    <a href="vertical-farm.html">Vertical Farm</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="news.html">News</a>
+    <a href="products.html">Products</a>
+  </nav>
+</div>
+<div class="side-panel-overlay" id="sidePanelOverlay" onclick="toggleSidePanel()"></div>
 
   <main>
     <section class="hero">
