@@ -76,6 +76,11 @@
     .btn-primary:hover {
       background-color: #094bbf;
     }
+    .btn-submit {
+      margin-top: 1rem;
+      width: 100%;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -89,6 +94,10 @@
         <a href="greenhouse.html" class="active">Greenhouse</a>
         <a href="vertical-farm.html">Vertical Farm</a>
       </nav>
+      <div class="cart-icon" aria-label="Shopping cart" onclick="alert('Cart clicked!')" style="cursor:pointer; position:relative; font-size:1.3rem; margin-left: 1rem;">
+        🛒
+        <span class="cart-badge" id="cartCount" style="position:absolute; top:-8px; right:-10px; background:#2f8a3a; color:#fff; border-radius:50%; padding:2px 6px; font-size:0.75rem;">3</span>
+      </div>
     </div>
   </header>
 
@@ -151,24 +160,25 @@
         <div class="section">
           <h2>Select Services</h2>
 
-          <label><input type="checkbox" name="services" value="300"> Starter Website ($300)</label>
-          <label><input type="checkbox" name="services" value="750"> 5-Page Website ($750)</label>
-          <label><input type="checkbox" name="services" value="1200"> Web/App Store ($1200)</label>
-          <label><input type="checkbox" name="services" value="250"> Home Office Setup ($250)</label>
-          <label><input type="checkbox" name="services" value="600"> Small Office Network ($600)</label>
-          <label><input type="checkbox" name="services" value="1000"> Secure Office Network ($1000)</label>
-          <label><input type="checkbox" name="services" value="400"> Basic Cabling Drop ($400)</label>
-          <label><input type="checkbox" name="services" value="950"> Office Wiring ($950)</label>
-          <label><input type="checkbox" name="services" value="1500"> Full Cabling Package ($1500)</label>
-          <label><input type="checkbox" name="services" value="300"> Basic Ticketing System ($300)</label>
-          <label><input type="checkbox" name="services" value="600"> Internal Ticket Suite ($600)</label>
-          <label><input type="checkbox" name="services" value="1000"> Advanced Ticketing + Portal ($1000)</label>
-          <label><input type="checkbox" name="services" value="300"> Inventory Tracker Lite ($300)</label>
-          <label><input type="checkbox" name="services" value="750"> Asset Suite ($750)</label>
-          <label><input type="checkbox" name="services" value="1200"> Smart Management Dashboard ($1200)</label>
+          <label><input type="checkbox" name="services" value="300" data-name="Starter Website"> Starter Website ($300)</label>
+          <label><input type="checkbox" name="services" value="750" data-name="5-Page Website"> 5-Page Website ($750)</label>
+          <label><input type="checkbox" name="services" value="1200" data-name="Web/App Store"> Web/App Store ($1200)</label>
+          <label><input type="checkbox" name="services" value="250" data-name="Home Office Setup"> Home Office Setup ($250)</label>
+          <label><input type="checkbox" name="services" value="600" data-name="Small Office Network"> Small Office Network ($600)</label>
+          <label><input type="checkbox" name="services" value="1000" data-name="Secure Office Network"> Secure Office Network ($1000)</label>
+          <label><input type="checkbox" name="services" value="400" data-name="Basic Cabling Drop"> Basic Cabling Drop ($400)</label>
+          <label><input type="checkbox" name="services" value="950" data-name="Office Wiring"> Office Wiring ($950)</label>
+          <label><input type="checkbox" name="services" value="1500" data-name="Full Cabling Package"> Full Cabling Package ($1500)</label>
+          <label><input type="checkbox" name="services" value="300" data-name="Basic Ticketing System"> Basic Ticketing System ($300)</label>
+          <label><input type="checkbox" name="services" value="600" data-name="Internal Ticket Suite"> Internal Ticket Suite ($600)</label>
+          <label><input type="checkbox" name="services" value="1000" data-name="Advanced Ticketing + Portal"> Advanced Ticketing + Portal ($1000)</label>
+          <label><input type="checkbox" name="services" value="300" data-name="Inventory Tracker Lite"> Inventory Tracker Lite ($300)</label>
+          <label><input type="checkbox" name="services" value="750" data-name="Asset Suite"> Asset Suite ($750)</label>
+          <label><input type="checkbox" name="services" value="1200" data-name="Smart Management Dashboard"> Smart Management Dashboard ($1200)</label>
 
           <div class="total">Total: $<span id="totalPrice">0</span></div>
         </div>
+        <button type="submit" class="btn btn-primary btn-submit">Submit Quote</button>
       </form>
     </div>
   </div>
@@ -178,6 +188,7 @@
     const openQuoteBtn = document.getElementById('openQuoteBtn');
     const closeQuoteBtn = document.getElementById('closeQuoteBtn');
     const quoteModal = document.getElementById('quoteModal');
+    const cartCountElem = document.getElementById('cartCount');
 
     openQuoteBtn.addEventListener('click', () => {
       quoteModal.classList.add('active');
@@ -218,6 +229,50 @@
         });
         totalPriceElem.textContent = total;
       });
+    });
+
+    // Handle form submission
+    const quoteForm = document.getElementById('quoteForm');
+    quoteForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Gather selected services
+      const selectedServices = [];
+      let total = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          selectedServices.push(`${cb.dataset.name} ($${cb.value})`);
+          total += Number(cb.value);
+        }
+      });
+
+      if (selectedServices.length === 0) {
+        alert("Please select at least one service.");
+        return;
+      }
+
+      // Update cart count (add the number of selected services)
+      let currentCount = parseInt(cartCountElem.textContent) || 0;
+      currentCount += selectedServices.length;
+      cartCountElem.textContent = currentCount;
+
+      // Prepare email body text
+      const emailBody = encodeURIComponent(
+        `Hello HortiBest Sales Team,%0D%0A%0D%0AI would like to request a custom quote for the following services:%0D%0A` +
+        selectedServices.map(s => `- ${s}`).join('%0D%0A') +
+        `%0D%0ATotal Estimated Price: $${total}%0D%0A%0D%0APlease contact me with more information.%0D%0A%0D%0AThank you!`
+      );
+
+      // Open default mail client with pre-filled email
+      window.location.href = `mailto:sales@hortibest.com?subject=Custom Quote Request&body=${emailBody}`;
+
+      // Close the modal
+      quoteModal.classList.remove('active');
+      quoteModal.setAttribute('aria-hidden', 'true');
+
+      // Optional: reset the form and total price display
+      quoteForm.reset();
+      totalPriceElem.textContent = 0;
     });
   </script>
 </body>
