@@ -13,7 +13,7 @@ nav ul { display:flex; list-style:none; gap:1rem; }
 nav ul li a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:6px; background:#3498db; }
 section { padding:6rem 2rem; margin-top:60px; text-align:center; }
 select { padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; color:#fff; margin-bottom:1rem; }
-.quote-box { background:#111; padding:2rem; border-radius:12px; max-width:600px; margin:auto; }
+.quote-box { background:#111; padding:2rem; border-radius:12px; max-width:600px; margin:auto; font-size:1.2rem; }
 </style>
 </head>
 <body>
@@ -32,24 +32,26 @@ select { padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; c
 <section>
   <h2>Indoor Section Quotes</h2>
   <select id="quoteSelector">
-    <option value="0">"Grow indoors, grow smart."</option>
-    <option value="1">"Indoor farming, endless possibilities."</option>
-    <option value="2">"Efficient growth starts here."</option>
+    <option value="0">Small Setup - $500</option>
+    <option value="1">Medium Setup - $1,200</option>
+    <option value="2">Large Setup - $2,500</option>
   </select>
   <div class="quote-box" id="quoteDisplay">
-    "Grow indoors, grow smart."
+    Small Setup - $500
   </div>
 </section>
 
 <script>
 const quotes = [
-  '"Grow indoors, grow smart."',
-  '"Indoor farming, endless possibilities."',
-  '"Efficient growth starts here."'
+  "Small Setup - $500",
+  "Medium Setup - $1,200",
+  "Large Setup - $2,500"
 ];
 const selector = document.getElementById('quoteSelector');
 const display = document.getElementById('quoteDisplay');
-selector.addEventListener('change', ()=>{ display.textContent = quotes[selector.value]; });
+selector.addEventListener('change', () => {
+  display.textContent = quotes[selector.value];
+});
 </script>
 
 </body>
