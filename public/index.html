@@ -26,16 +26,15 @@ a { text-decoration:none; color: inherit; }
 
 /* Header */
 header {
-  position: sticky;
-  top:0; left:0; width:100%;
+  position: fixed;
+  top:0; right:0; width:100%;
   background: rgba(0,0,0,0.85);
   display:flex; justify-content: space-between; align-items:center;
   padding:1rem 2rem;
-  z-index: 1000;
-  flex-wrap: wrap;
+  z-index: 10000;
 }
 header h1 { font-weight:800; font-size:1.5rem; color: var(--white); cursor:pointer; }
-nav ul { display:flex; flex-wrap:wrap; list-style:none; gap:1rem; margin-top:0.5rem; }
+nav ul { display:flex; list-style:none; gap:1rem; }
 nav ul li a { font-weight:600; transition: transform 0.3s, color 0.3s; padding:0.5rem 1rem; border-radius:6px; display:inline-block; }
 nav ul li a:hover { transform:translateY(-3px); }
 
@@ -96,8 +95,8 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
 
 /* Responsive */
 @media(max-width:768px){ 
-  header { padding:1rem 1.5rem; }
-  nav ul { justify-content:center; margin-top:0.5rem; }
+  header { padding:1rem; }
+  nav ul { flex-wrap: wrap; justify-content:center; gap:0.5rem; }
   .hero h1 { font-size:clamp(1.6rem,7vw,3rem); }
   section { padding:4rem 1.5rem; }
 }
@@ -106,10 +105,9 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
 <body>
 
 <header>
-  <h1>Hortibest</h1>
+  <h1 onclick="window.location.href='#hero'">Hortibest</h1>
   <nav>
     <ul>
-      <li><a href="#hero" class="btn-purple">Home</a></li>
       <li><a href="#services" class="btn-blue">Services</a></li>
       <li><a href="#about" class="btn-red">About</a></li>
       <li><a href="#contact" class="btn-purple">Contact</a></li>
