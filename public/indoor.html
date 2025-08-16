@@ -9,11 +9,11 @@
 body { font-family:'Montserrat', sans-serif; background:#0d0d0d; color:#fff; margin:0; padding:0; }
 header { position:fixed; top:0; width:100%; background: rgba(0,0,0,0.85); display:flex; justify-content: space-between; padding:1rem 2rem; z-index:1000; }
 header h1 { cursor:pointer; font-weight:800; color:#fff; }
-nav ul { display:flex; list-style:none; gap:1rem; }
+nav ul { display:flex; list-style:none; gap:1rem; flex-wrap:wrap; }
 nav ul li a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:6px; background:#3498db; }
 section { padding:6rem 2rem; margin-top:60px; text-align:center; }
-.filter { margin-bottom:2rem; }
-select, input[type=checkbox] { padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; color:#fff; margin:0 0.5rem; cursor:pointer; }
+.filter { margin-bottom:2rem; display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem; }
+select, input[type=checkbox] { padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; color:#fff; cursor:pointer; flex:1 1 150px; min-width:120px; }
 .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; margin-bottom:2rem; }
 .card { background:#111; border-radius:12px; overflow:hidden; cursor:pointer; transition: transform 0.3s, box-shadow 0.3s; display:flex; flex-direction:column; }
 .card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,0,0,0.5); }
@@ -23,8 +23,18 @@ select, input[type=checkbox] { padding:0.5rem 1rem; border-radius:6px; border:no
 .card-content p { font-size:0.9rem; color:#ccc; margin-bottom:1rem; }
 .card.selected { border:3px solid #3498db; }
 #totalPrice { font-size:1.5rem; margin:1rem 0; }
-button { padding:0.75rem 2rem; border:none; border-radius:8px; background:#9b59b6; color:#fff; cursor:pointer; font-weight:600; transition:transform 0.3s; }
+button { padding:0.75rem 2rem; border:none; border-radius:8px; background:#9b59b6; color:#fff; cursor:pointer; font-weight:600; transition:transform 0.3s; max-width:100%; width:100%; }
 button:hover { transform:translateY(-3px); }
+
+/* Mobile responsive tweaks */
+@media(max-width:768px){
+  header { flex-direction:column; align-items:flex-start; padding:1rem; }
+  nav ul { flex-direction:column; width:100%; }
+  nav ul li a { width:100%; text-align:center; margin-bottom:0.5rem; }
+  .filter { flex-direction:column; align-items:center; }
+  select, input[type=checkbox] { flex:1 1 auto; width:90%; }
+  button { max-width:90%; margin:auto; }
+}
 </style>
 </head>
 <body>
@@ -96,7 +106,6 @@ function updateTotal() {
   totalPriceEl.textContent = `Total: $${total}`;
 }
 
-// Card click selection
 cards.forEach(card => {
   card.addEventListener('click', () => {
     if (selectedCards.includes(card)) {
@@ -110,19 +119,15 @@ cards.forEach(card => {
   });
 });
 
-// Shipping checkbox
 shippingCheckbox.addEventListener('change', updateTotal);
 
-// Filter products
 filterSelect.addEventListener('change', () => {
   const value = filterSelect.value;
   cards.forEach(card => {
     card.style.display = (value === 'all' || card.dataset.type === value) ? 'flex' : 'none';
-    if (!card.classList.contains('selected')) return;
   });
 });
 
-// Send quote button
 document.getElementById('sendQuote').addEventListener('click', () => {
   if (selectedCards.length === 0) {
     alert('Please select at least one product.');
@@ -134,7 +139,7 @@ document.getElementById('sendQuote').addEventListener('click', () => {
   });
   if (shippingCheckbox.checked) message += `+ Delivery: $50\n`;
   message += totalPriceEl.textContent;
-  alert(message); // Replace this with form/email sending in production
+  alert(message);
 });
 </script>
 
