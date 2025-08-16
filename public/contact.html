@@ -1,71 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact Us · HortiBest</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9fafb;
-      color: #334155;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 2rem;
-    }
-    .container {
-      background: white;
-      max-width: 600px;
-      width: 100%;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    }
-    h1 {
-      margin-bottom: 1rem;
-      font-weight: 700;
-      color: #0b5cff;
-    }
-    p {
-      font-size: 1.1rem;
-      margin: 0.5rem 0;
-    }
-    a {
-      color: #0b5cff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .contact-item {
-      margin-bottom: 1rem;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact Us · HortiBest</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --purple: #9b59b6;
+    --blue: #3498db;
+    --red: #e74c3c;
+    --dark-bg: #0d0d0d;
+    --white: #fff;
+    --light-bg: #111;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--dark-bg);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .container {
+    background: var(--light-bg);
+    max-width: 600px;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+    border-top: 5px solid var(--purple);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity:0; transform: translateY(-20px);}
+    100% { opacity:1; transform: translateY(0);}
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 2rem;
+    background: linear-gradient(90deg, var(--purple), var(--blue), var(--red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
+
+  .contact-item {
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    cursor: default;
+  }
+
+  .contact-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+
+  a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+
+  a:hover {
+    color: var(--red);
+    text-decoration: underline;
+  }
+
+  @media(max-width: 768px) {
+    body { padding: 1rem; }
+    .container { padding: 1.5rem; }
+    h1 { font-size: 1.7rem; }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Contact Us</h1>
 
-    <div class="contact-item">
-      <strong>Address:</strong>
-      <p>2817 N. Classen Blvd,<br />Oklahoma City, OK 73106</p>
-    </div>
+<div class="container">
+  <h1>Contact Us</h1>
 
-    <div class="contact-item">
-      <strong>Phone:</strong>
-      <p><a href="tel:+14054939315">405-493-9315</a></p>
-    </div>
-
-    <div class="contact-item">
-      <strong>Email:</strong>
-      <p><a href="mailto:sales@hortibest.com">sales@hortibest.com</a></p>
-    </div>
+  <div class="contact-item">
+    <strong>Address:</strong>
+    <p>2817 N. Classen Blvd,<br />Oklahoma City, OK 73106</p>
   </div>
+
+  <div class="contact-item">
+    <strong>Phone:</strong>
+    <p><a href="tel:+14054939315">405-493-9315</a></p>
+  </div>
+
+  <div class="contact-item">
+    <strong>Email:</strong>
+    <p><a href="mailto:sales@hortibest.com">sales@hortibest.com</a></p>
+  </div>
+</div>
+
 </body>
 </html>
