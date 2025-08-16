@@ -13,7 +13,7 @@ nav ul { display:flex; list-style:none; gap:1rem; }
 nav ul li a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:6px; background:#3498db; }
 section { padding:6rem 2rem; margin-top:60px; text-align:center; }
 select { padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; color:#fff; margin-bottom:1rem; }
-.quote-box { background:#111; padding:2rem; border-radius:12px; max-width:600px; margin:auto; }
+.quote-box { background:#111; padding:2rem; border-radius:12px; max-width:600px; margin:auto; font-size:1.2rem; }
 </style>
 </head>
 <body>
@@ -32,24 +32,26 @@ select { padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; c
 <section>
   <h2>Greenhouse Section Quotes</h2>
   <select id="quoteSelector">
-    <option value="0">"Greenhouses create perfect conditions."</option>
-    <option value="1">"Grow more, rain or shine."</option>
-    <option value="2">"Innovation inside every greenhouse."</option>
+    <option value="0">Basic Greenhouse - $800</option>
+    <option value="1">Advanced Greenhouse - $1,500</option>
+    <option value="2">Premium Greenhouse - $3,000</option>
   </select>
   <div class="quote-box" id="quoteDisplay">
-    "Greenhouses create perfect conditions."
+    Basic Greenhouse - $800
   </div>
 </section>
 
 <script>
 const quotes = [
-  '"Greenhouses create perfect conditions."',
-  '"Grow more, rain or shine."',
-  '"Innovation inside every greenhouse."'
+  "Basic Greenhouse - $800",
+  "Advanced Greenhouse - $1,500",
+  "Premium Greenhouse - $3,000"
 ];
 const selector = document.getElementById('quoteSelector');
 const display = document.getElementById('quoteDisplay');
-selector.addEventListener('change', ()=>{ display.textContent = quotes[selector.value]; });
+selector.addEventListener('change', () => {
+  display.textContent = quotes[selector.value];
+});
 </script>
 
 </body>
