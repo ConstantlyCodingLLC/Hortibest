@@ -14,122 +14,63 @@
   --white: #fff;
   --ease: cubic-bezier(.22,.98,.33,1);
 }
-
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: var(--dark-bg);
-  color: var(--white);
-  overflow-x: hidden;
-}
+body { font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--white); overflow-x:hidden; }
 a { text-decoration:none; color: inherit; }
-
 /* Header */
-header {
-  position: fixed;
-  top:0; right:0; width:100%;
-  background: rgba(0,0,0,0.85);
-  display:flex; justify-content: space-between; align-items:center;
-  padding:1rem 2rem;
-  z-index: 10000;
-}
-header h1 { font-weight:800; font-size:1.5rem; color: var(--white); cursor:pointer; }
+header { position: sticky; top:0; width:100%; background: rgba(0,0,0,0.85); display:flex; justify-content: space-between; align-items:center; padding:1rem 2rem; z-index:1000; }
+header h1 { cursor:pointer; font-weight:800; color:#fff; }
 nav ul { display:flex; list-style:none; gap:1rem; position:relative; }
-nav ul li { position: relative; }
-nav ul li a { font-weight:600; transition: transform 0.3s, color 0.3s; padding:0.5rem 1rem; border-radius:6px; display:inline-block; }
+nav ul li { position:relative; }
+nav ul li a { font-weight:600; padding:0.5rem 1rem; border-radius:6px; display:inline-block; transition: transform 0.3s; }
 nav ul li a:hover { transform:translateY(-3px); }
-
-/* Dropdown Menu */
-nav ul li ul {
-  position:absolute;
-  top:110%; left:0;
-  background:#111;
-  padding:0.5rem 0;
-  display:none;
-  flex-direction: column;
-  min-width:180px;
-  border-radius:8px;
-  z-index:1000;
-}
-nav ul li:hover ul { display:flex; }
-nav ul li ul li a { padding:0.5rem 1rem; white-space:nowrap; }
-nav ul li ul li a:hover { background: #222; }
-
-/* Vibrant button styles */
-.btn-purple { background: var(--purple); color:#fff; transition: transform 0.3s; }
-.btn-blue { background: var(--blue); color:#fff; transition: transform 0.3s; }
-.btn-red { background: var(--red); color:#fff; transition: transform 0.3s; }
+nav ul li ul { display:none; position:absolute; top:100%; left:0; background:#111; border-radius:6px; padding:0.5rem 0; min-width:180px; z-index:100; }
+nav ul li:hover ul { display:block; }
+nav ul li ul li { display:block; margin:0; }
+nav ul li ul li a { display:block; width:100%; padding:0.5rem 1rem; }
+/* Buttons */
+.btn-purple { background: var(--purple); color:#fff; }
+.btn-blue { background: var(--blue); color:#fff; }
+.btn-red { background: var(--red); color:#fff; }
 .btn-purple:hover, .btn-blue:hover, .btn-red:hover { transform:translateY(-4px); }
-
 /* Hero Section */
-.hero {
-  position: relative;
-  height: 100vh;
-  display:flex; align-items:center; justify-content:center;
-  text-align:center; overflow:hidden;
-  color:#fff;
-}
-.hero video {
-  position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;
-  z-index:0;
-  filter: brightness(0.6);
-}
-.hero-inner { position:relative; z-index:2; max-width:800px; padding: 0 1rem; }
+.hero { position: relative; height: 100vh; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; color:#fff; }
+.hero video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.6); z-index:0; }
+.hero-inner { position:relative; z-index:2; max-width:800px; padding:0 1rem; }
 .hero h1 { font-size:clamp(2rem,6vw,4rem); margin-bottom:1rem; }
 .hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; }
-
 /* Sections */
-section {
-  padding:6rem 2rem;
-  opacity:0;
-  transform:translateY(30px);
-  transition: all 0.8s var(--ease);
-}
-section.visible {
-  opacity:1;
-  transform:translateY(0);
-}
+section { padding:6rem 2rem; opacity:0; transform:translateY(30px); transition: all 0.8s var(--ease); }
+section.visible { opacity:1; transform:translateY(0); }
 .section-head { text-align:center; margin-bottom:3rem; }
 .section-head h2 { font-size:2rem; font-weight:800; margin-bottom:0.5rem; }
 .section-head p { color:#aaa; }
-
 /* Grid */
 .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:2rem; }
 .card { background:#111; padding:2rem; border-radius:12px; transition: transform 0.4s, box-shadow 0.4s; }
 .card:hover { transform:translateY(-8px); box-shadow:0 20px 40px rgba(0,0,0,0.6); }
-
-/* Form */
-form input, form textarea { padding:0.75rem; border-radius:8px; border:none; background:#222; color:#fff; }
-form input::placeholder, form textarea::placeholder { color:#888; }
-form button { border:none; cursor:pointer; }
-
 /* Footer */
 footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
-
 /* Responsive */
-@media(max-width:768px){ 
-  header { padding:1rem; }
-  nav ul { flex-wrap: wrap; justify-content:center; gap:0.5rem; }
-  .hero h1 { font-size:clamp(1.6rem,7vw,3rem); }
-  section { padding:4rem 1.5rem; }
-}
+@media(max-width:768px){ header { padding:1rem 1.5rem; } nav ul { flex-direction:column; } .hero h1 { font-size:clamp(1.6rem,7vw,3rem); } section { padding:4rem 1.5rem; } }
 </style>
 </head>
 <body>
 
 <header>
-  <h1 onclick="window.location.href='#hero'">Hortibest</h1>
+  <h1 onclick="window.location.href='index.html'">Hortibest</h1>
   <nav>
     <ul>
+      <li><a href="#hero" class="btn-purple">Home</a></li>
       <li><a href="#services" class="btn-blue">Services</a></li>
       <li><a href="#about" class="btn-red">About</a></li>
       <li><a href="#contact" class="btn-purple">Contact</a></li>
       <li>
         <a href="#" class="btn-blue">Products ▼</a>
         <ul>
-          <li><a href="#indoor">Indoor</a></li>
-          <li><a href="#greenhouse">Greenhouse</a></li>
-          <li><a href="#vertical-farm">Vertical Farm</a></li>
+          <li><a href="indoor.html">Indoor</a></li>
+          <li><a href="greenhouse.html">Greenhouse</a></li>
+          <li><a href="vertical-farm.html">Vertical Farm</a></li>
         </ul>
       </li>
     </ul>
@@ -137,7 +78,7 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
 </header>
 
 <section id="hero" class="hero">
-  <video src="https://www.w3schools.com/howto/rain.mp4" muted autoplay loop playsinline></video>
+  <video src="https://www.w3schools.com/howto/rain.mp4" autoplay muted loop playsinline></video>
   <div class="hero-inner">
     <h1>Experience Next-Level Visuals</h1>
     <p>Dynamic video walls and slideshows for immersive experiences.</p>
@@ -178,37 +119,15 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
   </form>
 </section>
 
-<section id="product">
-  <div class="section-head">
-    <h2>Products</h2>
-    <p>Check out our product sections below.</p>
-  </div>
-  <div id="indoor" class="grid">
-    <div class="card btn-purple">Indoor Section</div>
-  </div>
-  <div id="greenhouse" class="grid">
-    <div class="card btn-blue">Greenhouse Section</div>
-  </div>
-  <div id="vertical-farm" class="grid">
-    <div class="card btn-red">Vertical Farm Section</div>
-  </div>
-</section>
-
 <footer>
   © 2025 Hortibest. All Rights Reserved.
 </footer>
 
 <script>
-  // Scroll reveal animation
-  const sections = document.querySelectorAll('section');
-  const reveal = () => {
-    const scrollY = window.scrollY + window.innerHeight - 100;
-    sections.forEach(section => {
-      if (scrollY > section.offsetTop) section.classList.add('visible');
-    });
-  };
-  window.addEventListener('scroll', reveal);
-  reveal(); // initial call
+const sections = document.querySelectorAll('section');
+const reveal = () => { const scrollY = window.scrollY + window.innerHeight - 100; sections.forEach(section => { if(scrollY>section.offsetTop) section.classList.add('visible'); }); };
+window.addEventListener('scroll', reveal);
+reveal();
 </script>
 
 </body>
