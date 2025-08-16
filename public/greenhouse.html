@@ -1,279 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Greenhouse Lighting · HortiBest</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="Efficient LED lighting designed for greenhouse applications." />
-  <style>
-    /* Modal styles */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 3000;
-    }
-    .modal-overlay.active {
-      display: flex;
-    }
-    .modal {
-      background: #fff;
-      border-radius: 8px;
-      max-width: 500px;
-      width: 90%;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    .modal h1 {
-      margin-top: 0;
-    }
-    .modal .section {
-      margin-bottom: 1.5rem;
-    }
-    .modal label {
-      display: block;
-      margin-bottom: 0.5rem;
-      cursor: pointer;
-    }
-    .modal .total {
-      font-weight: 700;
-      font-size: 1.2rem;
-      margin-top: 1rem;
-      text-align: right;
-    }
-    .modal .close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #666;
-    }
-    /* Buttons */
-    .btn {
-      cursor: pointer;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      border: none;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-    }
-    .btn-primary {
-      background-color: #0b5cff;
-      color: white;
-    }
-    .btn-primary:hover {
-      background-color: #094bbf;
-    }
-    .btn-submit {
-      margin-top: 1rem;
-      width: 100%;
-      display: block;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greenhouse - Hortibest</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+body { font-family:'Montserrat', sans-serif; background:#0d0d0d; color:#fff; margin:0; padding:0; }
+header { position:fixed; top:0; width:100%; background: rgba(0,0,0,0.85); display:flex; justify-content: space-between; padding:1rem 2rem; z-index:1000; }
+header h1 { cursor:pointer; font-weight:800; color:#fff; }
+nav ul { display:flex; list-style:none; gap:1rem; }
+nav ul li a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:6px; background:#3498db; }
+section { padding:6rem 2rem; margin-top:60px; text-align:center; }
+select { padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; color:#fff; margin-bottom:1rem; }
+.quote-box { background:#111; padding:2rem; border-radius:12px; max-width:600px; margin:auto; }
+</style>
 </head>
 <body>
-  <div id="page-transition"></div>
-  <header class="site-header">
-    <div class="container nav-inner">
-      <div class="logo"><a href="index.html">HortiBest</a></div>
-      <nav aria-label="Primary navigation" class="primary-nav">
-        <a href="index.html">Home</a>
-        <a href="indoor.html">Indoor</a>
-        <a href="greenhouse.html" class="active">Greenhouse</a>
-        <a href="vertical-farm.html">Vertical Farm</a>
-      </nav>
-      <div class="cart-icon" aria-label="Shopping cart" onclick="alert('Cart clicked!')" style="cursor:pointer; position:relative; font-size:1.3rem; margin-left: 1rem;">
-        🛒
-        <span class="cart-badge" id="cartCount" style="position:absolute; top:-8px; right:-10px; background:#2f8a3a; color:#fff; border-radius:50%; padding:2px 6px; font-size:0.75rem;">3</span>
-      </div>
-    </div>
-  </header>
 
-  <main>
-    <section class="hero greenhouse-hero">
-      <div class="hero-content container">
-        <h1>Greenhouse Lighting</h1>
-        <p class="subhead">Durable, high-efficiency lighting for all greenhouse needs.</p>
-        <div class="hero-cta">
-          <button id="openQuoteBtn" class="btn btn-primary" type="button">Get a Quote</button>
-        </div>
-      </div>
-    </section>
+<header>
+  <h1 onclick="window.location.href='index.html'">Hortibest</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="indoor.html">Indoor</a></li>
+      <li><a href="vertical-farm.html">Vertical Farm</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <section class="story container">
-      <h2>Lighting That Supports Growth</h2>
-      <p>Our greenhouse lighting systems offer customizable spectrum and rugged design for year-round cultivation.</p>
-    </section>
-
-    <section class="image-section">
-      <img src="https://images.unsplash.com/photo-1590080877777-70b2d89b3d72?auto=format&fit=crop&w=1600&q=60" alt="Greenhouse lighting" />
-    </section>
-
-    <section class="cta-dark container">
-      <h2>Ready to boost your greenhouse yield?</h2>
-      <a href="contact.html" class="btn btn-primary">Contact Sales</a>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <h3>HortiBest</h3>
-        <p>Professional LED grow lights built for reliability and performance.</p>
-      </div>
-      <div>
-        <h4>Products</h4>
-        <a href="indoor.html">Indoor</a>
-        <a href="greenhouse.html">Greenhouse</a>
-        <a href="vertical-farm.html">Vertical Farm</a>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <a href="contact.html">Contact</a>
-        <a href="faq.html">FAQ</a>
-      </div>
-      <div>
-        <h4>Address</h4>
-        <p>2817 N. Classen Blvd, Oklahoma City, OK 73106</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Quote Modal -->
-  <div class="modal-overlay" id="quoteModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle" tabindex="-1">
-    <div class="modal">
-      <button class="close-btn" aria-label="Close quote form" id="closeQuoteBtn">&times;</button>
-      <h1 id="quoteModalTitle">Request a Custom Quote</h1>
-      <form id="quoteForm">
-        <div class="section">
-          <h2>Select Services</h2>
-
-          <label><input type="checkbox" name="services" value="300" data-name="Starter Website"> Starter Website ($300)</label>
-          <label><input type="checkbox" name="services" value="750" data-name="5-Page Website"> 5-Page Website ($750)</label>
-          <label><input type="checkbox" name="services" value="1200" data-name="Web/App Store"> Web/App Store ($1200)</label>
-          <label><input type="checkbox" name="services" value="250" data-name="Home Office Setup"> Home Office Setup ($250)</label>
-          <label><input type="checkbox" name="services" value="600" data-name="Small Office Network"> Small Office Network ($600)</label>
-          <label><input type="checkbox" name="services" value="1000" data-name="Secure Office Network"> Secure Office Network ($1000)</label>
-          <label><input type="checkbox" name="services" value="400" data-name="Basic Cabling Drop"> Basic Cabling Drop ($400)</label>
-          <label><input type="checkbox" name="services" value="950" data-name="Office Wiring"> Office Wiring ($950)</label>
-          <label><input type="checkbox" name="services" value="1500" data-name="Full Cabling Package"> Full Cabling Package ($1500)</label>
-          <label><input type="checkbox" name="services" value="300" data-name="Basic Ticketing System"> Basic Ticketing System ($300)</label>
-          <label><input type="checkbox" name="services" value="600" data-name="Internal Ticket Suite"> Internal Ticket Suite ($600)</label>
-          <label><input type="checkbox" name="services" value="1000" data-name="Advanced Ticketing + Portal"> Advanced Ticketing + Portal ($1000)</label>
-          <label><input type="checkbox" name="services" value="300" data-name="Inventory Tracker Lite"> Inventory Tracker Lite ($300)</label>
-          <label><input type="checkbox" name="services" value="750" data-name="Asset Suite"> Asset Suite ($750)</label>
-          <label><input type="checkbox" name="services" value="1200" data-name="Smart Management Dashboard"> Smart Management Dashboard ($1200)</label>
-
-          <div class="total">Total: $<span id="totalPrice">0</span></div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-submit">Submit Quote</button>
-      </form>
-    </div>
+<section>
+  <h2>Greenhouse Section Quotes</h2>
+  <select id="quoteSelector">
+    <option value="0">"Greenhouses create perfect conditions."</option>
+    <option value="1">"Grow more, rain or shine."</option>
+    <option value="2">"Innovation inside every greenhouse."</option>
+  </select>
+  <div class="quote-box" id="quoteDisplay">
+    "Greenhouses create perfect conditions."
   </div>
+</section>
 
-  <script>
-    // Modal open/close
-    const openQuoteBtn = document.getElementById('openQuoteBtn');
-    const closeQuoteBtn = document.getElementById('closeQuoteBtn');
-    const quoteModal = document.getElementById('quoteModal');
-    const cartCountElem = document.getElementById('cartCount');
+<script>
+const quotes = [
+  '"Greenhouses create perfect conditions."',
+  '"Grow more, rain or shine."',
+  '"Innovation inside every greenhouse."'
+];
+const selector = document.getElementById('quoteSelector');
+const display = document.getElementById('quoteDisplay');
+selector.addEventListener('change', ()=>{ display.textContent = quotes[selector.value]; });
+</script>
 
-    openQuoteBtn.addEventListener('click', () => {
-      quoteModal.classList.add('active');
-      quoteModal.setAttribute('aria-hidden', 'false');
-      quoteModal.focus();
-    });
-
-    closeQuoteBtn.addEventListener('click', () => {
-      quoteModal.classList.remove('active');
-      quoteModal.setAttribute('aria-hidden', 'true');
-    });
-
-    // Close modal on overlay click
-    quoteModal.addEventListener('click', (e) => {
-      if (e.target === quoteModal) {
-        quoteModal.classList.remove('active');
-        quoteModal.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    // Close modal on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && quoteModal.classList.contains('active')) {
-        quoteModal.classList.remove('active');
-        quoteModal.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    // Calculate total price
-    const checkboxes = document.querySelectorAll('#quoteForm input[type="checkbox"]');
-    const totalPriceElem = document.getElementById('totalPrice');
-
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', () => {
-        let total = 0;
-        checkboxes.forEach(cb => {
-          if (cb.checked) total += Number(cb.value);
-        });
-        totalPriceElem.textContent = total;
-      });
-    });
-
-    // Handle form submission
-    const quoteForm = document.getElementById('quoteForm');
-    quoteForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Gather selected services
-      const selectedServices = [];
-      let total = 0;
-      checkboxes.forEach(cb => {
-        if (cb.checked) {
-          selectedServices.push(`${cb.dataset.name} ($${cb.value})`);
-          total += Number(cb.value);
-        }
-      });
-
-      if (selectedServices.length === 0) {
-        alert("Please select at least one service.");
-        return;
-      }
-
-      // Update cart count (add the number of selected services)
-      let currentCount = parseInt(cartCountElem.textContent) || 0;
-      currentCount += selectedServices.length;
-      cartCountElem.textContent = currentCount;
-
-      // Prepare email body text
-      const emailBody = encodeURIComponent(
-        `Hello HortiBest Sales Team,%0D%0A%0D%0AI would like to request a custom quote for the following services:%0D%0A` +
-        selectedServices.map(s => `- ${s}`).join('%0D%0A') +
-        `%0D%0ATotal Estimated Price: $${total}%0D%0A%0D%0APlease contact me with more information.%0D%0A%0D%0AThank you!`
-      );
-
-      // Open default mail client with pre-filled email
-      window.location.href = `mailto:sales@hortibest.com?subject=Custom Quote Request&body=${emailBody}`;
-
-      // Close the modal
-      quoteModal.classList.remove('active');
-      quoteModal.setAttribute('aria-hidden', 'true');
-
-      // Optional: reset the form and total price display
-      quoteForm.reset();
-      totalPriceElem.textContent = 0;
-    });
-  </script>
 </body>
 </html>
