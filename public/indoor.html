@@ -1,77 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Indoor Grow Lighting · HortiBest</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="Indoor LED grow lighting solutions for maximum yield and efficiency." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indoor - Hortibest</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+body { font-family:'Montserrat', sans-serif; background:#0d0d0d; color:#fff; margin:0; padding:0; }
+header { position:fixed; top:0; width:100%; background: rgba(0,0,0,0.85); display:flex; justify-content: space-between; padding:1rem 2rem; z-index:1000; }
+header h1 { cursor:pointer; font-weight:800; color:#fff; }
+nav ul { display:flex; list-style:none; gap:1rem; }
+nav ul li a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:6px; background:#3498db; }
+section { padding:6rem 2rem; margin-top:60px; text-align:center; }
+select { padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; color:#fff; margin-bottom:1rem; }
+.quote-box { background:#111; padding:2rem; border-radius:12px; max-width:600px; margin:auto; }
+</style>
 </head>
 <body>
-  <div id="page-transition"></div>
-  <header class="site-header">
-    <div class="container nav-inner">
-      <div class="logo"><a href="index.html">HortiBest</a></div>
-      <nav aria-label="Primary navigation" class="primary-nav">
-        <a href="index.html">Home</a>
-        <a href="indoor.html" class="active">Indoor</a>
-        <a href="greenhouse.html">Greenhouse</a>
-        <a href="vertical-farm.html">Vertical Farm</a>
-      </nav>
-    </div>
-  </header>
 
-  <main>
-    <section class="hero indoor-hero">
-      <div class="hero-content container">
-        <h1>Indoor Grow Lighting</h1>
-        <p class="subhead">Custom full-spectrum lighting for controlled environments.</p>
-        <div class="hero-cta">
-          <a href="contact.html" class="btn btn-primary">Request a Quote</a>
-        </div>
-      </div>
-    </section>
+<header>
+  <h1 onclick="window.location.href='index.html'">Hortibest</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="greenhouse.html">Greenhouse</a></li>
+      <li><a href="vertical-farm.html">Vertical Farm</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <section class="story container">
-      <h2>Optimize Your Indoor Grow</h2>
-      <p>Our indoor grow lights provide precise spectrum tuning and energy efficiency to maximize your plant’s potential, all year round.</p>
-    </section>
+<section>
+  <h2>Indoor Section Quotes</h2>
+  <select id="quoteSelector">
+    <option value="0">"Grow indoors, grow smart."</option>
+    <option value="1">"Indoor farming, endless possibilities."</option>
+    <option value="2">"Efficient growth starts here."</option>
+  </select>
+  <div class="quote-box" id="quoteDisplay">
+    "Grow indoors, grow smart."
+  </div>
+</section>
 
-    <section class="image-section">
-      <img src="https://images.unsplash.com/photo-1542444459-db6f3e1e84b4?auto=format&fit=crop&w=1600&q=60" alt="Indoor grow lights" />
-    </section>
+<script>
+const quotes = [
+  '"Grow indoors, grow smart."',
+  '"Indoor farming, endless possibilities."',
+  '"Efficient growth starts here."'
+];
+const selector = document.getElementById('quoteSelector');
+const display = document.getElementById('quoteDisplay');
+selector.addEventListener('change', ()=>{ display.textContent = quotes[selector.value]; });
+</script>
 
-    <section class="cta-dark container">
-      <h2>Ready to upgrade your indoor farm?</h2>
-      <a href="contact.html" class="btn btn-primary">Contact Sales</a>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <h3>HortiBest</h3>
-        <p>Professional LED grow lights built for reliability and performance.</p>
-      </div>
-      <div>
-        <h4>Products</h4>
-        <a href="indoor.html">Indoor</a>
-        <a href="greenhouse.html">Greenhouse</a>
-        <a href="vertical-farm.html">Vertical Farm</a>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <a href="contact.html">Contact</a>
-        <a href="faq.html">FAQ</a>
-      </div>
-      <div>
-        <h4>Address</h4>
-        <p>2817 N. Classen Blvd, Oklahoma City, OK 73106</p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
