@@ -34,9 +34,26 @@ header {
   z-index: 10000;
 }
 header h1 { font-weight:800; font-size:1.5rem; color: var(--white); cursor:pointer; }
-nav ul { display:flex; list-style:none; gap:1rem; }
+nav ul { display:flex; list-style:none; gap:1rem; position:relative; }
+nav ul li { position: relative; }
 nav ul li a { font-weight:600; transition: transform 0.3s, color 0.3s; padding:0.5rem 1rem; border-radius:6px; display:inline-block; }
 nav ul li a:hover { transform:translateY(-3px); }
+
+/* Dropdown Menu */
+nav ul li ul {
+  position:absolute;
+  top:110%; left:0;
+  background:#111;
+  padding:0.5rem 0;
+  display:none;
+  flex-direction: column;
+  min-width:180px;
+  border-radius:8px;
+  z-index:1000;
+}
+nav ul li:hover ul { display:flex; }
+nav ul li ul li a { padding:0.5rem 1rem; white-space:nowrap; }
+nav ul li ul li a:hover { background: #222; }
 
 /* Vibrant button styles */
 .btn-purple { background: var(--purple); color:#fff; transition: transform 0.3s; }
@@ -52,15 +69,11 @@ nav ul li a:hover { transform:translateY(-3px); }
   text-align:center; overflow:hidden;
   color:#fff;
 }
-.hero-slides {
-  position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:0;
-}
-.hero-slides video {
-  position:absolute; width:100%; height:100%; object-fit:cover;
-  opacity:0; transition: opacity 1.5s ease;
+.hero video {
+  position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;
+  z-index:0;
   filter: brightness(0.6);
 }
-.hero-slides video.active { opacity:1; }
 .hero-inner { position:relative; z-index:2; max-width:800px; padding: 0 1rem; }
 .hero h1 { font-size:clamp(2rem,6vw,4rem); margin-bottom:1rem; }
 .hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; }
@@ -111,17 +124,20 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
       <li><a href="#services" class="btn-blue">Services</a></li>
       <li><a href="#about" class="btn-red">About</a></li>
       <li><a href="#contact" class="btn-purple">Contact</a></li>
-      <li><a href="#product" class="btn-blue">Products</a></li>
+      <li>
+        <a href="#" class="btn-blue">Products ▼</a>
+        <ul>
+          <li><a href="#indoor">Indoor</a></li>
+          <li><a href="#greenhouse">Greenhouse</a></li>
+          <li><a href="#vertical-farm">Vertical Farm</a></li>
+        </ul>
+      </li>
     </ul>
   </nav>
 </header>
 
 <section id="hero" class="hero">
-  <div class="hero-slides">
-    <video src="https://www.w3schools.com/howto/rain.mp4" muted autoplay loop playsinline></video>
-    <video src="https://www.w3schools.com/howto/forest.mp4" muted autoplay loop playsinline></video>
-    <video src="https://www.w3schools.com/howto/snow.mp4" muted autoplay loop playsinline></video>
-  </div>
+  <video src="https://www.w3schools.com/howto/rain.mp4" muted autoplay loop playsinline></video>
   <div class="hero-inner">
     <h1>Experience Next-Level Visuals</h1>
     <p>Dynamic video walls and slideshows for immersive experiences.</p>
@@ -165,13 +181,16 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
 <section id="product">
   <div class="section-head">
     <h2>Products</h2>
-    <p>Check out our amazing product range.</p>
+    <p>Check out our product sections below.</p>
   </div>
-  <div class="grid">
-    <div class="card btn-purple">Product 1</div>
-    <div class="card btn-blue">Product 2</div>
-    <div class="card btn-red">Product 3</div>
-    <div class="card btn-purple">Product 4</div>
+  <div id="indoor" class="grid">
+    <div class="card btn-purple">Indoor Section</div>
+  </div>
+  <div id="greenhouse" class="grid">
+    <div class="card btn-blue">Greenhouse Section</div>
+  </div>
+  <div id="vertical-farm" class="grid">
+    <div class="card btn-red">Vertical Farm Section</div>
   </div>
 </section>
 
@@ -190,19 +209,6 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
   };
   window.addEventListener('scroll', reveal);
   reveal(); // initial call
-
-  // Hero slideshow for mobile-friendly autoplay
-  const slides = document.querySelectorAll('.hero-slides video');
-  let currentSlide = 0;
-  function showSlide(index) {
-    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-  }
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-  }
-  showSlide(currentSlide);
-  setInterval(nextSlide, 8000); // 8s per slide
 </script>
 
 </body>
