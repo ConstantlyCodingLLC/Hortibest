@@ -1,213 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HortiBest · Premium Grow Lighting</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="HortiBest — professional LED grow lights. Premium design, engineered for growers." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibrant Dark Website</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #9b59b6;
+    --blue: #3498db;
+    --red: #e74c3c;
+    --dark-bg: #0d0d0d;
+    --white: #fff;
+    --ease: cubic-bezier(.22,.98,.33,1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--dark-bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+  a { text-decoration:none; color: inherit; }
+
+  /* Header */
+  header {
+    position: sticky;
+    top:0; left:0; width:100%;
+    background: rgba(0,0,0,0.85);
+    display:flex; justify-content: space-between; align-items:center;
+    padding:1rem 3rem; z-index: 1000;
+  }
+  header h1 { font-weight:800; font-size:1.5rem; color: var(--white); cursor:pointer; }
+  nav ul { display:flex; list-style:none; gap:2rem; }
+  nav ul li a { font-weight:600; transition: transform 0.3s, color 0.3s; }
+  nav ul li a:hover { transform:translateY(-3px); }
+
+  /* Vibrant button styles */
+  .btn-purple { background: var(--purple); color:#fff; padding:0.6rem 1.5rem; border-radius:8px; transition: transform 0.3s; }
+  .btn-blue { background: var(--blue); color:#fff; padding:0.6rem 1.5rem; border-radius:8px; transition: transform 0.3s; }
+  .btn-red { background: var(--red); color:#fff; padding:0.6rem 1.5rem; border-radius:8px; transition: transform 0.3s; }
+  .btn-purple:hover, .btn-blue:hover, .btn-red:hover { transform:translateY(-4px); }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; overflow:hidden;
+    color:#fff;
+  }
+  .hero video, .hero .slide { 
+    position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; 
+    z-index:0;
+    filter: brightness(0.6);
+    animation: fade 15s infinite;
+  }
+  .hero-inner { position:relative; z-index:2; max-width:800px; }
+  .hero h1 { font-size:clamp(2rem,6vw,4rem); margin-bottom:1rem; }
+  .hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; }
+
+  @keyframes fade {
+    0%, 33% { opacity:1; }
+    33.01%, 66% { opacity:0; }
+    66.01%, 100% { opacity:1; }
+  }
+
+  /* Sections */
+  section {
+    padding:6rem 3rem;
+    opacity:0;
+    transform:translateY(30px);
+    transition: all 0.8s var(--ease);
+  }
+  section.visible {
+    opacity:1;
+    transform:translateY(0);
+  }
+  .section-head { text-align:center; margin-bottom:3rem; }
+  .section-head h2 { font-size:2rem; font-weight:800; margin-bottom:0.5rem; }
+  .section-head p { color:#aaa; }
+
+  /* Grid */
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:2rem; }
+  .card { background:#111; padding:2rem; border-radius:12px; transition: transform 0.4s, box-shadow 0.4s; }
+  .card:hover { transform:translateY(-8px); box-shadow:0 20px 40px rgba(0,0,0,0.6); }
+
+  /* Footer */
+  footer { background:#000; padding:3rem; text-align:center; color:#888; }
+
+  /* Responsive */
+  @media(max-width:768px){ header { padding:1rem 2rem; } }
+</style>
 </head>
 <body>
-  <div id="page-transition"></div>
 
-  <header class="site-header">
-    <div class="container nav-inner" style="display:flex; justify-content:space-between; align-items:center;">
-      <div class="nav-left" style="display:flex; align-items:center; gap:2rem;">
-        <div class="logo">
-          <a href="index.html">
-            <img src="https://ueeshop.ly200-cdn.com/u_file/UPAR/UPAR370/2507/photo/235adfacf1.png" alt="HortiBest Logo" style="height:50px;" />
-          </a>
-        </div>
-        <nav aria-label="Primary navigation" class="primary-nav" style="position:relative;">
-          <a href="index.html" class="active">Home</a>
+<header>
+  <h1>VibrantSite</h1>
+  <nav>
+    <ul>
+      <li><a href="#hero" class="btn-purple">Home</a></li>
+      <li><a href="#services" class="btn-blue">Services</a></li>
+      <li><a href="#about" class="btn-red">About</a></li>
+      <li><a href="#contact" class="btn-purple">Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-          <!-- Products dropdown -->
-          <div class="nav-dropdown" style="position:relative; display:inline-block;">
-            <button 
-              aria-haspopup="true" 
-              aria-expanded="false" 
-              id="productsDropdownBtn" 
-              onclick="toggleProductsDropdown()" 
-              style="background:none; border:none; color:#0b5cff; font-weight:700; cursor:pointer; font-size:1rem; padding:0; margin:0 0.5rem;">
-              Products ▼
-            </button>
-            <div 
-              id="productsDropdown" 
-              role="menu" 
-              aria-labelledby="productsDropdownBtn" 
-              style="display:none; position:absolute; top:100%; left:0; background:#fff; box-shadow:0 4px 8px rgba(12,18,26,0.15); border-radius:6px; margin-top:0.5rem; min-width:160px; z-index:2000;">
-              <a href="indoor.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; border-bottom:1px solid #e2e8f0; text-decoration:none;">Indoor</a>
-              <a href="greenhouse.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; border-bottom:1px solid #e2e8f0; text-decoration:none;">Greenhouse</a>
-              <a href="vertical-farm.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; text-decoration:none;">Vertical Farm</a>
-            </div>
-          </div>
-        </nav>
-      </div>
-
-      <div class="nav-right" style="display:flex; align-items:center; gap:1.5rem; position:relative;">
-        <button class="hamburger-btn" aria-label="Toggle menu" onclick="toggleSidePanel()" style="font-size:1.4rem; background:none; border:none; cursor:pointer;">☰</button>
-
-        <div class="cart-icon" aria-label="Shopping cart" onclick="alert('Cart clicked!')" style="cursor:pointer; position:relative; font-size:1.3rem;">
-          🛒
-          <span class="cart-badge" id="cartCount" style="position:absolute; top:-8px; right:-10px; background:#2f8a3a; color:#fff; border-radius:50%; padding:2px 6px; font-size:0.75rem;">3</span>
-        </div>
-
-        <div class="signin-dropdown" id="signinDropdown" style="position:relative;">
-          <button class="signin-btn" onclick="toggleDropdown()" aria-haspopup="true" aria-expanded="false" style="background:none; border:2px solid #0b5cff; color:#0b5cff; font-weight:700; padding:0.4rem 1rem; border-radius:6px; cursor:pointer; font-size:1rem;">
-            Sign In / Sign Up ▼
-          </button>
-          <div class="dropdown-content" role="menu" aria-labelledby="signinDropdown" tabindex="-1" style="display:none; position:absolute; right:0; background:#fff; min-width:200px; box-shadow:0 4px 8px rgba(12,18,26,0.15); border-radius:6px; margin-top:0.5rem; z-index:2000;">
-            <a href="signin-commercial.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; border-bottom:1px solid #e2e8f0; text-decoration:none;">Sign In Commercial</a>
-            <a href="signup-commercial.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; border-bottom:1px solid #e2e8f0; text-decoration:none;">Sign Up Commercial</a>
-            <a href="signin-personal.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; border-bottom:1px solid #e2e8f0; text-decoration:none;">Sign In Personal</a>
-            <a href="signup-personal.html" role="menuitem" tabindex="0" style="display:block; padding:0.75rem 1rem; color:#334155; font-weight:600; font-size:0.95rem; text-decoration:none;">Sign Up Personal</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Side panel -->
-  <div class="side-panel" id="sidePanel" aria-hidden="true" role="dialog" aria-label="Site navigation menu" tabindex="-1" style="position:fixed; top:0; left:-300px; width:280px; height:100%; background:#fff; box-shadow: 2px 0 8px rgba(0,0,0,0.1); padding:2rem 1.5rem; transition:left 0.3s ease; z-index:1500; overflow-y:auto;">
-    <h2>Menu</h2>
-    <nav style="display:flex; flex-direction:column; gap:1rem; margin-top:1rem;">
-      <a href="index.html" style="color:#334155; font-weight:600; text-decoration:none;">Home</a>
-      <a href="indoor.html" style="color:#334155; font-weight:600; text-decoration:none;">Indoor</a>
-      <a href="greenhouse.html" style="color:#334155; font-weight:600; text-decoration:none;">Greenhouse</a>
-      <a href="vertical-farm.html" style="color:#334155; font-weight:600; text-decoration:none;">Vertical Farm</a>
-      <a href="contact.html" style="color:#334155; font-weight:600; text-decoration:none;">Contact Us</a>
-      <a href="news.html" style="color:#334155; font-weight:600; text-decoration:none;">News</a>
-      <a href="products.html" style="color:#334155; font-weight:600; text-decoration:none;">Products</a>
-    </nav>
+<section id="hero" class="hero">
+  <video src="https://www.w3schools.com/howto/rain.mp4" autoplay muted loop></video>
+  <div class="hero-inner">
+    <h1>Experience Next-Level Visuals</h1>
+    <p>Dynamic video walls and slideshows for immersive experiences.</p>
+    <a href="#services" class="btn-blue">Explore Services</a>
   </div>
-  <div class="side-panel-overlay" id="sidePanelOverlay" onclick="toggleSidePanel()" style="position:fixed; inset:0; background:rgba(0,0,0,0.4); opacity:0; visibility:hidden; transition:opacity 0.3s ease; z-index:1400;"></div>
+</section>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content container">
-        <h1>Grow Beyond Limits</h1>
-        <p class="subhead">Powerful, efficient LED lighting engineered for all growers — commercial and home alike.</p>
-        <div class="hero-cta">
-          <a href="indoor.html" class="btn btn-primary">Explore Indoor</a>
-          <a href="greenhouse.html" class="btn btn-ghost">Greenhouse Solutions</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="story container">
-      <h2>Why Choose HortiBest?</h2>
-      <p>Hortibest as a LED grow lights manufacturer, we offer key products such as collapsible, top of the line LED plant grow lights and vertical agriculture lights.
-
-Depending on the capacity of our production lines, our annual production value ranges from US$10 million to US$50 million. We have actually produced a large number of products such as 10,000 pieces of Collapsible LED Plant Grow Light, 50,000 pieces of Top LED Plant Grow Light and 10,000 pieces of Vertical Agricultural Light in the 2025 year.</p>
-    </section>
-
-  </main>
-
-  <footer>
-  <div class="container footer-grid" style="gap:2rem;">
-    <div>
-      <h3>HortiBest</h3>
-      <p>Professional LED grow lights built for reliability and performance.</p>
-      <div class="social-links" style="margin-top:1rem; display:flex; gap:1rem; font-size:1.5rem;">
-        <a href="https://www.instagram.com/hortibest.official/" target="_blank" rel="noopener" aria-label="Instagram" style="color:#334155; text-decoration:none;">📸</a>
-        <a href="https://www.linkedin.com/company/hortibestled/" target="_blank" rel="noopener" aria-label="LinkedIn" style="color:#334155; text-decoration:none;">🔗</a>
-        <a href="https://www.youtube.com/@HortibestLEDGrowLights" target="_blank" rel="noopener" aria-label="YouTube" style="color:#334155; text-decoration:none;">▶️</a>
-        <a href="https://www.facebook.com/HortiBestLEDGrowLight" target="_blank" rel="noopener" aria-label="Facebook" style="color:#334155; text-decoration:none;">📘</a>
-      </div>
-    </div>
-    <div>
-      <h4>Products ▼</h4>
-      <nav aria-label="Footer products navigation" style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem;">
-        <a href="indoor.html" style="color:#334155; font-weight:600; text-decoration:none;">Indoor</a>
-        <a href="greenhouse.html" style="color:#334155; font-weight:600; text-decoration:none;">Greenhouse</a>
-        <a href="vertical-farm.html" style="color:#334155; font-weight:600; text-decoration:none;">Vertical Farm</a>
-      </nav>
-    </div>
-    <div>
-      <h4>Company</h4>
-      <a href="contact.html" style="color:#334155; text-decoration:none;">Contact</a>
-      <a href="faq.html" style="color:#334155; text-decoration:none;">FAQ</a>
-    </div>
-    <div>
-      <h4>Address</h4>
-      <p>2817 N. Classen Blvd, Oklahoma City, OK 73106</p>
-    </div>
+<section id="services">
+  <div class="section-head">
+    <h2>Our Services</h2>
+    <p>Vibrant solutions for your business or event.</p>
   </div>
+  <div class="grid">
+    <div class="card btn-purple">LED Video Walls</div>
+    <div class="card btn-blue">Custom Installations</div>
+    <div class="card btn-red">Control Systems</div>
+    <div class="card btn-purple">Interactive Displays</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-head">
+    <h2>About Us</h2>
+    <p>We create immersive video wall experiences with vibrant colors and dynamic media.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-head">
+    <h2>Contact</h2>
+    <p>Reach out to start your project today.</p>
+  </div>
+  <form style="max-width:600px; margin:auto; display:flex; flex-direction:column; gap:15px;">
+    <input type="text" placeholder="Name" required>
+    <input type="email" placeholder="Email" required>
+    <textarea rows="5" placeholder="Message"></textarea>
+    <button type="submit" class="btn-blue">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  © 2025 VibrantSite. All Rights Reserved.
 </footer>
 
-
-  <script>
-    const signinDropdown = document.getElementById('signinDropdown');
-    const sidePanel = document.getElementById('sidePanel');
-    const sidePanelOverlay = document.getElementById('sidePanelOverlay');
-    const signinBtn = signinDropdown.querySelector('.signin-btn');
-    const dropdownContent = signinDropdown.querySelector('.dropdown-content');
-
-    function toggleDropdown() {
-      const isOpen = signinDropdown.classList.toggle('open');
-      signinBtn.setAttribute('aria-expanded', isOpen);
-      dropdownContent.style.display = isOpen ? 'block' : 'none';
-    }
-
-    function closeDropdown() {
-      signinDropdown.classList.remove('open');
-      signinBtn.setAttribute('aria-expanded', false);
-      dropdownContent.style.display = 'none';
-    }
-
-    function toggleSidePanel() {
-      const isOpen = sidePanel.classList.toggle('open');
-      sidePanelOverlay.style.opacity = isOpen ? '1' : '0';
-      sidePanelOverlay.style.visibility = isOpen ? 'visible' : 'hidden';
-      sidePanel.setAttribute('aria-hidden', !isOpen);
-      sidePanel.style.left = isOpen ? '0' : '-300px';
-    }
-
-    // Close dropdown if clicked outside
-    document.addEventListener('click', (e) => {
-      if (!signinDropdown.contains(e.target)) {
-        closeDropdown();
-      }
+<script>
+  // Scroll reveal animation
+  const sections = document.querySelectorAll('section');
+  const reveal = () => {
+    const scrollY = window.scrollY + window.innerHeight - 100;
+    sections.forEach(section => {
+      if (scrollY > section.offsetTop) section.classList.add('visible');
     });
+  };
+  window.addEventListener('scroll', reveal);
+  reveal(); // initial call
+</script>
 
-    // Close side panel and dropdown with Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === "Escape") {
-        if (sidePanel.classList.contains('open')) {
-          toggleSidePanel();
-        }
-        if (signinDropdown.classList.contains('open')) {
-          closeDropdown();
-        }
-      }
-    });
-
-    // Products dropdown toggle
-    const productsDropdownBtn = document.getElementById('productsDropdownBtn');
-    const productsDropdown = document.getElementById('productsDropdown');
-
-    function toggleProductsDropdown() {
-      const isOpen = productsDropdown.style.display === 'block';
-      productsDropdown.style.display = isOpen ? 'none' : 'block';
-      productsDropdownBtn.setAttribute('aria-expanded', !isOpen);
-    }
-
-    // Close products dropdown if clicked outside
-    document.addEventListener('click', (e) => {
-      if (productsDropdown && !productsDropdown.contains(e.target) && e.target !== productsDropdownBtn) {
-        productsDropdown.style.display = 'none';
-        productsDropdownBtn.setAttribute('aria-expanded', false);
-      }
-    });
-
-    // Close products dropdown with Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === "Escape" && productsDropdown.style.display === 'block') {
-        productsDropdown.style.display = 'none';
-        productsDropdownBtn.setAttribute('aria-expanded', false);
-      }
-    });
-  </script>
 </body>
 </html>
