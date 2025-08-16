@@ -29,6 +29,7 @@
   }
 
   .container {
+    position: relative;
     background: var(--light-bg);
     max-width: 600px;
     width: 100%;
@@ -51,6 +52,25 @@
     background: linear-gradient(90deg, var(--purple), var(--blue), var(--red));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .home-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+  }
+
+  .home-btn:hover {
+    transform: translateY(-3px);
+    background: var(--purple);
   }
 
   p {
@@ -88,12 +108,14 @@
     body { padding: 1rem; }
     .container { padding: 1.5rem; }
     h1 { font-size: 1.7rem; }
+    .home-btn { top: 1rem; right: 1rem; padding: 0.4rem 0.8rem; }
   }
 </style>
 </head>
 <body>
 
 <div class="container">
+  <button class="home-btn" onclick="window.location.href='index.html'">Home</button>
   <h1>Contact Us</h1>
 
   <div class="contact-item">
