@@ -17,6 +17,7 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--white); overflow-x:hidden; }
 a { text-decoration:none; color: inherit; }
+
 /* Header */
 header { position: sticky; top:0; width:100%; background: rgba(0,0,0,0.85); display:flex; justify-content: space-between; align-items:center; padding:1rem 2rem; z-index:1000; }
 header h1 { cursor:pointer; font-weight:800; color:#fff; }
@@ -28,29 +29,42 @@ nav ul li ul { display:none; position:absolute; top:100%; left:0; background:#11
 nav ul li:hover ul { display:block; }
 nav ul li ul li { display:block; margin:0; }
 nav ul li ul li a { display:block; width:100%; padding:0.5rem 1rem; }
+
 /* Buttons */
 .btn-purple { background: var(--purple); color:#fff; }
 .btn-blue { background: var(--blue); color:#fff; }
 .btn-red { background: var(--red); color:#fff; }
 .btn-purple:hover, .btn-blue:hover, .btn-red:hover { transform:translateY(-4px); }
+
 /* Hero Section */
 .hero { position: relative; height: 100vh; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; color:#fff; }
 .hero video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.6); z-index:0; }
 .hero-inner { position:relative; z-index:2; max-width:800px; padding:0 1rem; }
 .hero h1 { font-size:clamp(2rem,6vw,4rem); margin-bottom:1rem; }
 .hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; }
+
 /* Sections */
 section { padding:6rem 2rem; opacity:0; transform:translateY(30px); transition: all 0.8s var(--ease); }
 section.visible { opacity:1; transform:translateY(0); }
 .section-head { text-align:center; margin-bottom:3rem; }
 .section-head h2 { font-size:2rem; font-weight:800; margin-bottom:0.5rem; }
 .section-head p { color:#aaa; }
+
 /* Grid */
 .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:2rem; }
 .card { background:#111; padding:2rem; border-radius:12px; transition: transform 0.4s, box-shadow 0.4s; }
 .card:hover { transform:translateY(-8px); box-shadow:0 20px 40px rgba(0,0,0,0.6); }
+
+/* Contact Form */
+form { max-width:600px; margin:auto; display:flex; flex-direction:column; gap:15px; }
+form input, form textarea { padding:0.75rem; border-radius:8px; border:none; background:#222; color:#fff; }
+form input::placeholder, form textarea::placeholder { color:#888; }
+form button { padding:0.75rem; border:none; border-radius:8px; background: var(--blue); color:#fff; font-weight:600; cursor:pointer; transition: transform 0.3s; }
+form button:hover { transform:translateY(-3px); }
+
 /* Footer */
 footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
+
 /* Responsive */
 @media(max-width:768px){ header { padding:1rem 1.5rem; } nav ul { flex-direction:column; } .hero h1 { font-size:clamp(1.6rem,7vw,3rem); } section { padding:4rem 1.5rem; } }
 </style>
@@ -61,9 +75,10 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
   <h1 onclick="window.location.href='index.html'">Hortibest</h1>
   <nav>
     <ul>
-            <li><a href="#about" class="btn-red">About</a></li>
-      <li><a href="#contact.html" class="btn-purple">Contact</a></li>
-      <li><a href="#" class="btn-blue">Products ▼</a></li>
+      <li><a href="index.html#about" class="btn-red">About</a></li>
+      <li><a href="contact.html" class="btn-purple">Contact</a></li>
+      <li>
+        <a href="#" class="btn-blue">Products ▼</a>
         <ul>
           <li><a href="indoor.html">Indoor</a></li>
           <li><a href="greenhouse.html">Greenhouse</a></li>
@@ -108,11 +123,11 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
     <h2>Contact</h2>
     <p>Reach out to start your project today.</p>
   </div>
-  <form style="max-width:600px; margin:auto; display:flex; flex-direction:column; gap:15px;">
+  <form>
     <input type="text" placeholder="Name" required>
     <input type="email" placeholder="Email" required>
     <textarea rows="5" placeholder="Message"></textarea>
-    <button type="submit" class="btn-blue">Send Message</button>
+    <button type="submit">Send Message</button>
   </form>
 </section>
 
