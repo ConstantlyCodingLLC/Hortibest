@@ -82,40 +82,48 @@ button:hover { transform:translateY(-3px); }
 </header>
 
 <section>
-  <h2>Indoor Products</h2>
+  <h2>Indoor Grow Systems</h2>
   
   <div class="filter">
-    <label>Filter by Type: 
+    <label>Filter by Setup: 
       <select id="filterSelect">
         <option value="all">All</option>
-        <option value="small">Small Setup</option>
-        <option value="medium">Medium Setup</option>
-        <option value="large">Large Setup</option>
+        <option value="octopus">Octopus Series</option>
+        <option value="moray">Moray Series</option>
       </select>
     </label>
     <label><input type="checkbox" id="shipping"> Add Delivery ($50)</label>
   </div>
   
   <div class="grid" id="productGrid">
-    <div class="card" data-price="500" data-type="small">
-      <img src="https://via.placeholder.com/300x180?text=Small+Indoor" alt="Small Indoor">
+    <!-- Octopus Series -->
+    <div class="card" data-price="799" data-type="octopus">
+      <img src="https://hortibest.com/cdn/shop/products/Octopus-1000x600.jpg" alt="Octopus 300">
       <div class="card-content">
-        <h3>Small Setup</h3>
-        <p>Compact indoor grow setup for small spaces. Perfect for beginners.</p>
+        <h3>Octopus 300</h3>
+        <p>Compact indoor LED system ideal for apartments and small spaces. Energy-efficient and easy to use.</p>
       </div>
     </div>
-    <div class="card" data-price="1200" data-type="medium">
-      <img src="https://via.placeholder.com/300x180?text=Medium+Indoor" alt="Medium Indoor">
+    <div class="card" data-price="1299" data-type="octopus">
+      <img src="https://hortibest.com/cdn/shop/products/Octopus-600-1000x600.jpg" alt="Octopus 600">
       <div class="card-content">
-        <h3>Medium Setup</h3>
-        <p>Intermediate indoor grow setup with more capacity and light control.</p>
+        <h3>Octopus 600</h3>
+        <p>Mid-sized setup for hobbyists and small home gardens. Advanced light control included.</p>
       </div>
     </div>
-    <div class="card" data-price="2500" data-type="large">
-      <img src="https://via.placeholder.com/300x180?text=Large+Indoor" alt="Large Indoor">
+    <!-- Moray Series -->
+    <div class="card" data-price="1899" data-type="moray">
+      <img src="https://hortibest.com/cdn/shop/products/Moray-1000x600.jpg" alt="Moray 1000">
       <div class="card-content">
-        <h3>Large Setup</h3>
-        <p>Full-scale indoor farm setup for maximum production.</p>
+        <h3>Moray 1000</h3>
+        <p>Full-scale indoor grow system for serious growers. High output and top-notch LED technology.</p>
+      </div>
+    </div>
+    <div class="card" data-price="2499" data-type="moray">
+      <img src="https://hortibest.com/cdn/shop/products/Moray-1500-1000x600.jpg" alt="Moray 1500">
+      <div class="card-content">
+        <h3>Moray 1500</h3>
+        <p>Premium system for commercial or large-scale indoor setups. Includes advanced control systems.</p>
       </div>
     </div>
   </div>
