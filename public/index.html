@@ -38,7 +38,7 @@ nav ul li ul li a { display:block; width:100%; padding:0.5rem 1rem; }
 
 /* Hero Section */
 .hero { position: relative; height: 100vh; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; color:#fff; }
-.bg-gif { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.6); z-index:0; }
+.hero video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.6); z-index:0; }
 .hero-inner { position:relative; z-index:2; max-width:800px; padding:0 1rem; }
 .hero h1 { font-size:clamp(2rem,6vw,4rem); margin-bottom:1rem; }
 .hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; }
@@ -64,10 +64,20 @@ form button:hover { transform:translateY(-3px); }
 
 /* Footer */
 footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
+footer .socials { margin-top:1rem; display:flex; justify-content:center; gap:1.5rem; }
+footer .socials a { color:#fff; font-size:1.5rem; transition:color 0.3s; }
+footer .socials a:hover { color: var(--blue); }
 
 /* Responsive */
-@media(max-width:768px){ header { padding:1rem 1.5rem; } nav ul { flex-direction:column; } .hero h1 { font-size:clamp(1.6rem,7vw,3rem); } section { padding:4rem 1.5rem; } }
+@media(max-width:768px){ 
+  header { padding:1rem 1.5rem; } 
+  nav ul { flex-direction:column; } 
+  .hero h1 { font-size:clamp(1.6rem,7vw,3rem); } 
+  section { padding:4rem 1.5rem; } 
+}
 </style>
+<!-- Font Awesome for Social Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -94,9 +104,7 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
 </header>
 
 <section id="hero" class="hero">
-  <!-- Custom growlight/LED GIF background -->
-  <img src="hortibest-growlight.gif" alt="Hortibest LED Growlight Background" class="bg-gif">
-
+  <video src="your-led-growlight-video.mp4" autoplay muted loop playsinline></video>
   <div class="hero-inner">
     <h1>Experience Next-Level Visuals</h1>
     <p>Dynamic video walls and slideshows for immersive experiences.</p>
@@ -139,11 +147,22 @@ footer { background:#000; padding:3rem 2rem; text-align:center; color:#888; }
 
 <footer>
   © 2025 Hortibest. All Rights Reserved.
+  <div class="socials">
+    <a href="https://www.instagram.com/hortibest.official/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.linkedin.com/company/hortibestled/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.youtube.com/@HortibestLEDGrowLights" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.facebook.com/HortiBestLEDGrowLight" target="_blank"><i class="fab fa-facebook"></i></a>
+  </div>
 </footer>
 
 <script>
 const sections = document.querySelectorAll('section');
-const reveal = () => { const scrollY = window.scrollY + window.innerHeight - 100; sections.forEach(section => { if(scrollY>section.offsetTop) section.classList.add('visible'); }); };
+const reveal = () => { 
+  const scrollY = window.scrollY + window.innerHeight - 100; 
+  sections.forEach(section => { 
+    if(scrollY > section.offsetTop) section.classList.add('visible'); 
+  }); 
+};
 window.addEventListener('scroll', reveal);
 reveal();
 </script>
