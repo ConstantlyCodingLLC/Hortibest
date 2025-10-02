@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Greenhouse- Hortibest</title>
+<title>Greenhouse - Hortibest</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 body { font-family:'Montserrat', sans-serif; background:#0d0d0d; color:#fff; margin:0; padding:0; }
@@ -82,40 +82,64 @@ button:hover { transform:translateY(-3px); }
 </header>
 
 <section>
-  <h2>Greenhouse Products</h2>
+  <h2>Greenhouse Systems</h2>
   
   <div class="filter">
-    <label>Filter by Type: 
+    <label>Filter by Series: 
       <select id="filterSelect">
         <option value="all">All</option>
-        <option value="small">Small Setup</option>
-        <option value="medium">Medium Setup</option>
-        <option value="large">Large Setup</option>
+        <option value="greenhouse">Greenhouse Series</option>
+        <option value="jellyfish">Jellyfish Series</option>
+        <option value="sharkx">Shark X Series</option>
       </select>
     </label>
     <label><input type="checkbox" id="shipping"> Add Delivery ($50)</label>
   </div>
   
   <div class="grid" id="productGrid">
-    <div class="card" data-price="500" data-type="small">
-      <img src="https://via.placeholder.com/300x180?text=Small+Indoor" alt="Small Indoor">
+    <!-- Greenhouse Series -->
+    <div class="card" data-price="799" data-type="greenhouse">
+      <img src="https://hortibest.com/cdn/shop/products/Greenhouse-300-1000x600.jpg" alt="Greenhouse 300">
       <div class="card-content">
-        <h3>Small Setup</h3>
-        <p>Compact indoor grow setup for small spaces. Perfect for beginners.</p>
+        <h3>Greenhouse 300</h3>
+        <p>Compact greenhouse setup for home gardens. Easy setup and energy-efficient LED lighting.</p>
       </div>
     </div>
-    <div class="card" data-price="1200" data-type="medium">
-      <img src="https://via.placeholder.com/300x180?text=Medium+Indoor" alt="Medium Indoor">
+    <div class="card" data-price="1299" data-type="greenhouse">
+      <img src="https://hortibest.com/cdn/shop/products/Greenhouse-600-1000x600.jpg" alt="Greenhouse 600">
       <div class="card-content">
-        <h3>Medium Setup</h3>
-        <p>Intermediate indoor grow setup with more capacity and light control.</p>
+        <h3>Greenhouse 600</h3>
+        <p>Medium-sized greenhouse ideal for backyard growers. Includes adjustable light spectrum.</p>
       </div>
     </div>
-    <div class="card" data-price="2500" data-type="large">
-      <img src="https://via.placeholder.com/300x180?text=Large+Indoor" alt="Large Indoor">
+    <!-- Jellyfish Series -->
+    <div class="card" data-price="1899" data-type="jellyfish">
+      <img src="https://hortibest.com/cdn/shop/products/Jellyfish-1000x600.jpg" alt="Jellyfish 1000">
       <div class="card-content">
-        <h3>Large Setup</h3>
-        <p>Full-scale indoor farm setup for maximum production.</p>
+        <h3>Jellyfish 1000</h3>
+        <p>High-performance greenhouse system with maximum light output for consistent growth.</p>
+      </div>
+    </div>
+    <div class="card" data-price="2499" data-type="jellyfish">
+      <img src="https://hortibest.com/cdn/shop/products/Jellyfish-1500-1000x600.jpg" alt="Jellyfish 1500">
+      <div class="card-content">
+        <h3>Jellyfish 1500</h3>
+        <p>Advanced greenhouse setup for professional growers. Robust design and intelligent controls.</p>
+      </div>
+    </div>
+    <!-- Shark X Series -->
+    <div class="card" data-price="2999" data-type="sharkx">
+      <img src="https://hortibest.com/cdn/shop/products/SharkX-1000-1000x600.jpg" alt="Shark X 1000">
+      <div class="card-content">
+        <h3>Shark X 1000</h3>
+        <p>Premium greenhouse system for commercial-level indoor growth. Includes top-tier LED technology.</p>
+      </div>
+    </div>
+    <div class="card" data-price="3999" data-type="sharkx">
+      <img src="https://hortibest.com/cdn/shop/products/SharkX-1500-1000x600.jpg" alt="Shark X 1500">
+      <div class="card-content">
+        <h3>Shark X 1500</h3>
+        <p>Elite commercial greenhouse with large coverage area, intelligent controls, and premium LEDs.</p>
       </div>
     </div>
   </div>
