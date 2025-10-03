@@ -161,4 +161,117 @@ footer .socials a:hover { color: var(--blue); }
       <h3>Grow Rack 300</h3>
       <p>Maximizes vertical space for small rooms.</p>
     </div>
-    <div class="card" data-name="Octopus 300" data
+    <div class="card" data-name="Octopus 300" data-price="799">
+      <h3>Octopus 300</h3>
+      <p>Compact indoor LED system.</p>
+    </div>
+    <div class="card" data-name="Moray 1000" data-price="1899">
+      <h3>Moray 1000</h3>
+      <p>Full-scale indoor grow system.</p>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-head">
+    <h2>About Us</h2>
+    <p>We create immersive video wall experiences with vibrant colors and dynamic media.</p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-head">
+    <h2>Contact</h2>
+    <p>Reach out to start your project today.</p>
+  </div>
+  <form>
+    <input type="text" placeholder="Name" required>
+    <input type="email" placeholder="Email" required>
+    <textarea rows="5" placeholder="Message"></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  © 2025 Hortibest. All Rights Reserved.
+  <div class="socials">
+    <a href="https://www.instagram.com/hortibest.official/" target="_blank">Instagram</a>
+    <a href="https://www.linkedin.com/company/hortibestled/" target="_blank">LinkedIn</a>
+    <a href="https://www.youtube.com/@HortibestLEDGrowLights" target="_blank">YouTube</a>
+    <a href="https://www.facebook.com/HortiBestLEDGrowLight" target="_blank">Facebook</a>
+  </div>
+</footer>
+
+<script>
+// Section reveal on scroll
+const sections = document.querySelectorAll('section');
+const reveal = () => { 
+  const scrollY = window.scrollY + window.innerHeight - 100; 
+  sections.forEach(section => { 
+    if(scrollY > section.offsetTop) section.classList.add('visible'); 
+  }); 
+};
+window.addEventListener('scroll', reveal);
+reveal();
+
+// Cart Dropdown toggle
+const cartIcon = document.getElementById('cartIcon');
+const cartDropdown = document.getElementById('cartDropdown');
+cartIcon.addEventListener('click', () => {
+  cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
+});
+
+// Cart functionality
+const cards = document.querySelectorAll('.card[data-name]');
+const cartItemsEl = document.getElementById('cartItems');
+const cartTotalEl = document.getElementById('cartTotal');
+let cart = [];
+
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const name = card.dataset.name;
+    const price = parseFloat(card.dataset.price);
+    cart.push({name, price});
+    updateCart();
+  });
+});
+
+function updateCart() {
+  cartItemsEl.innerHTML = '';
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    const div = document.createElement('div');
+    div.classList.add('item');
+    div.innerHTML = `${item.name} ($${item.price}) <span class="remove" data-index="${index}">×</span>`;
+    cartItemsEl.appendChild(div);
+  });
+  cartTotalEl.textContent = `Total: $${total}`;
+  
+  // Remove item
+  document.querySelectorAll('.remove').forEach(removeBtn => {
+    removeBtn.addEventListener('click', (e) => {
+      const idx = parseInt(e.target.dataset.index);
+      cart.splice(idx,1);
+      updateCart();
+    });
+  });
+}
+
+// Checkout (example)
+document.getElementById('checkout').addEventListener('click', () => {
+  if(cart.length === 0){
+    alert('Your cart is empty.');
+    return;
+  }
+  let summary = 'Order Summary:\n';
+  cart.forEach(item => summary += `- ${item.name} ($${item.price})\n`);
+  summary += cartTotalEl.textContent;
+  alert(summary);
+});
+</script>
+
+</body>
+</html>
