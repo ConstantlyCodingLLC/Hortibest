@@ -6,110 +6,128 @@
 <title>Contact Us · HortiBest</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --purple: #9b59b6;
-    --blue: #3498db;
-    --red: #e74c3c;
-    --dark-bg: #0d0d0d;
-    --white: #fff;
-    --light-bg: #111;
-  }
+:root {
+  --purple: #9b59b6;
+  --blue: #3498db;
+  --red: #e74c3c;
+  --dark-bg: #0d0d0d;
+  --white: #fff;
+  --light-bg: #111;
+}
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: var(--dark-bg);
-    color: var(--white);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    padding: 2rem;
-  }
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--dark-bg);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+}
 
-  .container {
-    position: relative;
-    background: var(--light-bg);
-    max-width: 600px;
-    width: 100%;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.7);
-    border-top: 5px solid var(--purple);
-    animation: fadeIn 1s ease-in-out;
-  }
+/* Container */
+.container {
+  position: relative;
+  background: var(--light-bg);
+  max-width: 600px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+  border-top: 5px solid var(--purple);
+  animation: fadeIn 1s ease-in-out;
+}
 
-  @keyframes fadeIn {
-    0% { opacity:0; transform: translateY(-20px);}
-    100% { opacity:1; transform: translateY(0);}
-  }
+@keyframes fadeIn {
+  0% { opacity:0; transform: translateY(-20px);}
+  100% { opacity:1; transform: translateY(0);}
+}
 
-  h1 {
-    margin-bottom: 1rem;
-    font-weight: 700;
-    font-size: 2rem;
-    background: linear-gradient(90deg, var(--purple), var(--blue), var(--red));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+h1 {
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 2rem;
+  background: linear-gradient(90deg, var(--purple), var(--blue), var(--red));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-  .home-btn {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    padding: 0.5rem 1rem;
-    background: var(--blue);
-    color: #fff;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s, background 0.3s;
-  }
+.home-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+}
+.home-btn:hover {
+  transform: translateY(-3px);
+  background: var(--purple);
+}
 
-  .home-btn:hover {
-    transform: translateY(-3px);
-    background: var(--purple);
-  }
+p { font-size: 1.1rem; margin: 0.5rem 0; }
+.contact-item {
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  cursor: default;
+}
+.contact-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
 
-  p {
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
-  }
+a { color: var(--blue); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+a:hover { color: var(--red); text-decoration: underline; }
 
-  .contact-item {
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s, box-shadow 0.3s;
-    padding: 1rem;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.05);
-    cursor: default;
-  }
+/* Sticky cart */
+#cart {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 300px;
+  max-height: 80vh;
+  background: var(--light-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+  padding: 1rem;
+  overflow-y: auto;
+  z-index: 9999;
+}
+#cart h3 { margin-top: 0; margin-bottom: 1rem; font-size: 1.3rem; }
+.cart-item { display: flex; justify-content: space-between; margin-bottom: 0.8rem; }
+.cart-item button { background: var(--red); border: none; color: #fff; border-radius: 6px; padding: 0 0.5rem; cursor: pointer; }
+#checkout-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.6rem;
+  background: var(--purple);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-  .contact-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-  }
-
-  a {
-    color: var(--blue);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s;
-  }
-
-  a:hover {
-    color: var(--red);
-    text-decoration: underline;
-  }
-
-  @media(max-width: 768px) {
-    body { padding: 1rem; }
-    .container { padding: 1.5rem; }
-    h1 { font-size: 1.7rem; }
-    .home-btn { top: 1rem; right: 1rem; padding: 0.4rem 0.8rem; }
-  }
+/* Responsive */
+@media(max-width: 768px) {
+  body { padding: 1rem; }
+  .container { padding: 1.5rem; }
+  h1 { font-size: 1.7rem; }
+  .home-btn { top: 1rem; right: 1rem; padding: 0.4rem 0.8rem; }
+  #cart { width: 90%; top: auto; bottom: 1rem; right: 50%; transform: translateX(50%); max-height: 60vh; }
+}
 </style>
 </head>
 <body>
@@ -133,6 +151,52 @@
     <p><a href="mailto:sales@hortibest.com">sales@hortibest.com</a></p>
   </div>
 </div>
+
+<!-- Sticky Cart -->
+<div id="cart">
+  <h3>Your Cart</h3>
+  <div id="cart-items"></div>
+  <div><strong>Total: $<span id="cart-total">0</span></strong></div>
+  <button id="checkout-btn">Checkout</button>
+</div>
+
+<script>
+// Cart functionality
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function renderCart() {
+  const cartItemsEl = document.getElementById('cart-items');
+  cartItemsEl.innerHTML = '';
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `${item.name} - $${item.price} <button onclick="removeItem(${index})">x</button>`;
+    cartItemsEl.appendChild(div);
+  });
+  document.getElementById('cart-total').innerText = total;
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function removeItem(index) {
+  cart.splice(index,1);
+  renderCart();
+}
+
+// Example: Adding an item (in real pages, add dynamically)
+function addToCart(name, price) {
+  cart.push({name, price});
+  renderCart();
+}
+
+document.getElementById('checkout-btn').addEventListener('click', () => {
+  // Square Checkout Demo Link (replace with actual Square integration)
+  alert('Redirecting to Square Checkout...');
+});
+
+renderCart();
+</script>
 
 </body>
 </html>
