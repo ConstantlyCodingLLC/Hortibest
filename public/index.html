@@ -21,7 +21,7 @@ a { text-decoration:none; color: inherit; }
 /* Header */
 header { position: sticky; top:0; width:100%; background: rgba(0,0,0,0.85); display:flex; justify-content: space-between; align-items:center; padding:1rem 2rem; z-index:1000; }
 header h1 { cursor:pointer; font-weight:800; color:#fff; }
-nav ul { display:flex; list-style:none; gap:1rem; position:relative; }
+nav ul { display:flex; list-style:none; gap:1rem; position:relative; align-items:center; }
 nav ul li { position:relative; }
 nav ul li a { font-weight:600; padding:0.5rem 1rem; border-radius:6px; display:inline-block; transition: transform 0.3s; }
 nav ul li a:hover { transform:translateY(-3px); }
@@ -47,13 +47,7 @@ nav ul li ul li a { display:block; width:100%; padding:0.5rem 1rem; }
   color:#fff;
   overflow:hidden;
   background: url('https://media.giphy.com/media/3ohryuIqsI55F2XcJ2/giphy.gif') center/cover no-repeat;
-}
-.hero::before {
-  content:'';
-  position:absolute;
-  top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.6);
-  z-index:1;
+  filter: brightness(0.6);
 }
 .hero-inner {
   position: relative;
@@ -61,8 +55,8 @@ nav ul li ul li a { display:block; width:100%; padding:0.5rem 1rem; }
   max-width:800px;
   padding:0 1rem;
 }
-.hero h1 { font-size:clamp(2rem,6vw,4rem); margin-bottom:1rem; text-shadow:0 0 15px rgba(0,0,0,0.7);}
-.hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; text-shadow:0 0 10px rgba(0,0,0,0.7);}
+.hero h1 { font-size:clamp(2rem,6vw,4rem); margin-bottom:1rem; }
+.hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; }
 
 /* Sections */
 section { padding:6rem 2rem; opacity:0; transform:translateY(30px); transition: all 0.8s var(--ease); }
@@ -75,26 +69,6 @@ section.visible { opacity:1; transform:translateY(0); }
 .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:2rem; }
 .card { background:#111; padding:2rem; border-radius:12px; transition: transform 0.4s, box-shadow 0.4s; text-align:center; font-weight:600; cursor:pointer; }
 .card:hover { transform:translateY(-8px); box-shadow:0 20px 40px rgba(0,0,0,0.6); }
-
-/* Cart Sidebar */
-#cart {
-  position:fixed;
-  top:80px;
-  right:20px;
-  width:300px;
-  max-height:80vh;
-  background:#111;
-  border:2px solid var(--purple);
-  border-radius:12px;
-  padding:1rem;
-  overflow-y:auto;
-  z-index:2000;
-}
-#cart h3 { margin-bottom:1rem; }
-.cart-item { display:flex; justify-content:space-between; margin-bottom:0.5rem; border-bottom:1px solid #333; padding-bottom:0.3rem; }
-.cart-total { font-weight:700; margin-top:1rem; }
-.cart-btn { width:100%; padding:0.6rem; margin-top:0.5rem; background: var(--blue); border:none; color:#fff; border-radius:8px; cursor:pointer; transition:transform 0.3s; }
-.cart-btn:hover { transform:translateY(-3px); }
 
 /* Contact Form */
 form { max-width:600px; margin:auto; display:flex; flex-direction:column; gap:15px; }
@@ -109,13 +83,17 @@ footer .socials { margin-top:1rem; display:flex; justify-content:center; gap:1.5
 footer .socials a { color:#fff; font-weight:600; transition: color 0.3s; }
 footer .socials a:hover { color: var(--blue); }
 
-/* Responsive */
+/* Cart Dropdown */
+#cartDropdown { display:none; position:absolute; right:0; top:40px; background:#111; border:1px solid #3498db; border-radius:8px; padding:1rem; width:250px; z-index:1000; }
+#cartDropdown h4 { margin-bottom:0.5rem; }
+#cartDropdown div { margin-bottom:0.3rem; display:flex; justify-content:space-between; }
+#cartDropdown button { margin-top:0.5rem; width:100%; padding:0.5rem; background:#3498db; border:none; border-radius:6px; color:#fff; cursor:pointer; }
+
 @media(max-width:768px){ 
   header { padding:1rem 1.5rem; } 
-  nav ul { flex-direction:column; } 
+  nav ul { flex-direction:column; align-items:flex-start; } 
   .hero h1 { font-size:clamp(1.6rem,7vw,3rem); } 
   section { padding:4rem 1.5rem; } 
-  #cart { width:90%; right:5%; top:100px; }
 }
 </style>
 </head>
@@ -139,6 +117,18 @@ footer .socials a:hover { color: var(--blue); }
           <li><a href="vertical-farm.html">Vertical Farm</a></li>
         </ul>
       </li>
+      <li style="margin-left:1rem; position:relative;">
+        <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" 
+             alt="Cart" 
+             id="cartIcon" 
+             style="height:30px; cursor:pointer;">
+        <div id="cartDropdown">
+          <h4>Cart</h4>
+          <div id="cartItems"></div>
+          <div id="cartTotal" style="font-weight:600;">Total: $0</div>
+          <button id="checkout">Checkout</button>
+        </div>
+      </li>
     </ul>
   </nav>
 </header>
@@ -151,19 +141,47 @@ footer .socials a:hover { color: var(--blue); }
   </div>
 </section>
 
+<!-- Services -->
 <section id="services">
   <div class="section-head">
     <h2>Our Services</h2>
     <p>Vibrant solutions for your business or event.</p>
   </div>
   <div class="grid">
-    <div class="card" data-name="LED Video Walls" data-price="1000">LED Video Walls</div>
-    <div class="card" data-name="Custom Installations" data-price="1500">Custom Installations</div>
-    <div class="card" data-name="Control Systems" data-price="2000">Control Systems</div>
-    <div class="card" data-name="Interactive Displays" data-price="1200">Interactive Displays</div>
+    <div class="card btn-purple">LED Video Walls</div>
+    <div class="card btn-blue">Custom Installations</div>
+    <div class="card btn-red">Control Systems</div>
+    <div class="card btn-purple">Interactive Displays</div>
   </div>
 </section>
 
+<!-- Example Products -->
+<section id="products">
+  <div class="section-head">
+    <h2>Featured Products</h2>
+    <p>Click on a product to add to your cart.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-name="Controller 300" data-price="299">
+      <h3>Controller 300</h3>
+      <p>Compact controller for small vertical farms.</p>
+    </div>
+    <div class="card" data-name="Grow Rack 300" data-price="699">
+      <h3>Grow Rack 300</h3>
+      <p>Maximizes vertical space for small rooms.</p>
+    </div>
+    <div class="card" data-name="Octopus 300" data-price="799">
+      <h3>Octopus 300</h3>
+      <p>Compact indoor LED system.</p>
+    </div>
+    <div class="card" data-name="Moray 1000" data-price="1899">
+      <h3>Moray 1000</h3>
+      <p>Full-scale indoor grow system.</p>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
 <section id="about">
   <div class="section-head">
     <h2>About Us</h2>
@@ -171,6 +189,7 @@ footer .socials a:hover { color: var(--blue); }
   </div>
 </section>
 
+<!-- Contact -->
 <section id="contact">
   <div class="section-head">
     <h2>Contact</h2>
@@ -184,14 +203,6 @@ footer .socials a:hover { color: var(--blue); }
   </form>
 </section>
 
-<!-- Cart Sidebar -->
-<div id="cart">
-  <h3>Cart</h3>
-  <div id="cartItems"></div>
-  <div class="cart-total">Total: $0</div>
-  <button class="cart-btn" id="checkout">Checkout</button>
-</div>
-
 <footer>
   © 2025 Hortibest. All Rights Reserved.
   <div class="socials">
@@ -203,7 +214,7 @@ footer .socials a:hover { color: var(--blue); }
 </footer>
 
 <script>
-// Scroll reveal
+// Section reveal on scroll
 const sections = document.querySelectorAll('section');
 const reveal = () => { 
   const scrollY = window.scrollY + window.innerHeight - 100; 
@@ -214,10 +225,17 @@ const reveal = () => {
 window.addEventListener('scroll', reveal);
 reveal();
 
-// Cart functionality
+// Cart Dropdown
+const cartIcon = document.getElementById('cartIcon');
+const cartDropdown = document.getElementById('cartDropdown');
+cartIcon.addEventListener('click', () => {
+  cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
+});
+
+// Cart Functionality
 const cards = document.querySelectorAll('.card[data-name]');
 const cartItemsEl = document.getElementById('cartItems');
-const totalEl = document.querySelector('.cart-total');
+const cartTotalEl = document.getElementById('cartTotal');
 let cart = [];
 
 function updateCart() {
@@ -226,38 +244,10 @@ function updateCart() {
   cart.forEach(item => {
     total += item.price;
     const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.textContent = `${item.name} - $${item.price}`;
+    div.style.display = 'flex';
+    div.style.justifyContent = 'space-between';
+    div.style.marginBottom = '0.5rem';
+    div.textContent = `${item.name} ($${item.price})`;
     const removeBtn = document.createElement('span');
     removeBtn.textContent = '×';
-    removeBtn.style.cursor = 'pointer';
-    removeBtn.style.marginLeft = '5px';
-    removeBtn.onclick = () => {
-      cart = cart.filter(i => i !== item);
-      updateCart();
-    };
-    div.appendChild(removeBtn);
-    cartItemsEl.appendChild(div);
-  });
-  totalEl.textContent = `Total: $${total}`;
-}
-
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    const item = {name: card.dataset.name, price: parseFloat(card.dataset.price)};
-    cart.push(item);
-    updateCart();
-  });
-});
-
-document.getElementById('checkout').addEventListener('click', () => {
-  if(cart.length === 0){ alert('Your cart is empty!'); return; }
-  let message = 'Quote request:\n';
-  cart.forEach(item => message += `- ${item.name} ($${item.price})\n`);
-  message += totalEl.textContent;
-  alert(message);
-});
-</script>
-
-</body>
-</html>
+   
