@@ -85,6 +85,7 @@ footer .socials a:hover { color: var(--blue); }
 #cartDropdown span.remove { cursor:pointer; color:#e74c3c; font-weight:700; }
 #cartDropdown button { margin-top:0.5rem; width:100%; padding:0.5rem; background:#3498db; border:none; border-radius:6px; color:#fff; cursor:pointer; }
 
+/* Responsive */
 @media(max-width:768px){ 
   header { padding:1rem 1.5rem; } 
   nav ul { flex-direction:column; align-items:flex-start; } 
@@ -112,7 +113,10 @@ footer .socials a:hover { color: var(--blue); }
         </ul>
       </li>
       <li style="margin-left:1rem; position:relative;">
-        <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" id="cartIcon" style="height:30px; cursor:pointer;">
+        <!-- WHITE CART SVG -->
+        <svg id="cartIcon" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="30" height="30" style="cursor:pointer;">
+          <path d="M7 4h-2l-3 9v2h2v7h2v-7h10v7h2v-7h2v-2l-3-9h-2v2h-6v-2zm0 2h6v2h-6v-2zm0 4h6v2h-6v-2zm0 4h6v2h-6v-2z"/>
+        </svg>
         <div id="cartDropdown">
           <h4>Cart</h4>
           <div id="cartItems"></div>
@@ -163,11 +167,7 @@ footer .socials a:hover { color: var(--blue); }
     </div>
     <div class="card" data-name="Octopus 300" data-price="799">
       <h3>Octopus 300</h3>
-      <p>Compact indoor LED system.</p>
-    </div>
-    <div class="card" data-name="Moray 1000" data-price="1899">
-      <h3>Moray 1000</h3>
-      <p>Full-scale indoor grow system.</p>
+      <p>Indoor LED system for apartments and small spaces.</p>
     </div>
   </div>
 </section>
@@ -176,7 +176,7 @@ footer .socials a:hover { color: var(--blue); }
 <section id="about">
   <div class="section-head">
     <h2>About Us</h2>
-    <p>We create immersive video wall experiences with vibrant colors and dynamic media.</p>
+    <p>We create immersive video wall experiences and LED grow solutions with vibrant colors and dynamic media.</p>
   </div>
 </section>
 
@@ -205,7 +205,7 @@ footer .socials a:hover { color: var(--blue); }
 </footer>
 
 <script>
-// Section reveal on scroll
+// Scroll reveal
 const sections = document.querySelectorAll('section');
 const reveal = () => { 
   const scrollY = window.scrollY + window.innerHeight - 100; 
@@ -216,60 +216,54 @@ const reveal = () => {
 window.addEventListener('scroll', reveal);
 reveal();
 
-// Cart Dropdown toggle
+// Cart functionality
 const cartIcon = document.getElementById('cartIcon');
 const cartDropdown = document.getElementById('cartDropdown');
+const cartItemsContainer = document.getElementById('cartItems');
+const cartTotalEl = document.getElementById('cartTotal');
+let cart = [];
+
 cartIcon.addEventListener('click', () => {
   cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
 });
 
-// Cart functionality
-const cards = document.querySelectorAll('.card[data-name]');
-const cartItemsEl = document.getElementById('cartItems');
-const cartTotalEl = document.getElementById('cartTotal');
-let cart = [];
-
-cards.forEach(card => {
+document.querySelectorAll('.card[data-name]').forEach(card => {
   card.addEventListener('click', () => {
     const name = card.dataset.name;
     const price = parseFloat(card.dataset.price);
-    cart.push({name, price});
-    updateCart();
+    cart.push({ name, price });
+    renderCart();
   });
 });
 
-function updateCart() {
-  cartItemsEl.innerHTML = '';
+function renderCart() {
+  cartItemsContainer.innerHTML = '';
   let total = 0;
   cart.forEach((item, index) => {
     total += item.price;
     const div = document.createElement('div');
     div.classList.add('item');
-    div.innerHTML = `${item.name} ($${item.price}) <span class="remove" data-index="${index}">×</span>`;
-    cartItemsEl.appendChild(div);
+    div.innerHTML = `${item.name} - $${item.price} <span class="remove" data-index="${index}">x</span>`;
+    cartItemsContainer.appendChild(div);
   });
   cartTotalEl.textContent = `Total: $${total}`;
-  
-  // Remove item
-  document.querySelectorAll('.remove').forEach(removeBtn => {
-    removeBtn.addEventListener('click', (e) => {
-      const idx = parseInt(e.target.dataset.index);
-      cart.splice(idx,1);
-      updateCart();
+  document.querySelectorAll('.remove').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const idx = e.target.dataset.index;
+      cart.splice(idx, 1);
+      renderCart();
     });
   });
 }
 
-// Checkout (example)
 document.getElementById('checkout').addEventListener('click', () => {
-  if(cart.length === 0){
-    alert('Your cart is empty.');
+  if(cart.length === 0) {
+    alert('Cart is empty!');
     return;
   }
-  let summary = 'Order Summary:\n';
-  cart.forEach(item => summary += `- ${item.name} ($${item.price})\n`);
-  summary += cartTotalEl.textContent;
-  alert(summary);
+  alert('Thank you for your purchase! Total: $' + cart.reduce((sum, i) => sum + i.price, 0));
+  cart = [];
+  renderCart();
 });
 </script>
 
