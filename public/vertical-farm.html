@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vertical Farm - Hortibest</title>
+<title>Vertical Farm Accessories - Hortibest</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 body { font-family:'Montserrat', sans-serif; background:#0d0d0d; color:#fff; margin:0; padding:0; }
@@ -82,40 +82,48 @@ button:hover { transform:translateY(-3px); }
 </header>
 
 <section>
-  <h2>Indoor Products</h2>
+  <h2>Vertical Farm Accessories</h2>
   
   <div class="filter">
-    <label>Filter by Type: 
+    <label>Filter by Category: 
       <select id="filterSelect">
         <option value="all">All</option>
-        <option value="small">Small Setup</option>
-        <option value="medium">Medium Setup</option>
-        <option value="large">Large Setup</option>
+        <option value="controllers">Controllers</option>
+        <option value="growracks">Grow Racks</option>
       </select>
     </label>
     <label><input type="checkbox" id="shipping"> Add Delivery ($50)</label>
   </div>
   
   <div class="grid" id="productGrid">
-    <div class="card" data-price="500" data-type="small">
-      <img src="https://via.placeholder.com/300x180?text=Small+Indoor" alt="Small Indoor">
+    <!-- Controllers -->
+    <div class="card" data-price="299" data-type="controllers">
+      <img src="https://hortibest.com/cdn/shop/products/Controller-300-1000x600.jpg" alt="Controller 300">
       <div class="card-content">
-        <h3>Small Setup</h3>
-        <p>Compact indoor grow setup for small spaces. Perfect for beginners.</p>
+        <h3>Controller 300</h3>
+        <p>Compact and efficient controller for small vertical farms. Easy to use and monitor.</p>
       </div>
     </div>
-    <div class="card" data-price="1200" data-type="medium">
-      <img src="https://via.placeholder.com/300x180?text=Medium+Indoor" alt="Medium Indoor">
+    <div class="card" data-price="499" data-type="controllers">
+      <img src="https://hortibest.com/cdn/shop/products/Controller-600-1000x600.jpg" alt="Controller 600">
       <div class="card-content">
-        <h3>Medium Setup</h3>
-        <p>Intermediate indoor grow setup with more capacity and light control.</p>
+        <h3>Controller 600</h3>
+        <p>Medium-capacity controller for moderate farm setups. Includes remote monitoring features.</p>
       </div>
     </div>
-    <div class="card" data-price="2500" data-type="large">
-      <img src="https://via.placeholder.com/300x180?text=Large+Indoor" alt="Large Indoor">
+    <!-- Grow Racks -->
+    <div class="card" data-price="699" data-type="growracks">
+      <img src="https://hortibest.com/cdn/shop/products/GrowRack-300-1000x600.jpg" alt="Grow Rack 300">
       <div class="card-content">
-        <h3>Large Setup</h3>
-        <p>Full-scale indoor farm setup for maximum production.</p>
+        <h3>Grow Rack 300</h3>
+        <p>Compact grow rack system, perfect for maximizing vertical space in small rooms.</p>
+      </div>
+    </div>
+    <div class="card" data-price="1199" data-type="growracks">
+      <img src="https://hortibest.com/cdn/shop/products/GrowRack-600-1000x600.jpg" alt="Grow Rack 600">
+      <div class="card-content">
+        <h3>Grow Rack 600</h3>
+        <p>High-capacity grow rack for commercial setups. Sturdy frame with adjustable shelves.</p>
       </div>
     </div>
   </div>
