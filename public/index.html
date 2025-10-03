@@ -49,12 +49,7 @@ nav ul li ul li a { display:block; width:100%; padding:0.5rem 1rem; }
   background: url('https://media.giphy.com/media/3ohryuIqsI55F2XcJ2/giphy.gif') center/cover no-repeat;
   filter: brightness(0.6);
 }
-.hero-inner {
-  position: relative;
-  z-index:2;
-  max-width:800px;
-  padding:0 1rem;
-}
+.hero-inner { position: relative; z-index:2; max-width:800px; padding:0 1rem; }
 .hero h1 { font-size:clamp(2rem,6vw,4rem); margin-bottom:1rem; }
 .hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; }
 
@@ -86,7 +81,8 @@ footer .socials a:hover { color: var(--blue); }
 /* Cart Dropdown */
 #cartDropdown { display:none; position:absolute; right:0; top:40px; background:#111; border:1px solid #3498db; border-radius:8px; padding:1rem; width:250px; z-index:1000; }
 #cartDropdown h4 { margin-bottom:0.5rem; }
-#cartDropdown div { margin-bottom:0.3rem; display:flex; justify-content:space-between; }
+#cartDropdown div.item { margin-bottom:0.3rem; display:flex; justify-content:space-between; }
+#cartDropdown span.remove { cursor:pointer; color:#e74c3c; font-weight:700; }
 #cartDropdown button { margin-top:0.5rem; width:100%; padding:0.5rem; background:#3498db; border:none; border-radius:6px; color:#fff; cursor:pointer; }
 
 @media(max-width:768px){ 
@@ -101,9 +97,7 @@ footer .socials a:hover { color: var(--blue); }
 
 <header>
   <a href="index.html">
-    <img src="https://ueeshop.ly200-cdn.com/u_file/UPAR/UPAR370/2507/photo/235adfacf1.png" 
-         alt="Hortibest Logo" 
-         style="height:50px; width:auto; cursor:pointer;">
+    <img src="https://ueeshop.ly200-cdn.com/u_file/UPAR/UPAR370/2507/photo/235adfacf1.png" alt="Hortibest Logo" style="height:50px; width:auto; cursor:pointer;">
   </a>
   <nav>
     <ul>
@@ -118,10 +112,7 @@ footer .socials a:hover { color: var(--blue); }
         </ul>
       </li>
       <li style="margin-left:1rem; position:relative;">
-        <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" 
-             alt="Cart" 
-             id="cartIcon" 
-             style="height:30px; cursor:pointer;">
+        <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" id="cartIcon" style="height:30px; cursor:pointer;">
         <div id="cartDropdown">
           <h4>Cart</h4>
           <div id="cartItems"></div>
@@ -155,7 +146,7 @@ footer .socials a:hover { color: var(--blue); }
   </div>
 </section>
 
-<!-- Example Products -->
+<!-- Products -->
 <section id="products">
   <div class="section-head">
     <h2>Featured Products</h2>
@@ -170,84 +161,4 @@ footer .socials a:hover { color: var(--blue); }
       <h3>Grow Rack 300</h3>
       <p>Maximizes vertical space for small rooms.</p>
     </div>
-    <div class="card" data-name="Octopus 300" data-price="799">
-      <h3>Octopus 300</h3>
-      <p>Compact indoor LED system.</p>
-    </div>
-    <div class="card" data-name="Moray 1000" data-price="1899">
-      <h3>Moray 1000</h3>
-      <p>Full-scale indoor grow system.</p>
-    </div>
-  </div>
-</section>
-
-<!-- About -->
-<section id="about">
-  <div class="section-head">
-    <h2>About Us</h2>
-    <p>We create immersive video wall experiences with vibrant colors and dynamic media.</p>
-  </div>
-</section>
-
-<!-- Contact -->
-<section id="contact">
-  <div class="section-head">
-    <h2>Contact</h2>
-    <p>Reach out to start your project today.</p>
-  </div>
-  <form>
-    <input type="text" placeholder="Name" required>
-    <input type="email" placeholder="Email" required>
-    <textarea rows="5" placeholder="Message"></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-</section>
-
-<footer>
-  © 2025 Hortibest. All Rights Reserved.
-  <div class="socials">
-    <a href="https://www.instagram.com/hortibest.official/" target="_blank">Instagram</a>
-    <a href="https://www.linkedin.com/company/hortibestled/" target="_blank">LinkedIn</a>
-    <a href="https://www.youtube.com/@HortibestLEDGrowLights" target="_blank">YouTube</a>
-    <a href="https://www.facebook.com/HortiBestLEDGrowLight" target="_blank">Facebook</a>
-  </div>
-</footer>
-
-<script>
-// Section reveal on scroll
-const sections = document.querySelectorAll('section');
-const reveal = () => { 
-  const scrollY = window.scrollY + window.innerHeight - 100; 
-  sections.forEach(section => { 
-    if(scrollY > section.offsetTop) section.classList.add('visible'); 
-  }); 
-};
-window.addEventListener('scroll', reveal);
-reveal();
-
-// Cart Dropdown
-const cartIcon = document.getElementById('cartIcon');
-const cartDropdown = document.getElementById('cartDropdown');
-cartIcon.addEventListener('click', () => {
-  cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
-});
-
-// Cart Functionality
-const cards = document.querySelectorAll('.card[data-name]');
-const cartItemsEl = document.getElementById('cartItems');
-const cartTotalEl = document.getElementById('cartTotal');
-let cart = [];
-
-function updateCart() {
-  cartItemsEl.innerHTML = '';
-  let total = 0;
-  cart.forEach(item => {
-    total += item.price;
-    const div = document.createElement('div');
-    div.style.display = 'flex';
-    div.style.justifyContent = 'space-between';
-    div.style.marginBottom = '0.5rem';
-    div.textContent = `${item.name} ($${item.price})`;
-    const removeBtn = document.createElement('span');
-    removeBtn.textContent = '×';
-   
+    <div class="card" data-name="Octopus 300" data
