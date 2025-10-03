@@ -51,7 +51,36 @@ select, input[type=checkbox] {
 button { padding:0.6rem 1rem; border:none; border-radius:8px; background:#9b59b6; color:#fff; cursor:pointer; font-weight:600; transition:transform 0.3s; width:100%; max-width:300px; margin:auto; display:block; }
 button:hover { transform:translateY(-3px); }
 
-/* Responsive adjustments */
+/* Sticky cart */
+#cart {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 300px;
+  max-height: 80vh;
+  background: #111;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+  padding: 1rem;
+  overflow-y: auto;
+  z-index: 9999;
+}
+#cart h3 { margin-top:0; margin-bottom:1rem; font-size:1.3rem; }
+.cart-item { display:flex; justify-content:space-between; margin-bottom:0.8rem; }
+.cart-item button { background:#e74c3c; border:none; color:#fff; border-radius:6px; padding:0 0.5rem; cursor:pointer; }
+#checkout-btn {
+  width: 100%;
+  margin-top:1rem;
+  padding:0.6rem;
+  background:#9b59b6;
+  border:none;
+  color:#fff;
+  font-weight:600;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* Responsive */
 @media(max-width:768px){
   header { padding:1rem; flex-direction:column; align-items:flex-start; }
   header h1 { font-size:1.3rem; margin-bottom:0.5rem; }
@@ -65,6 +94,7 @@ button:hover { transform:translateY(-3px); }
   .card-content h3 { font-size:1rem; }
   .card-content p { font-size:0.8rem; }
   button { width:90%; }
+  #cart { width:90%; top:auto; bottom:1rem; right:50%; transform:translateX(50%); max-height:60vh; }
 }
 </style>
 </head>
@@ -136,6 +166,14 @@ button:hover { transform:translateY(-3px); }
   <button id="sendQuote">Get Quote</button>
 </section>
 
+<!-- Sticky Cart -->
+<div id="cart">
+  <h3>Your Cart</h3>
+  <div id="cart-items"></div>
+  <div><strong>Total: $<span id="cart-total">0</span></strong></div>
+  <button id="checkout-btn">Checkout</button>
+</div>
+
 <script>
 const cards = document.querySelectorAll('.card');
 const totalPriceEl = document.getElementById('totalPrice');
@@ -157,6 +195,7 @@ cards.forEach(card => {
     } else {
       selectedCards.push(card);
       card.classList.add('selected');
+      addToCart(card.querySelector('h3').textContent, parseFloat(card.dataset.price));
     }
     updateTotal();
   });
@@ -169,6 +208,38 @@ filterSelect.addEventListener('change', () => {
   cards.forEach(card => {
     card.style.display = (value === 'all' || card.dataset.type === value) ? 'flex' : 'none';
   });
+});
+
+// Cart functionality
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function renderCart() {
+  const cartItemsEl = document.getElementById('cart-items');
+  cartItemsEl.innerHTML = '';
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `${item.name} - $${item.price} <button onclick="removeItem(${index})">x</button>`;
+    cartItemsEl.appendChild(div);
+  });
+  document.getElementById('cart-total').innerText = total;
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(name, price) {
+  cart.push({name, price});
+  renderCart();
+}
+
+function removeItem(index) {
+  cart.splice(index,1);
+  renderCart();
+}
+
+document.getElementById('checkout-btn').addEventListener('click', () => {
+  alert('Redirecting to Square Checkout...');
 });
 
 document.getElementById('sendQuote').addEventListener('click', () => {
@@ -184,6 +255,8 @@ document.getElementById('sendQuote').addEventListener('click', () => {
   message += totalPriceEl.textContent;
   alert(message);
 });
+
+renderCart();
 </script>
 
 </body>
