@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make a Payment - Hortibest</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+<style>
+body {
+  font-family:'Montserrat', sans-serif;
+  background:#0d0d0d; color:#fff; margin:0; padding:0;
+}
+
+/* Header */
+header {
+  position:fixed; top:0; width:100%; background:rgba(0,0,0,0.85);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1rem 2rem; z-index:1000; flex-wrap:wrap;
+}
+header h1 { font-weight:800; color:#fff; font-size:1.5rem; margin:0; cursor:pointer; }
+nav ul { display:inline-flex; list-style:none; gap:0.5rem; margin:0; padding:0; }
+nav ul li a {
+  color:#fff; text-decoration:none; padding:0.5rem 0.8rem;
+  background:#3498db; border-radius:6px; font-size:0.9rem;
+}
+nav ul li a:hover { background:#2980b9; }
+
+/* Section */
+section {
+  padding:6rem 1rem 3rem 1rem; max-width:700px; margin:auto;
+  text-align:center; box-sizing:border-box;
+}
+h2 { font-size:1.8rem; font-weight:800; margin-bottom:1.5rem; }
+p { color:#ccc; font-size:0.95rem; margin-bottom:2rem; }
+
+/* Payment box */
+.payment-box {
+  background:#111; border-radius:12px; padding:2rem;
+  box-shadow:0 8px 25px rgba(0,0,0,0.6);
+  text-align:left;
+}
+label { display:block; margin-bottom:0.5rem; font-weight:600; }
+input[type="text"], input[type="number"] {
+  width:100%; padding:0.8rem; border:none; border-radius:6px;
+  background:#222; color:#fff; margin-bottom:1.2rem;
+  font-size:1rem; box-sizing:border-box;
+}
+#card-container {
+  margin-bottom:1.5rem;
+}
+button {
+  width:100%; background:#9b59b6; color:#fff; font-weight:600;
+  padding:0.8rem; border:none; border-radius:8px; font-size:1rem;
+  cursor:pointer; transition:transform 0.3s, background 0.3s;
+}
+button:hover { background:#8e44ad; transform:translateY(-2px); }
+
+/* Confirmation */
+#payment-status {
+  margin-top:1rem; font-size:1rem; text-align:center;
+}
+
+/* Responsive */
+@media(max-width:600px){
+  section { padding:5rem 1rem; }
+  .payment-box { padding:1.5rem; }
+  h2 { font-size:1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">
+    <img src="https://ueeshop.ly200-cdn.com/u_file/UPAR/UPAR370/2507/photo/235adfacf1.png"
+         alt="Hortibest Logo" style="height:50px; width:auto; cursor:pointer;">
+  </a>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="greenhouse.html">Greenhouse</a></li>
+      <li><a href="vertical-farm.html">Vertical Farm</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section>
+  <h2>Make a Payment</h2>
+  <p>Securely complete your payment using Square. Enter the required details below and click “Pay Now”.</p>
+  
+  <div class="payment-box">
+    <label for="customerName">Full Name</label>
+    <input type="text" id="customerName" placeholder="John Doe" required>
+
+    <label for="customerEmail">Email Address</label>
+    <input type="text" id="customerEmail" placeholder="johndoe@example.com" required>
+
+    <label for="paymentAmount">Payment Amount (USD)</label>
+    <input type="number" id="paymentAmount" placeholder="Enter amount" required>
+
+    <div id="card-container"></div>
+    <button id="card-button">Pay Now</button>
+
+    <div id="payment-status"></div>
+  </div>
+</section>
+
+<script>
+// Replace with your own Square application and location IDs
+const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
+const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
+
+async function initializeSquare() {
+  if (!window.Square) {
+    document.getElementById('payment-status').innerText = "Square SDK failed to load.";
+    return;
+  }
+
+  const payments = window.Square.payments(appId, locationId);
+  const card = await payments.card();
+  await card.attach('#card-container');
+
+  const cardButton = document.getElementById('card-button');
+  cardButton.addEventListener('click', async () => {
+    cardButton.disabled = true;
+    const statusEl = document.getElementById('payment-status');
+    statusEl.textContent = "Processing payment...";
+
+    try {
+      const result = await card.tokenize();
+      if (result.status === 'OK') {
+        // Send token + amount + customer info to your backend for payment
+        console.log("Payment token:", result.token);
+        statusEl.textContent = "Payment successful! (Token logged to console)";
+      } else {
+        throw new Error(result.errors ? result.errors[0].message : "Payment failed.");
+      }
+    } catch (err) {
+      statusEl.textContent = "Error: " + err.message;
+    }
+    cardButton.disabled = false;
+  });
+}
+
+initializeSquare();
+</script>
+
+</body>
+</html>
