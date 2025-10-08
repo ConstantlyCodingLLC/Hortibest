@@ -181,35 +181,39 @@ select option { color:#000; }
 // Members with discount percentages
 const members = { "MEMBER1001":10, "MEMBER1002":15, "VIP2025":20 };
 
-// Load cart from localStorage and calculate total
+// Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cartData')) || [];
-let total = cart.reduce((sum,i)=>sum+i.price,0);
+
+// Calculate subtotal
+function calculateSubtotal() {
+  return cart.reduce((sum,i)=>sum+parseFloat(i.price),0);
+}
 
 const cartSummary = document.getElementById('cart-summary');
 const shippingSelect = document.getElementById('shippingMethod');
 const memberInput = document.getElementById('memberId');
 
-function renderCart(){
-  const shippingMethod = shippingSelect.value;
+// Render cart summary
+function renderCart() {
+  const subtotal = calculateSubtotal();
   let shippingCost = 0;
-  if(shippingMethod==='Standard') shippingCost=15;
-  else if(shippingMethod==='Express') shippingCost=35;
+  if(shippingSelect.value==='Standard') shippingCost=15;
+  else if(shippingSelect.value==='Express') shippingCost=35;
 
-  let newTotal = total + shippingCost;
+  let total = subtotal + shippingCost;
 
   const memberId = memberInput.value.trim();
-  let discount = 0;
-  if(memberId && members[memberId]) {
-    discount = members[memberId];
-    newTotal = newTotal * (1 - discount/100);
-  }
+  let discountPercent = 0;
+  if(memberId && members[memberId]) discountPercent = members[memberId];
+  const discountAmount = total * (discountPercent/100);
+  const finalTotal = total - discountAmount;
 
   cartSummary.innerHTML = `
-    ${cart.length ? cart.map(i=>`<div class="cart-item"><span>${i.name}</span><span>$${i.price.toFixed(2)}</span></div>`).join('') : '<p>Your cart is empty.</p>'}
-    <div class="cart-total">Subtotal: $${total.toFixed(2)}</div>
+    ${cart.length ? cart.map(item=>`<div class="cart-item"><span>${item.name}</span><span>$${item.price.toFixed(2)}</span></div>`).join('') : '<p>Your cart is empty.</p>'}
+    <div class="cart-total">Subtotal: $${subtotal.toFixed(2)}</div>
     <div class="cart-total">Shipping: $${shippingCost.toFixed(2)}</div>
-    ${discount>0 ? `<div class="cart-total">Member Discount: ${discount}%</div>` : ''}
-    <div class="cart-total" style="font-size:1.2rem;">Total: $${newTotal.toFixed(2)}</div>
+    ${discountPercent>0? `<div class="cart-total">Member Discount: ${discountPercent}%</div>` : ''}
+    <div class="cart-total" style="font-size:1.2rem;">Total: $${finalTotal.toFixed(2)}</div>
   `;
 }
 
@@ -220,13 +224,13 @@ memberInput.addEventListener('input', renderCart);
 // Initial render
 renderCart();
 
-// Payment method toggle
+// Payment toggle
 const payCardBtn = document.getElementById('payCard');
 const payPayPalBtn = document.getElementById('payPayPal');
 payCardBtn.addEventListener('click', ()=>{ payCardBtn.classList.add('active'); payPayPalBtn.classList.remove('active'); document.getElementById('card-container').style.display='block'; });
 payPayPalBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.add('active'); document.getElementById('card-container').style.display='none'; });
 
-// Square Payment Integration (replace with real IDs)
+// Square integration
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
 
