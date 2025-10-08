@@ -15,7 +15,7 @@ body {
   padding:0;
 }
 
-/* HEADER matching Vertical Farm/Indoor pages */
+/* HEADER matching Vertical Farm page */
 header {
   position:fixed;
   top:0;
@@ -24,26 +24,24 @@ header {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:0.8rem 1.5rem;
+  padding:0.6rem 1.5rem;
   z-index:1000;
 }
 header img { height:45px; cursor:pointer; }
-nav ul { display:flex; list-style:none; gap:0.5rem; padding:0; margin:0; }
+nav ul { display:flex; list-style:none; gap:0.3rem; padding:0; margin:0; }
 nav ul li a {
-  background:#3498db;
   color:#fff;
-  padding:0.4rem 0.7rem;
-  border-radius:5px;
+  padding:0.35rem 0.6rem;
   font-weight:600;
-  font-size:0.9rem;
+  font-size:0.88rem;
   text-decoration:none;
-  transition:background 0.3s;
+  transition:color 0.3s;
 }
-nav ul li a:hover { background:#2980b9; }
+nav ul li a:hover { color:#3498db; }
 
 /* MAIN CHECKOUT */
 main {
-  margin-top:100px;
+  margin-top:80px;
   max-width:1000px;
   margin-inline:auto;
   padding:1.5rem;
@@ -125,7 +123,7 @@ select option { color:#000; }
       <li><a href="index.html">Home</a></li>
       <li><a href="vertical-farm.html">Vertical Farm</a></li>
       <li><a href="greenhouse.html">Greenhouse</a></li>
-       </ul>
+    </ul>
   </nav>
 </header>
 
@@ -182,7 +180,7 @@ select option { color:#000; }
 const members = { "MEMBER1001":10, "MEMBER1002":15, "VIP2025":20 };
 
 // --- Get cart from localStorage (must match catalog storage)
-let cart = JSON.parse(localStorage.getItem('cart')) || []; // make sure catalog pages save to 'cart'
+let cart = JSON.parse(localStorage.getItem('cart')) || []; // catalog pages should save items to 'cart'
 let subtotal = cart.reduce((sum,item)=>sum+item.price,0);
 
 const cartSummary = document.getElementById('cart-summary');
@@ -220,10 +218,18 @@ renderCart();
 // --- Payment method toggle
 const payCardBtn = document.getElementById('payCard');
 const payPayPalBtn = document.getElementById('payPayPal');
-payCardBtn.addEventListener('click', ()=>{ payCardBtn.classList.add('active'); payPayPalBtn.classList.remove('active'); document.getElementById('card-container').style.display='block'; });
-payPayPalBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.add('active'); document.getElementById('card-container').style.display='none'; });
+payCardBtn.addEventListener('click', ()=>{ 
+  payCardBtn.classList.add('active'); 
+  payPayPalBtn.classList.remove('active'); 
+  document.getElementById('card-container').style.display='block'; 
+});
+payPayPalBtn.addEventListener('click', ()=>{ 
+  payCardBtn.classList.remove('active'); 
+  payPayPalBtn.classList.add('active'); 
+  document.getElementById('card-container').style.display='none'; 
+});
 
-// --- Square payment
+// --- Square payment (replace with your App/Location IDs)
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
 
