@@ -75,7 +75,7 @@ select option { color:#000; }
 .cart-item { display:flex; justify-content:space-between; margin-bottom:0.5rem; color:#ccc; }
 .cart-total { border-top:1px solid #333; margin-top:1rem; padding-top:0.5rem; font-weight:700; color:#fff; }
 
-/* PAYMENT METHODS - SMALLER, LIKE OTHER PAGES */
+/* PAYMENT METHODS */
 .payment-options {
   display:flex;
   gap:0.3rem;
@@ -86,10 +86,10 @@ select option { color:#000; }
   background:#333;
   border:none;
   color:#fff;
-  padding:0.5rem; /* smaller padding */
+  padding:0.5rem;
   border-radius:6px;
   cursor:pointer;
-  font-size:0.85rem; /* smaller font */
+  font-size:0.85rem;
   font-weight:600;
   text-align:center;
   transition:background 0.3s, transform 0.3s;
@@ -178,42 +178,38 @@ select option { color:#000; }
 </main>
 
 <script>
-// Members with discount percentages
+// Members with discounts
 const members = { "MEMBER1001":10, "MEMBER1002":15, "VIP2025":20 };
 
 // Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cartData')) || [];
-
-// Calculate subtotal
-function calculateSubtotal() {
-  return cart.reduce((sum,i)=>sum+parseFloat(i.price),0);
-}
+let total = cart.reduce((sum, i) => sum + i.price, 0);
 
 const cartSummary = document.getElementById('cart-summary');
 const shippingSelect = document.getElementById('shippingMethod');
 const memberInput = document.getElementById('memberId');
 
-// Render cart summary
 function renderCart() {
-  const subtotal = calculateSubtotal();
   let shippingCost = 0;
-  if(shippingSelect.value==='Standard') shippingCost=15;
-  else if(shippingSelect.value==='Express') shippingCost=35;
+  const shippingMethod = shippingSelect.value;
+  if(shippingMethod==='Standard') shippingCost=15;
+  else if(shippingMethod==='Express') shippingCost=35;
 
-  let total = subtotal + shippingCost;
+  let newTotal = total + shippingCost;
 
   const memberId = memberInput.value.trim();
-  let discountPercent = 0;
-  if(memberId && members[memberId]) discountPercent = members[memberId];
-  const discountAmount = total * (discountPercent/100);
-  const finalTotal = total - discountAmount;
+  let discount = 0;
+  if(memberId && members[memberId]){
+    discount = members[memberId];
+    newTotal = newTotal * (1 - discount/100);
+  }
 
   cartSummary.innerHTML = `
-    ${cart.length ? cart.map(item=>`<div class="cart-item"><span>${item.name}</span><span>$${item.price.toFixed(2)}</span></div>`).join('') : '<p>Your cart is empty.</p>'}
-    <div class="cart-total">Subtotal: $${subtotal.toFixed(2)}</div>
+    ${cart.length ? cart.map(i => `<div class="cart-item"><span>${i.name}</span><span>$${i.price.toFixed(2)}</span></div>`).join('') : '<p>Your cart is empty.</p>'}
+    <div class="cart-total">Subtotal: $${total.toFixed(2)}</div>
     <div class="cart-total">Shipping: $${shippingCost.toFixed(2)}</div>
-    ${discountPercent>0? `<div class="cart-total">Member Discount: ${discountPercent}%</div>` : ''}
-    <div class="cart-total" style="font-size:1.2rem;">Total: $${finalTotal.toFixed(2)}</div>
+    ${discount>0? `<div class="cart-total">Member Discount: ${discount}%</div>` : ''}
+    <div class="cart-total" style="font-size:1.2rem;">Total: $${newTotal.toFixed(2)}</div>
   `;
 }
 
@@ -227,10 +223,18 @@ renderCart();
 // Payment toggle
 const payCardBtn = document.getElementById('payCard');
 const payPayPalBtn = document.getElementById('payPayPal');
-payCardBtn.addEventListener('click', ()=>{ payCardBtn.classList.add('active'); payPayPalBtn.classList.remove('active'); document.getElementById('card-container').style.display='block'; });
-payPayPalBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.add('active'); document.getElementById('card-container').style.display='none'; });
+payCardBtn.addEventListener('click', ()=>{
+  payCardBtn.classList.add('active');
+  payPayPalBtn.classList.remove('active');
+  document.getElementById('card-container').style.display='block';
+});
+payPayPalBtn.addEventListener('click', ()=>{
+  payCardBtn.classList.remove('active');
+  payPayPalBtn.classList.add('active');
+  document.getElementById('card-container').style.display='none';
+});
 
-// Square integration
+// Square payment integration (replace with real IDs)
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
 
@@ -249,7 +253,7 @@ async function initializeSquare(){
         const result = await card.tokenize();
         if(result.status==='OK'){
           console.log("Token:", result.token);
-          statusEl.textContent = "Payment successful! (Token logged to console)";
+          statusEl.textContent="Payment successful! (Token logged to console)";
         } else throw new Error(result.errors ? result.errors[0].message : "Payment failed.");
       }catch(err){ statusEl.textContent="Error: "+err.message; }
     } else {
