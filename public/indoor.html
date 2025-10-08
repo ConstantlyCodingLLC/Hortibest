@@ -17,9 +17,7 @@ header {
 header h1 { cursor:pointer; font-weight:800; color:#fff; font-size:1.5rem; margin:0; }
 
 /* Nav centered */
-nav {
-  flex:1; text-align:center;
-}
+nav { flex:1; text-align:center; }
 nav ul {
   display:inline-flex; list-style:none; gap:0.5rem; padding:0; margin:0;
   justify-content:center; flex-wrap:wrap;
@@ -130,7 +128,6 @@ button:hover { transform:translateY(-3px); }
   </div>
   
   <div class="grid" id="productGrid">
-    <!-- Octopus Series -->
     <div class="card" data-price="799" data-type="octopus">
       <img src="https://hortibest.com/cdn/shop/products/Octopus-1000x600.jpg" alt="Octopus 300">
       <div class="card-content">
@@ -145,7 +142,6 @@ button:hover { transform:translateY(-3px); }
         <p>Mid-sized setup for hobbyists and small home gardens. Advanced light control included.</p>
       </div>
     </div>
-    <!-- Moray Series -->
     <div class="card" data-price="1899" data-type="moray">
       <img src="https://hortibest.com/cdn/shop/products/Moray-1000x600.jpg" alt="Moray 1000">
       <div class="card-content">
@@ -181,13 +177,6 @@ const shippingCheckbox = document.getElementById('shipping');
 const filterSelect = document.getElementById('filterSelect');
 let selectedCards = [];
 
-function updateTotal() {
-  let total = selectedCards.reduce((sum, card) => sum + parseFloat(card.dataset.price), 0);
-  if (shippingCheckbox.checked) total += 50;
-  totalPriceEl.textContent = `Total: $${total}`;
-}
-
-// Card selection and cart
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function renderCart() {
@@ -215,6 +204,12 @@ function removeItem(index) {
   renderCart();
 }
 
+function updateTotal() {
+  let total = selectedCards.reduce((sum, card) => sum + parseFloat(card.dataset.price), 0);
+  if (shippingCheckbox.checked) total += 50;
+  totalPriceEl.textContent = `Total: $${total}`;
+}
+
 cards.forEach(card => {
   card.addEventListener('click', () => {
     if (selectedCards.includes(card)) {
@@ -239,7 +234,8 @@ filterSelect.addEventListener('change', () => {
 });
 
 document.getElementById('checkout-btn').addEventListener('click', () => {
-  alert('Redirecting to Square Checkout...');
+  localStorage.setItem('cart', JSON.stringify(cart));
+  window.location.href = 'payment.html';
 });
 
 document.getElementById('sendQuote').addEventListener('click', () => {
