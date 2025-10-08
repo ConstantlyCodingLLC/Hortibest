@@ -13,9 +13,10 @@ body {
   color:#fff;
   margin:0;
   padding:0;
+  overflow-x:hidden; /* prevent horizontal scroll */
 }
 
-/* HEADER */
+/* HEADER - responsive and fits the screen */
 header {
   position:fixed;
   top:0;
@@ -26,50 +27,58 @@ header {
   align-items:center;
   padding:0.5rem 1rem;
   z-index:1000;
-  flex-wrap:wrap;
+  box-sizing:border-box;
+  flex-wrap:wrap; /* allows wrapping on small screens */
 }
-header img { height:40px; cursor:pointer; }
-nav ul {
-  display:flex;
-  list-style:none;
-  gap:0.4rem;
-  padding:0;
-  margin:0;
-  flex-wrap:wrap;
+header img { 
+  height:40px; 
+  max-width:40%; 
+  object-fit:contain;
+  cursor:pointer; 
+  margin-bottom:0.3rem;
+}
+nav ul { 
+  display:flex; 
+  flex-wrap:wrap; /* wrap nav links if needed */
+  list-style:none; 
+  gap:0.3rem; 
+  padding:0; 
+  margin:0; 
 }
 nav ul li a {
-  background:#3498db;
   color:#fff;
-  padding:0.35rem 0.6rem;
-  border-radius:5px;
+  padding:0.3rem 0.6rem;
   font-weight:600;
   font-size:0.85rem;
   text-decoration:none;
-  transition:background 0.3s;
+  transition:color 0.3s;
+  white-space:nowrap; /* prevent breaking inside links */
 }
-nav ul li a:hover { background:#2980b9; }
+nav ul li a:hover { color:#3498db; }
 
 /* MAIN CHECKOUT */
 main {
-  margin-top:80px;
-  max-width:1000px;
+  margin-top:90px;
+  max-width:950px;
   margin-inline:auto;
   padding:1rem;
   display:grid;
   gap:1rem;
   grid-template-columns:1fr 1fr;
+  box-sizing:border-box;
 }
 h2 { font-weight:800; font-size:1.4rem; margin-bottom:0.8rem; color:#fff; }
 .section-box {
   background:#111;
   padding:1rem;
-  border-radius:8px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.5);
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.4);
+  box-sizing:border-box;
 }
 label { display:block; margin-bottom:0.3rem; font-weight:600; }
 input, select {
   width:100%;
-  padding:0.6rem;
+  padding:0.5rem;
   background:#222;
   color:#fff;
   border:none;
@@ -79,15 +88,15 @@ input, select {
 }
 select option { color:#000; }
 
-#cart-summary h3 { margin-bottom:0.6rem; border-bottom:1px solid #333; padding-bottom:0.4rem; }
-.cart-item { display:flex; justify-content:space-between; margin-bottom:0.4rem; color:#ccc; }
-.cart-total { border-top:1px solid #333; margin-top:0.4rem; padding-top:0.4rem; font-weight:700; color:#fff; }
+#cart-summary h3 { margin-bottom:0.8rem; border-bottom:1px solid #333; padding-bottom:0.5rem; }
+.cart-item { display:flex; justify-content:space-between; margin-bottom:0.5rem; color:#ccc; }
+.cart-total { border-top:1px solid #333; margin-top:0.5rem; padding-top:0.5rem; font-weight:700; color:#fff; }
 
 /* PAYMENT METHODS */
 .payment-options {
   display:flex;
   gap:0.3rem;
-  margin-bottom:0.8rem;
+  margin-bottom:1rem;
 }
 .payment-options button {
   flex:1;
@@ -105,32 +114,27 @@ select option { color:#000; }
 .payment-options button.active,
 .payment-options button:hover { background:#3498db; transform:translateY(-1px); }
 
-#card-container { margin-bottom:1rem; }
+#card-container { margin-bottom:0.8rem; }
 .pay-btn {
   background:#9b59b6;
   border:none;
   color:#fff;
   font-weight:700;
-  padding:0.8rem;
+  padding:0.7rem;
   border-radius:8px;
   width:100%;
   cursor:pointer;
   transition:background 0.3s, transform 0.3s;
 }
 .pay-btn:hover { background:#8e44ad; transform:translateY(-1px); }
-#payment-status { margin-top:1rem; text-align:center; color:#ccc; }
+#payment-status { margin-top:0.8rem; text-align:center; color:#ccc; }
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  main { grid-template-columns:1fr; }
-  header { padding:0.5rem; }
-  header img { height:35px; }
-  nav ul li a { font-size:0.8rem; padding:0.3rem 0.5rem; }
-}
-@media(max-width:500px){
-  main { padding:0.5rem; }
+  main { grid-template-columns:1fr; padding:0.8rem; }
   .section-box { padding:0.8rem; }
-  h2 { font-size:1.2rem; }
+  header { justify-content:center; gap:0.5rem; }
+  nav ul { justify-content:center; }
 }
 </style>
 </head>
@@ -200,7 +204,7 @@ select option { color:#000; }
 const members = { "MEMBER1001":10, "MEMBER1002":15, "VIP2025":20 };
 
 // --- Get cart from localStorage
-let cart = JSON.parse(localStorage.getItem('cartData')) || [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let subtotal = cart.reduce((sum,item)=>sum+item.price,0);
 
 const cartSummary = document.getElementById('cart-summary');
@@ -235,13 +239,21 @@ shippingSelect.addEventListener('change', renderCart);
 memberInput.addEventListener('input', renderCart);
 renderCart();
 
-// --- Payment method toggle
+// Payment toggle
 const payCardBtn = document.getElementById('payCard');
 const payPayPalBtn = document.getElementById('payPayPal');
-payCardBtn.addEventListener('click', ()=>{ payCardBtn.classList.add('active'); payPayPalBtn.classList.remove('active'); document.getElementById('card-container').style.display='block'; });
-payPayPalBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.add('active'); document.getElementById('card-container').style.display='none'; });
+payCardBtn.addEventListener('click', ()=>{ 
+  payCardBtn.classList.add('active'); 
+  payPayPalBtn.classList.remove('active'); 
+  document.getElementById('card-container').style.display='block'; 
+});
+payPayPalBtn.addEventListener('click', ()=>{ 
+  payCardBtn.classList.remove('active'); 
+  payPayPalBtn.classList.add('active'); 
+  document.getElementById('card-container').style.display='none'; 
+});
 
-// --- Square payment
+// Square payment
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
 
