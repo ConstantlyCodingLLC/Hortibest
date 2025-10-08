@@ -16,7 +16,7 @@ body {
   overflow-x:hidden; /* prevent horizontal scroll */
 }
 
-/* HEADER */
+/* HEADER - responsive and fits the screen */
 header {
   position:fixed;
   top:0;
@@ -25,24 +25,40 @@ header {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:0.6rem 1rem;
+  padding:0.5rem 1rem;
   z-index:1000;
+  box-sizing:border-box;
+  flex-wrap:wrap; /* allows wrapping on small screens */
 }
-header img { height:45px; cursor:pointer; }
-nav ul { display:flex; list-style:none; gap:0.3rem; padding:0; margin:0; }
+header img { 
+  height:40px; 
+  max-width:40%; 
+  object-fit:contain;
+  cursor:pointer; 
+  margin-bottom:0.3rem;
+}
+nav ul { 
+  display:flex; 
+  flex-wrap:wrap; /* wrap nav links if needed */
+  list-style:none; 
+  gap:0.3rem; 
+  padding:0; 
+  margin:0; 
+}
 nav ul li a {
   color:#fff;
-  padding:0.35rem 0.6rem;
+  padding:0.3rem 0.6rem;
   font-weight:600;
-  font-size:0.88rem;
+  font-size:0.85rem;
   text-decoration:none;
   transition:color 0.3s;
+  white-space:nowrap; /* prevent breaking inside links */
 }
 nav ul li a:hover { color:#3498db; }
 
 /* MAIN CHECKOUT */
 main {
-  margin-top:80px;
+  margin-top:90px;
   max-width:950px;
   margin-inline:auto;
   padding:1rem;
@@ -117,6 +133,8 @@ select option { color:#000; }
 @media(max-width:900px){
   main { grid-template-columns:1fr; padding:0.8rem; }
   .section-box { padding:0.8rem; }
+  header { justify-content:center; gap:0.5rem; }
+  nav ul { justify-content:center; }
 }
 </style>
 </head>
@@ -235,7 +253,7 @@ payPayPalBtn.addEventListener('click', ()=>{
   document.getElementById('card-container').style.display='none'; 
 });
 
-// Square payment (replace with your App/Location IDs)
+// Square payment
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
 
