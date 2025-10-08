@@ -15,27 +15,27 @@ body {
   padding:0;
 }
 
-/* HEADER */
+/* HEADER matching Vertical Farm/Indoor pages */
 header {
   position:fixed;
   top:0;
   width:100%;
-  background:rgba(0,0,0,0.9);
+  background:#0b0b0b;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:1rem 2rem;
+  padding:0.8rem 1.5rem;
   z-index:1000;
-  flex-wrap:wrap;
 }
-header img { height:50px; cursor:pointer; }
-nav ul { display:flex; list-style:none; gap:1rem; padding:0; margin:0; }
+header img { height:45px; cursor:pointer; }
+nav ul { display:flex; list-style:none; gap:0.5rem; padding:0; margin:0; }
 nav ul li a {
   background:#3498db;
   color:#fff;
-  padding:0.5rem 0.8rem;
-  border-radius:6px;
+  padding:0.4rem 0.7rem;
+  border-radius:5px;
   font-weight:600;
+  font-size:0.9rem;
   text-decoration:none;
   transition:background 0.3s;
 }
@@ -43,37 +43,37 @@ nav ul li a:hover { background:#2980b9; }
 
 /* MAIN CHECKOUT */
 main {
-  margin-top:120px;
+  margin-top:100px;
   max-width:1000px;
   margin-inline:auto;
-  padding:2rem;
+  padding:1.5rem;
   display:grid;
-  gap:2rem;
+  gap:1.5rem;
   grid-template-columns:1fr 1fr;
 }
-h2 { font-weight:800; font-size:1.8rem; margin-bottom:1rem; color:#fff; }
+h2 { font-weight:800; font-size:1.5rem; margin-bottom:1rem; color:#fff; }
 .section-box {
   background:#111;
-  padding:2rem;
-  border-radius:12px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.6);
+  padding:1.5rem;
+  border-radius:10px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.5);
 }
 label { display:block; margin-bottom:0.3rem; font-weight:600; }
 input, select {
   width:100%;
-  padding:0.7rem;
+  padding:0.6rem;
   background:#222;
   color:#fff;
   border:none;
-  border-radius:6px;
+  border-radius:5px;
   margin-bottom:1rem;
   box-sizing:border-box;
 }
 select option { color:#000; }
 
-#cart-summary h3 { margin-bottom:1rem; border-bottom:1px solid #333; padding-bottom:0.5rem; }
+#cart-summary h3 { margin-bottom:0.8rem; border-bottom:1px solid #333; padding-bottom:0.5rem; }
 .cart-item { display:flex; justify-content:space-between; margin-bottom:0.5rem; color:#ccc; }
-.cart-total { border-top:1px solid #333; margin-top:1rem; padding-top:0.5rem; font-weight:700; color:#fff; }
+.cart-total { border-top:1px solid #333; margin-top:0.5rem; padding-top:0.5rem; font-weight:700; color:#fff; }
 
 /* PAYMENT METHODS */
 .payment-options {
@@ -86,8 +86,8 @@ select option { color:#000; }
   background:#333;
   border:none;
   color:#fff;
-  padding:0.5rem;
-  border-radius:6px;
+  padding:0.45rem;
+  border-radius:5px;
   cursor:pointer;
   font-size:0.85rem;
   font-weight:600;
@@ -125,6 +125,7 @@ select option { color:#000; }
       <li><a href="index.html">Home</a></li>
       <li><a href="vertical-farm.html">Vertical Farm</a></li>
       <li><a href="greenhouse.html">Greenhouse</a></li>
+      <li><a href="checkout.html">Cart</a></li>
     </ul>
   </nav>
 </header>
@@ -178,12 +179,12 @@ select option { color:#000; }
 </main>
 
 <script>
-// Members with discounts
+// Members with discount
 const members = { "MEMBER1001":10, "MEMBER1002":15, "VIP2025":20 };
 
-// Load cart from localStorage
-let cart = JSON.parse(localStorage.getItem('cartData')) || [];
-let total = cart.reduce((sum, i) => sum + i.price, 0);
+// --- Get cart from localStorage (must match catalog storage)
+let cart = JSON.parse(localStorage.getItem('cart')) || []; // make sure catalog pages save to 'cart'
+let subtotal = cart.reduce((sum,item)=>sum+item.price,0);
 
 const cartSummary = document.getElementById('cart-summary');
 const shippingSelect = document.getElementById('shippingMethod');
@@ -195,46 +196,35 @@ function renderCart() {
   if(shippingMethod==='Standard') shippingCost=15;
   else if(shippingMethod==='Express') shippingCost=35;
 
-  let newTotal = total + shippingCost;
+  let total = subtotal + shippingCost;
 
   const memberId = memberInput.value.trim();
   let discount = 0;
   if(memberId && members[memberId]){
     discount = members[memberId];
-    newTotal = newTotal * (1 - discount/100);
+    total = total * (1 - discount/100);
   }
 
   cartSummary.innerHTML = `
     ${cart.length ? cart.map(i => `<div class="cart-item"><span>${i.name}</span><span>$${i.price.toFixed(2)}</span></div>`).join('') : '<p>Your cart is empty.</p>'}
-    <div class="cart-total">Subtotal: $${total.toFixed(2)}</div>
+    <div class="cart-total">Subtotal: $${subtotal.toFixed(2)}</div>
     <div class="cart-total">Shipping: $${shippingCost.toFixed(2)}</div>
     ${discount>0? `<div class="cart-total">Member Discount: ${discount}%</div>` : ''}
-    <div class="cart-total" style="font-size:1.2rem;">Total: $${newTotal.toFixed(2)}</div>
+    <div class="cart-total" style="font-size:1.2rem;">Total: $${total.toFixed(2)}</div>
   `;
 }
 
-// Update cart when shipping or member ID changes
 shippingSelect.addEventListener('change', renderCart);
 memberInput.addEventListener('input', renderCart);
-
-// Initial render
 renderCart();
 
-// Payment toggle
+// --- Payment method toggle
 const payCardBtn = document.getElementById('payCard');
 const payPayPalBtn = document.getElementById('payPayPal');
-payCardBtn.addEventListener('click', ()=>{
-  payCardBtn.classList.add('active');
-  payPayPalBtn.classList.remove('active');
-  document.getElementById('card-container').style.display='block';
-});
-payPayPalBtn.addEventListener('click', ()=>{
-  payCardBtn.classList.remove('active');
-  payPayPalBtn.classList.add('active');
-  document.getElementById('card-container').style.display='none';
-});
+payCardBtn.addEventListener('click', ()=>{ payCardBtn.classList.add('active'); payPayPalBtn.classList.remove('active'); document.getElementById('card-container').style.display='block'; });
+payPayPalBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.add('active'); document.getElementById('card-container').style.display='none'; });
 
-// Square payment integration (replace with real IDs)
+// --- Square payment
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
 
