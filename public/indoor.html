@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indoor - Hortibest</title>
+<title>Indoor Systems - Hortibest</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -46,7 +46,8 @@ section { padding:6rem 2rem; max-width:1200px; margin:auto; }
 .card { background:#111; padding:1.5rem; border-radius:12px; transition: transform 0.3s, box-shadow 0.3s; text-align:center; cursor:pointer; }
 .card:hover { transform:translateY(-5px); box-shadow:0 15px 30px rgba(0,0,0,0.5); }
 .card h3 { margin-bottom:0.5rem; font-size:1.1rem; }
-.card p { color:#ccc; font-size:0.9rem; }
+.card p { color:#ccc; font-size:0.9rem; margin-bottom:0.5rem; }
+.card .price { font-weight:700; color:#3498db; font-size:1rem; }
 
 /* Responsive */
 @media(max-width:768px){
@@ -65,8 +66,8 @@ section { padding:6rem 2rem; max-width:1200px; margin:auto; }
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="greenhouse.html">Greenhouse</a></li>
       <li><a href="vertical-farm.html">Vertical Farm</a></li>
+      <li><a href="greenhouse.html">Greenhouse</a></li>
       <li style="margin-left:1rem; position:relative;">
         <!-- CART ICON -->
         <svg id="cartIcon" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="30" height="30" style="cursor:pointer;">
@@ -81,21 +82,29 @@ section { padding:6rem 2rem; max-width:1200px; margin:auto; }
 <section>
   <div class="section-head">
     <h2>Indoor Grow Systems</h2>
-    <p>Select a product to add to your cart.</p>
+    <p>Click on a product to add it to your cart.</p>
   </div>
 
   <div class="grid">
-    <div class="card" data-name="Controller 300" data-price="299">
-      <h3>Controller 300</h3>
-      <p>Compact controller for small indoor setups.</p>
+    <div class="card" data-name="Indoor LED 200" data-price="499">
+      <h3>Indoor LED 200</h3>
+      <p>Compact indoor grow light for apartments or small rooms.</p>
+      <div class="price">$499</div>
     </div>
-    <div class="card" data-name="Grow Rack 300" data-price="699">
-      <h3>Grow Rack 300</h3>
-      <p>Maximizes vertical space for small rooms.</p>
+    <div class="card" data-name="Indoor LED 400" data-price="799">
+      <h3>Indoor LED 400</h3>
+      <p>Medium-sized indoor system for hobby growers.</p>
+      <div class="price">$799</div>
     </div>
-    <div class="card" data-name="Octopus 300" data-price="799">
-      <h3>Octopus 300</h3>
-      <p>LED system for apartments and small spaces.</p>
+    <div class="card" data-name="Indoor LED Pro" data-price="1299">
+      <h3>Indoor LED Pro</h3>
+      <p>High-performance indoor grow setup with full spectrum LEDs.</p>
+      <div class="price">$1,299</div>
+    </div>
+    <div class="card" data-name="Indoor LED Elite" data-price="1999">
+      <h3>Indoor LED Elite</h3>
+      <p>Premium indoor growing system for professional use.</p>
+      <div class="price">$1,999</div>
     </div>
   </div>
 </section>
@@ -104,11 +113,7 @@ section { padding:6rem 2rem; max-width:1200px; margin:auto; }
 // Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const cartCount = document.getElementById('cartCount');
-
-// Update cart badge
-function updateCartCount() {
-  cartCount.textContent = cart.length;
-}
+function updateCartCount() { cartCount.textContent = cart.length; }
 updateCartCount();
 
 // Add items to cart
