@@ -6,93 +6,54 @@
 <title>Greenhouse - Hortibest</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-body { font-family:'Montserrat', sans-serif; background:#0d0d0d; color:#fff; margin:0; padding:0; }
+:root {
+  --purple: #9b59b6;
+  --blue: #3498db;
+  --red: #e74c3c;
+  --dark-bg: #0d0d0d;
+  --white: #fff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat', sans-serif; background:var(--dark-bg); color:var(--white); overflow-x:hidden; }
+a { text-decoration:none; color:inherit; }
 
 /* Header */
 header {
-  position:fixed; top:0; width:100%; background: rgba(0,0,0,0.85);
-  display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; z-index:1000;
-  flex-wrap:wrap;
+  position: sticky; top:0; width:100%; background: rgba(0,0,0,0.85);
+  display:flex; justify-content: space-between; align-items:center; padding:1rem 2rem; z-index:1000;
 }
-header h1 { cursor:pointer; font-weight:800; color:#fff; font-size:1.5rem; margin:0; }
+header h1 { cursor:pointer; font-weight:800; color:#fff; }
+nav ul { display:flex; list-style:none; gap:1rem; align-items:center; }
+nav ul li { position:relative; }
+nav ul li a { font-weight:600; padding:0.5rem 1rem; border-radius:6px; display:inline-block; transition:transform 0.3s; }
+nav ul li a:hover { transform:translateY(-3px); }
 
-/* Nav centered */
-nav { flex:1; text-align:center; }
-nav ul {
-  display:inline-flex; list-style:none; gap:0.5rem; padding:0; margin:0;
-  justify-content:center; flex-wrap:wrap;
-}
-nav ul li a {
-  color:#fff; text-decoration:none; padding:0.5rem 0.8rem; border-radius:6px;
-  background:#3498db; font-size:0.9rem; text-align:center; display:block;
+/* Cart Icon */
+#cartCount {
+  position:absolute; top:-5px; right:-5px; background:#e74c3c; color:#fff;
+  font-size:0.8rem; width:18px; height:18px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
 }
 
 /* Section */
-section {
-  padding:6rem 1rem 2rem 1rem; margin-top:70px; text-align:center; 
-  box-sizing:border-box; max-width:1200px; margin-left:auto; margin-right:auto;
-}
-.filter { margin-bottom:2rem; display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem; }
-select, input[type=checkbox] {
-  padding:0.5rem 1rem; border-radius:6px; border:none; background:#222; color:#fff;
-  cursor:pointer; flex:1 1 120px; min-width:120px; box-sizing:border-box;
-}
-.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:2rem; }
-.card { background:#111; border-radius:12px; overflow:hidden; cursor:pointer; transition: transform 0.3s, box-shadow 0.3s; display:flex; flex-direction:column; }
-.card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,0,0,0.5); }
-.card img { width:100%; height:150px; object-fit:cover; }
-.card-content { padding:1rem; flex-grow:1; display:flex; flex-direction:column; justify-content:space-between; }
-.card-content h3 { margin-bottom:0.5rem; font-size:1.1rem; }
-.card-content p { font-size:0.85rem; color:#ccc; margin-bottom:1rem; }
-.card.selected { border:3px solid #3498db; }
-#totalPrice { font-size:1.2rem; margin:1rem 0; }
-button { padding:0.6rem 1rem; border:none; border-radius:8px; background:#9b59b6; color:#fff; cursor:pointer; font-weight:600; transition:transform 0.3s; width:100%; max-width:300px; margin:auto; display:block; }
-button:hover { transform:translateY(-3px); }
+section { padding:6rem 2rem; max-width:1200px; margin:auto; }
+.section-head { text-align:center; margin-bottom:2rem; }
+.section-head h2 { font-size:2rem; font-weight:800; margin-bottom:0.5rem; }
+.section-head p { color:#ccc; }
 
-/* Sticky cart */
-#cart {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  width: 300px;
-  max-height: 80vh;
-  background: #111;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-  padding: 1rem;
-  overflow-y: auto;
-  z-index: 9999;
-}
-#cart h3 { margin-top:0; margin-bottom:1rem; font-size:1.3rem; }
-.cart-item { display:flex; justify-content:space-between; margin-bottom:0.8rem; }
-.cart-item button { background:#e74c3c; border:none; color:#fff; border-radius:6px; padding:0 0.5rem; cursor:pointer; }
-#checkout-btn {
-  width: 100%;
-  margin-top:1rem;
-  padding:0.6rem;
-  background:#9b59b6;
-  border:none;
-  color:#fff;
-  font-weight:600;
-  border-radius:8px;
-  cursor:pointer;
-}
+/* Grid / Cards */
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; }
+.card { background:#111; padding:1.5rem; border-radius:12px; transition: transform 0.3s, box-shadow 0.3s; text-align:center; cursor:pointer; }
+.card:hover { transform:translateY(-5px); box-shadow:0 15px 30px rgba(0,0,0,0.5); }
+.card h3 { margin-bottom:0.5rem; font-size:1.1rem; }
+.card p { color:#ccc; font-size:0.9rem; margin-bottom:0.5rem; }
+.card .price { font-weight:700; color:#3498db; font-size:1rem; }
 
 /* Responsive */
 @media(max-width:768px){
   header { padding:1rem; flex-direction:column; align-items:flex-start; }
-  header h1 { font-size:1.3rem; margin-bottom:0.5rem; }
-  nav { width:100%; text-align:center; margin-bottom:0.5rem; }
-  nav ul { flex-direction:row; justify-content:center; width:100%; }
-  nav ul li a { width:auto; margin-bottom:0; }
-  .filter { flex-direction:column; align-items:center; }
-  select, input[type=checkbox] { width:90%; }
-  .grid { grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:0.8rem; }
-  .card img { height:130px; }
-  .card-content h3 { font-size:1rem; }
-  .card-content p { font-size:0.8rem; }
-  button { width:90%; }
-  #cart { width:90%; top:auto; bottom:1rem; right:50%; transform:translateX(50%); max-height:60vh; }
+  nav ul { flex-direction:row; flex-wrap:wrap; }
+  .grid { grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; }
 }
 </style>
 </head>
@@ -100,173 +61,82 @@ button:hover { transform:translateY(-3px); }
 
 <header>
   <a href="index.html">
-    <img src="https://ueeshop.ly200-cdn.com/u_file/UPAR/UPAR370/2507/photo/235adfacf1.png" 
-         alt="Hortibest Logo" 
-         style="height:50px; width:auto; cursor:pointer;">
+    <img src="https://ueeshop.ly200-cdn.com/u_file/UPAR/UPAR370/2507/photo/235adfacf1.png" alt="Hortibest Logo" style="height:50px; width:auto; cursor:pointer;">
   </a>
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
-     <li><a href="vertical-farm.html">Vertical Farm</a></li>
       <li><a href="indoor.html">Indoor</a></li>
+      <li><a href="vertical-farm.html">Vertical Farm</a></li>
+      <li style="margin-left:1rem; position:relative;">
+        <!-- CART ICON -->
+        <svg id="cartIcon" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="30" height="30" style="cursor:pointer;">
+          <path d="M7 4h-2l-3 9v2h2v7h2v-7h10v7h2v-7h2v-2l-3-9h-2v2h-6v-2zm0 2h6v2h-6v-2zm0 4h6v2h-6v-2zm0 4h6v2h-6v-2z"/>
+        </svg>
+        <span id="cartCount">0</span>
+      </li>
     </ul>
   </nav>
 </header>
 
 <section>
-  <h2>Greenhouse Systems</h2>
-  
-  <div class="filter">
-    <label>Filter by Series: 
-      <select id="filterSelect">
-        <option value="all">All</option>
-        <option value="greenhouse">Greenhouse Series</option>
-        <option value="jellyfish">Jellyfish Series</option>
-        <option value="sharkx">Shark X Series</option>
-      </select>
-    </label>
-    <label><input type="checkbox" id="shipping"> Add Delivery ($50)</label>
+  <div class="section-head">
+    <h2>Greenhouse Systems</h2>
+    <p>Click on a product to add it to your cart.</p>
   </div>
-  
-  <div class="grid" id="productGrid">
-    <div class="card" data-price="799" data-type="greenhouse">
-      <img src="https://hortibest.com/cdn/shop/products/Greenhouse-300-1000x600.jpg" alt="Greenhouse 300">
-      <div class="card-content">
-        <h3>Greenhouse 300</h3>
-        <p>Compact greenhouse setup for home gardens. Easy setup and energy-efficient LED lighting.</p>
-      </div>
+
+  <div class="grid">
+    <div class="card" data-name="Greenhouse 300" data-price="799">
+      <h3>Greenhouse 300</h3>
+      <p>Compact greenhouse setup for home gardens.</p>
+      <div class="price">$799</div>
     </div>
-    <div class="card" data-price="1299" data-type="greenhouse">
-      <img src="https://hortibest.com/cdn/shop/products/Greenhouse-600-1000x600.jpg" alt="Greenhouse 600">
-      <div class="card-content">
-        <h3>Greenhouse 600</h3>
-        <p>Medium-sized greenhouse ideal for backyard growers. Includes adjustable light spectrum.</p>
-      </div>
+    <div class="card" data-name="Greenhouse 600" data-price="1299">
+      <h3>Greenhouse 600</h3>
+      <p>Medium-sized greenhouse ideal for backyard growers.</p>
+      <div class="price">$1,299</div>
     </div>
-    <div class="card" data-price="1899" data-type="jellyfish">
-      <img src="https://hortibest.com/cdn/shop/products/Jellyfish-1000x600.jpg" alt="Jellyfish 1000">
-      <div class="card-content">
-        <h3>Jellyfish 1000</h3>
-        <p>High-performance greenhouse system with maximum light output for consistent growth.</p>
-      </div>
+    <div class="card" data-name="Jellyfish 1000" data-price="1899">
+      <h3>Jellyfish 1000</h3>
+      <p>High-performance greenhouse system with maximum light output.</p>
+      <div class="price">$1,899</div>
     </div>
-    <div class="card" data-price="2499" data-type="jellyfish">
-      <img src="https://hortibest.com/cdn/shop/products/Jellyfish-1500-1000x600.jpg" alt="Jellyfish 1500">
-      <div class="card-content">
-        <h3>Jellyfish 1500</h3>
-        <p>Advanced greenhouse setup for professional growers. Robust design and intelligent controls.</p>
-      </div>
-    </div>
-    <div class="card" data-price="2999" data-type="sharkx">
-      <img src="https://hortibest.com/cdn/shop/products/SharkX-1000-1000x600.jpg" alt="Shark X 1000">
-      <div class="card-content">
-        <h3>Shark X 1000</h3>
-        <p>Premium greenhouse system for commercial-level indoor growth. Includes top-tier LED technology.</p>
-      </div>
-    </div>
-    <div class="card" data-price="3999" data-type="sharkx">
-      <img src="https://hortibest.com/cdn/shop/products/SharkX-1500-1000x600.jpg" alt="Shark X 1500">
-      <div class="card-content">
-        <h3>Shark X 1500</h3>
-        <p>Elite commercial greenhouse with large coverage area, intelligent controls, and premium LEDs.</p>
-      </div>
+    <div class="card" data-name="Shark X 1000" data-price="2999">
+      <h3>Shark X 1000</h3>
+      <p>Premium greenhouse system for commercial-level indoor growth.</p>
+      <div class="price">$2,999</div>
     </div>
   </div>
-  
-  <div id="totalPrice">Total: $0</div>
-  <button id="sendQuote">Get Quote</button>
 </section>
 
-<div id="cart">
-  <h3>Your Cart</h3>
-  <div id="cart-items"></div>
-  <div><strong>Total: $<span id="cart-total">0</span></strong></div>
-  <button id="checkout-btn">Checkout</button>
-</div>
-
 <script>
-const cards = document.querySelectorAll('.card');
-const totalPriceEl = document.getElementById('totalPrice');
-const shippingCheckbox = document.getElementById('shipping');
-const filterSelect = document.getElementById('filterSelect');
-let selectedCards = [];
-
+// Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartCount = document.getElementById('cartCount');
 
-function renderCart() {
-  const cartItemsEl = document.getElementById('cart-items');
-  cartItemsEl.innerHTML = '';
-  let total = 0;
-  cart.forEach((item, index) => {
-    total += item.price;
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `${item.name} - $${item.price} <button onclick="removeItem(${index})">x</button>`;
-    cartItemsEl.appendChild(div);
-  });
-  document.getElementById('cart-total').innerText = total;
-  localStorage.setItem('cart', JSON.stringify(cart));
+// Update cart badge
+function updateCartCount() {
+  cartCount.textContent = cart.length;
 }
+updateCartCount();
 
-function addToCart(name, price) {
-  cart.push({name, price});
-  renderCart();
-}
-
-function removeItem(index) {
-  cart.splice(index,1);
-  renderCart();
-}
-
-function updateTotal() {
-  let total = selectedCards.reduce((sum, card) => sum + parseFloat(card.dataset.price), 0);
-  if (shippingCheckbox.checked) total += 50;
-  totalPriceEl.textContent = `Total: $${total}`;
-}
-
-cards.forEach(card => {
+// Add items to cart
+document.querySelectorAll('.card[data-name]').forEach(card => {
   card.addEventListener('click', () => {
-    if (selectedCards.includes(card)) {
-      selectedCards = selectedCards.filter(c => c !== card);
-      card.classList.remove('selected');
-    } else {
-      selectedCards.push(card);
-      card.classList.add('selected');
-      addToCart(card.querySelector('h3').textContent, parseFloat(card.dataset.price));
-    }
-    updateTotal();
+    const name = card.dataset.name;
+    const price = parseFloat(card.dataset.price);
+    cart.push({ name, price });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
   });
 });
 
-shippingCheckbox.addEventListener('change', updateTotal);
-
-filterSelect.addEventListener('change', () => {
-  const value = filterSelect.value;
-  cards.forEach(card => {
-    card.style.display = (value === 'all' || card.dataset.type === value) ? 'flex' : 'none';
-  });
-});
-
-document.getElementById('checkout-btn').addEventListener('click', () => {
-  localStorage.setItem('cart', JSON.stringify(cart));
+// Go to payment page on cart click
+document.getElementById('cartIcon').addEventListener('click', () => {
+  const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+  localStorage.setItem('cartTotal', totalAmount);
   window.location.href = 'payment.html';
 });
-
-document.getElementById('sendQuote').addEventListener('click', () => {
-  if (selectedCards.length === 0) {
-    alert('Please select at least one product.');
-    return;
-  }
-  let message = 'Quote request:\n';
-  selectedCards.forEach(card => {
-    message += `- ${card.querySelector('h3').textContent} ($${card.dataset.price})\n`;
-  });
-  if (shippingCheckbox.checked) message += `+ Delivery: $50\n`;
-  message += totalPriceEl.textContent;
-  alert(message);
-});
-
-renderCart();
 </script>
 
 </body>
