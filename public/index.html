@@ -108,9 +108,9 @@ footer .socials a:hover { color: var(--blue); }
         <a href="#" class="btn-blue">Products ▼</a>
         <ul>
           <li><a href="indoor.html">Indoor</a></li>
-          <li><a href="payment.html">Payment</a></li>
           <li><a href="greenhouse.html">Greenhouse</a></li>
           <li><a href="vertical-farm.html">Vertical Farm</a></li>
+          <li><a href="payment.html">Payment</a></li>
         </ul>
       </li>
       <li style="margin-left:1rem; position:relative;">
@@ -134,20 +134,6 @@ footer .socials a:hover { color: var(--blue); }
   <div class="hero-inner">
     <h1>Welcome to Hortibest</h1>
     <p>Innovative LED Grow Lighting Solutions for Every Need</p>
-  </div>
-</section>
-
-<!-- Services -->
-<section id="services">
-  <div class="section-head">
-    <h2>Our Services</h2>
-    <p>Vibrant solutions for your business or event.</p>
-  </div>
-  <div class="grid">
-    <div class="card btn-purple">LED Video Walls</div>
-    <div class="card btn-blue">Custom Installations</div>
-    <div class="card btn-red">Control Systems</div>
-    <div class="card btn-purple">Interactive Displays</div>
   </div>
 </section>
 
@@ -206,7 +192,7 @@ footer .socials a:hover { color: var(--blue); }
 </footer>
 
 <script>
-// Scroll reveal
+// Section reveal
 const sections = document.querySelectorAll('section');
 const reveal = () => { 
   const scrollY = window.scrollY + window.innerHeight - 100; 
@@ -217,12 +203,12 @@ const reveal = () => {
 window.addEventListener('scroll', reveal);
 reveal();
 
-// Cart functionality
+// Cart logic
 const cartIcon = document.getElementById('cartIcon');
 const cartDropdown = document.getElementById('cartDropdown');
 const cartItemsContainer = document.getElementById('cartItems');
 const cartTotalEl = document.getElementById('cartTotal');
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 cartIcon.addEventListener('click', () => {
   cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
@@ -233,6 +219,7 @@ document.querySelectorAll('.card[data-name]').forEach(card => {
     const name = card.dataset.name;
     const price = parseFloat(card.dataset.price);
     cart.push({ name, price });
+    localStorage.setItem('cart', JSON.stringify(cart));
     renderCart();
   });
 });
@@ -252,6 +239,7 @@ function renderCart() {
     btn.addEventListener('click', e => {
       const idx = e.target.dataset.index;
       cart.splice(idx, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
     });
   });
@@ -259,13 +247,15 @@ function renderCart() {
 
 document.getElementById('checkout').addEventListener('click', () => {
   if(cart.length === 0) {
-    alert('Cart is empty!');
+    alert('Your cart is empty!');
     return;
   }
-  alert('Thank you for your purchase! Total: $' + cart.reduce((sum, i) => sum + i.price, 0));
-  cart = [];
-  renderCart();
+  // Save cart to localStorage and redirect
+  localStorage.setItem('cart', JSON.stringify(cart));
+  window.location.href = 'payment.html';
 });
+
+renderCart();
 </script>
 
 </body>
