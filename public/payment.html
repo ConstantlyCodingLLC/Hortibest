@@ -6,148 +6,33 @@
 <title>Checkout - Hortibest</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+<script src="https://cash.app/js/v1/pay.js"></script>
 <style>
-body {
-  font-family:'Montserrat', sans-serif;
-  background:#0d0d0d;
-  color:#fff;
-  margin:0;
-  padding:0;
-  overflow-x:hidden;
-}
-
-/* HEADER - responsive */
-header {
-  position:fixed;
-  top:0;
-  width:100%;
-  background:#0b0b0b;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0.5rem 1rem;
-  z-index:1000;
-  box-sizing:border-box;
-  flex-wrap:wrap;
-}
-header img { 
-  height:40px; 
-  max-width:40%; 
-  object-fit:contain;
-  cursor:pointer; 
-  margin-bottom:0.3rem;
-}
-nav ul { 
-  display:flex; 
-  flex-wrap:wrap; 
-  list-style:none; 
-  gap:0.3rem; 
-  padding:0; 
-  margin:0; 
-}
-nav ul li a {
-  color:#fff;
-  padding:0.3rem 0.6rem;
-  font-weight:600;
-  font-size:0.85rem;
-  text-decoration:none;
-  transition:color 0.3s;
-  white-space:nowrap;
-}
+body { font-family:'Montserrat', sans-serif; background:#0d0d0d; color:#fff; margin:0; padding:0; overflow-x:hidden; }
+header { position:fixed; top:0; width:100%; background:#0b0b0b; display:flex; justify-content:space-between; align-items:center; padding:0.5rem 1rem; z-index:1000; flex-wrap:wrap; }
+header img { height:40px; max-width:40%; object-fit:contain; cursor:pointer; margin-bottom:0.3rem; }
+nav ul { display:flex; flex-wrap:wrap; list-style:none; gap:0.3rem; padding:0; margin:0; }
+nav ul li a { color:#fff; padding:0.3rem 0.6rem; font-weight:600; font-size:0.85rem; text-decoration:none; transition:color 0.3s; white-space:nowrap; }
 nav ul li a:hover { color:#3498db; }
-
-/* MAIN CHECKOUT */
-main {
-  margin-top:90px;
-  max-width:950px;
-  margin-inline:auto;
-  padding:1rem;
-  display:grid;
-  gap:1rem;
-  grid-template-columns:1fr 1fr;
-  box-sizing:border-box;
-}
+main { margin-top:90px; max-width:950px; margin-inline:auto; padding:1rem; display:grid; gap:1rem; grid-template-columns:1fr 1fr; }
 h2 { font-weight:800; font-size:1.4rem; margin-bottom:0.8rem; color:#fff; }
-.section-box {
-  background:#111;
-  padding:1rem;
-  border-radius:10px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.4);
-  box-sizing:border-box;
-}
+.section-box { background:#111; padding:1rem; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.4); }
 label { display:block; margin-bottom:0.3rem; font-weight:600; }
-input, select {
-  width:100%;
-  padding:0.5rem;
-  background:#222;
-  color:#fff;
-  border:none;
-  border-radius:5px;
-  margin-bottom:0.8rem;
-  box-sizing:border-box;
-}
+input, select { width:100%; padding:0.5rem; background:#222; color:#fff; border:none; border-radius:5px; margin-bottom:0.8rem; box-sizing:border-box; }
 select option { color:#000; }
-
 #cart-summary h3 { margin-bottom:0.8rem; border-bottom:1px solid #333; padding-bottom:0.5rem; }
 .cart-item { display:flex; justify-content:space-between; margin-bottom:0.5rem; color:#ccc; }
 .cart-total { border-top:1px solid #333; margin-top:0.5rem; padding-top:0.5rem; font-weight:700; color:#fff; }
-
-/* PAYMENT METHODS */
-.payment-options {
-  display:flex;
-  gap:0.3rem;
-  margin-bottom:1rem;
-}
-.payment-options button {
-  flex:1;
-  background:#333;
-  border:none;
-  color:#fff;
-  padding:0.4rem;
-  border-radius:5px;
-  cursor:pointer;
-  font-size:0.85rem;
-  font-weight:600;
-  text-align:center;
-  transition:background 0.3s, transform 0.3s;
-}
-.payment-options button.active,
-.payment-options button:hover { background:#3498db; transform:translateY(-1px); }
-
-#card-container { margin-bottom:0.8rem; }
-.pay-btn {
-  background:#9b59b6;
-  border:none;
-  color:#fff;
-  font-weight:700;
-  padding:0.7rem;
-  border-radius:8px;
-  width:100%;
-  cursor:pointer;
-  transition:background 0.3s, transform 0.3s;
-}
+.payment-options { display:flex; gap:0.3rem; margin-bottom:1rem; }
+.payment-options button { flex:1; background:#333; border:none; color:#fff; padding:0.4rem; border-radius:5px; cursor:pointer; font-size:0.85rem; font-weight:600; text-align:center; transition:background 0.3s, transform 0.3s; }
+.payment-options button.active, .payment-options button:hover { background:#3498db; transform:translateY(-1px); }
+#card-container, #paypal-container, #cashapp-container { margin-bottom:0.8rem; }
+.pay-btn { background:#9b59b6; border:none; color:#fff; font-weight:700; padding:0.7rem; border-radius:8px; width:100%; cursor:pointer; transition:background 0.3s, transform 0.3s; }
 .pay-btn:hover { background:#8e44ad; transform:translateY(-1px); }
 #payment-status { margin-top:0.8rem; text-align:center; color:#ccc; }
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  main { grid-template-columns:1fr; gap:0.8rem; padding:0.8rem; }
-  .section-box { padding:0.8rem; }
-  h2 { font-size:1.2rem; }
-  input, select { padding:0.45rem; font-size:0.85rem; }
-  .pay-btn { padding:0.65rem; font-size:0.9rem; }
-  header { justify-content:center; gap:0.5rem; }
-  nav ul { justify-content:center; }
-}
-@media(max-width:500px){
-  header img { height:30px; max-width:60%; }
-  nav ul li a { font-size:0.8rem; padding:0.25rem 0.5rem; }
-  main { padding:0.5rem; }
-  .section-box { padding:0.6rem; }
-  h2 { font-size:1.1rem; }
-  input, select { padding:0.4rem; font-size:0.8rem; }
-  .pay-btn { padding:0.6rem; font-size:0.85rem; }
-}
+@media(max-width:900px){ main { grid-template-columns:1fr; gap:0.8rem; padding:0.8rem; } .section-box { padding:0.8rem; } h2 { font-size:1.2rem; } input, select { padding:0.45rem; font-size:0.85rem; } .pay-btn { padding:0.65rem; font-size:0.9rem; } header { justify-content:center; gap:0.5rem; } nav ul { justify-content:center; } }
+@media(max-width:500px){ header img { height:30px; max-width:60%; } nav ul li a { font-size:0.8rem; padding:0.25rem 0.5rem; } main { padding:0.5rem; } .section-box { padding:0.6rem; } h2 { font-size:1.1rem; } input, select { padding:0.4rem; font-size:0.8rem; } .pay-btn { padding:0.6rem; font-size:0.85rem; } }
 </style>
 </head>
 <body>
@@ -157,6 +42,7 @@ select option { color:#000; }
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
+      <li><a href="indoor.html">Indoor</a></li>
       <li><a href="vertical-farm.html">Vertical Farm</a></li>
       <li><a href="greenhouse.html">Greenhouse</a></li>
     </ul>
@@ -196,9 +82,12 @@ select option { color:#000; }
     <div class="payment-options">
       <button id="payCard" class="active">Credit/Debit</button>
       <button id="payPayPal">PayPal</button>
+      <button id="payCashApp">CashApp</button>
     </div>
 
     <div id="card-container"></div>
+    <div id="paypal-container" style="display:none;"></div>
+    <div id="cashapp-container" style="display:none;"></div>
     <button class="pay-btn" id="payNow">Pay Now</button>
     <div id="payment-status"></div>
   </div>
@@ -208,7 +97,7 @@ select option { color:#000; }
 // Members with discount
 const members = { "MEMBER1001":10, "MEMBER1002":15, "VIP2025":20 };
 
-// Get cart from localStorage
+// Cart
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let subtotal = cart.reduce((sum,item)=>sum+item.price,0);
 
@@ -217,29 +106,13 @@ const shippingSelect = document.getElementById('shippingMethod');
 const memberInput = document.getElementById('memberId');
 
 function renderCart() {
-  let shippingCost = 0;
-  const shippingMethod = shippingSelect.value;
-  if(shippingMethod==='Standard') shippingCost=15;
-  else if(shippingMethod==='Express') shippingCost=35;
-
+  let shippingCost = shippingSelect.value==='Standard'?15:shippingSelect.value==='Express'?35:0;
   let total = subtotal + shippingCost;
-
   const memberId = memberInput.value.trim();
   let discount = 0;
-  if(memberId && members[memberId]){
-    discount = members[memberId];
-    total = total * (1 - discount/100);
-  }
-
-  cartSummary.innerHTML = `
-    ${cart.length ? cart.map(i => `<div class="cart-item"><span>${i.name}</span><span>$${i.price.toFixed(2)}</span></div>`).join('') : '<p>Your cart is empty.</p>'}
-    <div class="cart-total">Subtotal: $${subtotal.toFixed(2)}</div>
-    <div class="cart-total">Shipping: $${shippingCost.toFixed(2)}</div>
-    ${discount>0? `<div class="cart-total">Member Discount: ${discount}%</div>` : ''}
-    <div class="cart-total" style="font-size:1.2rem;">Total: $${total.toFixed(2)}</div>
-  `;
+  if(memberId && members[memberId]) { discount = members[memberId]; total = total*(1-discount/100); }
+  cartSummary.innerHTML = `${cart.length ? cart.map(i=>`<div class="cart-item"><span>${i.name}</span><span>$${i.price.toFixed(2)}</span></div>`).join(''):'<p>Your cart is empty.</p>'}<div class="cart-total">Subtotal: $${subtotal.toFixed(2)}</div><div class="cart-total">Shipping: $${shippingCost.toFixed(2)}</div>${discount>0? `<div class="cart-total">Member Discount: ${discount}%</div>`:''}<div class="cart-total" style="font-size:1.2rem;">Total: $${total.toFixed(2)}</div>`;
 }
-
 shippingSelect.addEventListener('change', renderCart);
 memberInput.addEventListener('input', renderCart);
 renderCart();
@@ -247,47 +120,57 @@ renderCart();
 // Payment toggle
 const payCardBtn = document.getElementById('payCard');
 const payPayPalBtn = document.getElementById('payPayPal');
-payCardBtn.addEventListener('click', ()=>{ 
-  payCardBtn.classList.add('active'); 
-  payPayPalBtn.classList.remove('active'); 
-  document.getElementById('card-container').style.display='block'; 
-});
-payPayPalBtn.addEventListener('click', ()=>{ 
-  payCardBtn.classList.remove('active'); 
-  payPayPalBtn.classList.add('active'); 
-  document.getElementById('card-container').style.display='none'; 
-});
+const payCashBtn = document.getElementById('payCashApp');
+payCardBtn.addEventListener('click', ()=>{ payCardBtn.classList.add('active'); payPayPalBtn.classList.remove('active'); payCashBtn.classList.remove('active'); document.getElementById('card-container').style.display='block'; document.getElementById('paypal-container').style.display='none'; document.getElementById('cashapp-container').style.display='none'; });
+payPayPalBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.add('active'); payCashBtn.classList.remove('active'); document.getElementById('card-container').style.display='none'; document.getElementById('paypal-container').style.display='block'; document.getElementById('cashapp-container').style.display='none'; renderPayPal(); });
+payCashBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.remove('active'); payCashBtn.classList.add('active'); document.getElementById('card-container').style.display='none'; document.getElementById('paypal-container').style.display='none'; document.getElementById('cashapp-container').style.display='block'; renderCashApp(); });
 
-// Square payment
+// --- Square payment
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
-
+let squareCard;
 async function initializeSquare(){
   if(!window.Square){ document.getElementById('payment-status').innerText="Square SDK failed to load."; return; }
   const payments = window.Square.payments(appId, locationId);
-  const card = await payments.card();
-  await card.attach('#card-container');
+  squareCard = await payments.card();
+  await squareCard.attach('#card-container');
+}
+initializeSquare();
 
-  document.getElementById('payNow').addEventListener('click', async ()=>{
-    const method = document.querySelector('.payment-options button.active').id;
-    const statusEl = document.getElementById('payment-status');
-    statusEl.textContent = "Processing...";
-    if(method==="payCard"){
-      try{
-        const result = await card.tokenize();
-        if(result.status==='OK'){
-          console.log("Token:", result.token);
-          statusEl.textContent="Payment successful! (Token logged to console)";
-        } else throw new Error(result.errors ? result.errors[0].message : "Payment failed.");
-      }catch(err){ statusEl.textContent="Error: "+err.message; }
-    } else {
-      statusEl.textContent="Redirecting to PayPal...";
-      setTimeout(()=>window.location.href="https://www.paypal.com/checkoutnow",1000);
-    }
-  });
+// --- PayPal payment
+function renderPayPal(){
+  if(document.getElementById('paypal-container').children.length>0) return;
+  paypal.Buttons({
+    style:{ layout:'vertical', color:'blue', shape:'rect', label:'paypal' },
+    createOrder: (data, actions) => actions.order.create({ purchase_units:[{ amount:{ value:(subtotal).toFixed(2) } }] }),
+    onApprove: (data, actions) => actions.order.capture().then(details=>{ document.getElementById('payment-status').textContent="PayPal Payment Complete"; })
+  }).render('#paypal-container');
 }
 
-initializeSquare();
+// --- CashApp payment (demo button)
+function renderCashApp(){
+  if(document.getElementById('cashapp-container').children.length>0) return;
+  const btn = document.createElement('button');
+  btn.textContent="Pay with Cash App";
+  btn.className="pay-btn";
+  btn.onclick = ()=>{ alert('Redirect to Cash App payment (replace with real integration)'); };
+  document.getElementById('cashapp-container').appendChild(btn);
+}
+
+// Pay Now button
+document.getElementById('payNow').addEventListener('click', async ()=>{
+  const statusEl = document.getElementById('payment-status');
+  const activeMethod = document.querySelector('.payment-options button.active').id;
+  statusEl.textContent="Processing...";
+  try{
+    if(activeMethod==="payCard"){
+      const result = await squareCard.tokenize();
+      if(result.status==='OK'){ statusEl.textContent="Square Payment Successful! Token logged."; console.log(result.token); } 
+      else throw new Error(result.errors ? result.errors[0].message : "Payment failed");
+    } else if(activeMethod==="payPayPal"){ statusEl.textContent="Use PayPal Button Above"; }
+    else if(activeMethod==="payCashApp"){ statusEl.textContent="Use Cash App Button Above"; }
+  } catch(err){ statusEl.textContent="Error: "+err.message; }
+});
 </script>
 </body>
 </html>
