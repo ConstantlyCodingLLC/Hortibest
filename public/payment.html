@@ -11,6 +11,7 @@ body {
   font-family:'Montserrat', sans-serif;
   background:#0d0d0d; color:#fff; margin:0; padding:0;
 }
+
 /* HEADER */
 header {
   position:fixed;
@@ -24,27 +25,19 @@ header {
   z-index:1000;
   flex-wrap:wrap;
 }
-header img {
-  height:50px;
-  cursor:pointer;
-}
-nav ul {
-  display:flex;
-  list-style:none;
-  gap:1rem;
-  padding:0;
-  margin:0;
-}
+header img { height:50px; cursor:pointer; }
+nav ul { display:flex; list-style:none; gap:1rem; padding:0; margin:0; }
 nav ul li a {
   background:#3498db;
   color:#fff;
-  padding:0.6rem 1rem;
-  border-radius:8px;
+  padding:0.5rem 0.8rem;
+  border-radius:6px;
   font-weight:600;
   text-decoration:none;
   transition:background 0.3s;
 }
 nav ul li a:hover { background:#2980b9; }
+
 /* MAIN CHECKOUT */
 main {
   margin-top:120px;
@@ -55,23 +48,14 @@ main {
   gap:2rem;
   grid-template-columns:1fr 1fr;
 }
-h2 {
-  font-weight:800;
-  font-size:1.8rem;
-  margin-bottom:1rem;
-  color:#fff;
-}
+h2 { font-weight:800; font-size:1.8rem; margin-bottom:1rem; color:#fff; }
 .section-box {
   background:#111;
   padding:2rem;
   border-radius:12px;
   box-shadow:0 8px 20px rgba(0,0,0,0.6);
 }
-label {
-  display:block;
-  margin-bottom:0.3rem;
-  font-weight:600;
-}
+label { display:block; margin-bottom:0.3rem; font-weight:600; }
 input, select {
   width:100%;
   padding:0.8rem;
@@ -83,13 +67,15 @@ input, select {
   box-sizing:border-box;
 }
 select option { color:#000; }
+
 #cart-summary h3 { margin-bottom:1rem; border-bottom:1px solid #333; padding-bottom:0.5rem; }
 .cart-item { display:flex; justify-content:space-between; margin-bottom:0.5rem; color:#ccc; }
 .cart-total { border-top:1px solid #333; margin-top:1rem; padding-top:0.5rem; font-weight:700; color:#fff; }
+
 /* PAYMENT METHODS */
 .payment-options {
   display:flex;
-  gap:1rem;
+  gap:0.5rem; /* smaller gap */
   margin-bottom:1rem;
 }
 .payment-options button {
@@ -97,24 +83,23 @@ select option { color:#000; }
   background:#333;
   border:none;
   color:#fff;
-  padding:0.8rem;
-  border-radius:8px;
+  padding:0.6rem; /* smaller padding */
+  border-radius:6px;
   cursor:pointer;
   transition:background 0.3s, transform 0.3s;
   font-weight:600;
+  font-size:0.9rem; /* smaller font */
 }
 .payment-options button.active,
-.payment-options button:hover {
-  background:#3498db;
-  transform:translateY(-2px);
-}
+.payment-options button:hover { background:#3498db; transform:translateY(-2px); }
+
 #card-container { margin-bottom:1.5rem; }
 .pay-btn {
   background:#9b59b6;
   border:none;
   color:#fff;
   font-weight:700;
-  padding:0.9rem;
+  padding:0.8rem;
   border-radius:10px;
   width:100%;
   cursor:pointer;
@@ -122,6 +107,7 @@ select option { color:#000; }
 }
 .pay-btn:hover { background:#8e44ad; transform:translateY(-2px); }
 #payment-status { margin-top:1rem; text-align:center; color:#ccc; }
+
 /* RESPONSIVE */
 @media(max-width:900px){ main { grid-template-columns:1fr; } }
 </style>
@@ -177,7 +163,7 @@ select option { color:#000; }
 
     <h2>Payment</h2>
     <div class="payment-options">
-      <button id="payCard" class="active">Credit/Debit Card</button>
+      <button id="payCard" class="active">Credit/Debit</button>
       <button id="payPayPal">PayPal</button>
     </div>
 
@@ -188,24 +174,23 @@ select option { color:#000; }
 </main>
 
 <script>
-// Members with discount percentages
+// Members with discounts
 const members = { "MEMBER1001":10, "MEMBER1002":15, "VIP2025":20 };
 
-// Load cart data from localStorage
+// Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cartData')) || [];
 let total = cart.reduce((sum,i)=>sum+i.price,0);
 const cartSummary = document.getElementById('cart-summary');
 const shippingSelect = document.getElementById('shippingMethod');
 const memberInput = document.getElementById('memberId');
 
-function renderCart() {
+function renderCart(){
   const shippingMethod = shippingSelect.value;
   let shippingCost = 0;
   if(shippingMethod==='Standard') shippingCost=15;
   else if(shippingMethod==='Express') shippingCost=35;
   let newTotal = total + shippingCost;
 
-  // Member discount
   const memberId = memberInput.value.trim();
   let discount = 0;
   if(memberId && members[memberId]) {
@@ -232,33 +217,30 @@ const payPayPalBtn = document.getElementById('payPayPal');
 payCardBtn.addEventListener('click', ()=>{ payCardBtn.classList.add('active'); payPayPalBtn.classList.remove('active'); document.getElementById('card-container').style.display='block'; });
 payPayPalBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.add('active'); document.getElementById('card-container').style.display='none'; });
 
-// Square payment setup (replace IDs with real ones)
+// Square payment (replace with real IDs)
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
 
-async function initializeSquare() {
-  if (!window.Square) { document.getElementById('payment-status').innerText="Square SDK failed to load."; return; }
+async function initializeSquare(){
+  if(!window.Square){ document.getElementById('payment-status').innerText="Square SDK failed to load."; return; }
   const payments = window.Square.payments(appId, locationId);
   const card = await payments.card();
   await card.attach('#card-container');
 
-  document.getElementById('payNow').addEventListener('click', async () => {
+  document.getElementById('payNow').addEventListener('click', async ()=>{
     const method = document.querySelector('.payment-options button.active').id;
     const statusEl = document.getElementById('payment-status');
     statusEl.textContent = "Processing...";
-
-    if(method === "payCard"){
-      try {
+    if(method==="payCard"){
+      try{
         const result = await card.tokenize();
-        if (result.status === 'OK') {
+        if(result.status==='OK'){
           console.log("Token:", result.token);
           statusEl.textContent = "Payment successful! (Token logged to console)";
-        } else {
-          throw new Error(result.errors ? result.errors[0].message : "Payment failed.");
-        }
-      } catch(err){ statusEl.textContent = "Error: "+err.message; }
+        } else throw new Error(result.errors ? result.errors[0].message : "Payment failed.");
+      }catch(err){ statusEl.textContent="Error: "+err.message; }
     } else {
-      statusEl.textContent = "Redirecting to PayPal...";
+      statusEl.textContent="Redirecting to PayPal...";
       setTimeout(()=>window.location.href="https://www.paypal.com/checkoutnow",1000);
     }
   });
@@ -266,6 +248,5 @@ async function initializeSquare() {
 
 initializeSquare();
 </script>
-
 </body>
 </html>
