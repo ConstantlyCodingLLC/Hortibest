@@ -181,6 +181,33 @@ const shippingCheckbox = document.getElementById('shipping');
 const filterSelect = document.getElementById('filterSelect');
 let selectedCards = [];
 
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function renderCart() {
+  const cartItemsEl = document.getElementById('cart-items');
+  cartItemsEl.innerHTML = '';
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `${item.name} - $${item.price} <button onclick="removeItem(${index})">x</button>`;
+    cartItemsEl.appendChild(div);
+  });
+  document.getElementById('cart-total').innerText = total;
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(name, price) {
+  cart.push({name, price});
+  renderCart();
+}
+
+function removeItem(index) {
+  cart.splice(index,1);
+  renderCart();
+}
+
 function updateTotal() {
   let total = selectedCards.reduce((sum, card) => sum + parseFloat(card.dataset.price), 0);
   if (shippingCheckbox.checked) total += 50;
@@ -210,36 +237,9 @@ filterSelect.addEventListener('change', () => {
   });
 });
 
-// Cart functionality
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-function renderCart() {
-  const cartItemsEl = document.getElementById('cart-items');
-  cartItemsEl.innerHTML = '';
-  let total = 0;
-  cart.forEach((item, index) => {
-    total += item.price;
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `${item.name} - $${item.price} <button onclick="removeItem(${index})">x</button>`;
-    cartItemsEl.appendChild(div);
-  });
-  document.getElementById('cart-total').innerText = total;
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-function addToCart(name, price) {
-  cart.push({name, price});
-  renderCart();
-}
-
-function removeItem(index) {
-  cart.splice(index,1);
-  renderCart();
-}
-
 document.getElementById('checkout-btn').addEventListener('click', () => {
-  alert('Redirecting to Square Checkout...');
+  localStorage.setItem('cart', JSON.stringify(cart));
+  window.location.href = 'payment.html';
 });
 
 document.getElementById('sendQuote').addEventListener('click', () => {
