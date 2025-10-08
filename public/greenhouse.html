@@ -17,9 +17,7 @@ header {
 header h1 { cursor:pointer; font-weight:800; color:#fff; font-size:1.5rem; margin:0; }
 
 /* Nav centered */
-nav {
-  flex:1; text-align:center;
-}
+nav { flex:1; text-align:center; }
 nav ul {
   display:inline-flex; list-style:none; gap:0.5rem; padding:0; margin:0;
   justify-content:center; flex-wrap:wrap;
@@ -51,7 +49,36 @@ select, input[type=checkbox] {
 button { padding:0.6rem 1rem; border:none; border-radius:8px; background:#9b59b6; color:#fff; cursor:pointer; font-weight:600; transition:transform 0.3s; width:100%; max-width:300px; margin:auto; display:block; }
 button:hover { transform:translateY(-3px); }
 
-/* Responsive adjustments */
+/* Sticky cart */
+#cart {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 300px;
+  max-height: 80vh;
+  background: #111;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+  padding: 1rem;
+  overflow-y: auto;
+  z-index: 9999;
+}
+#cart h3 { margin-top:0; margin-bottom:1rem; font-size:1.3rem; }
+.cart-item { display:flex; justify-content:space-between; margin-bottom:0.8rem; }
+.cart-item button { background:#e74c3c; border:none; color:#fff; border-radius:6px; padding:0 0.5rem; cursor:pointer; }
+#checkout-btn {
+  width: 100%;
+  margin-top:1rem;
+  padding:0.6rem;
+  background:#9b59b6;
+  border:none;
+  color:#fff;
+  font-weight:600;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* Responsive */
 @media(max-width:768px){
   header { padding:1rem; flex-direction:column; align-items:flex-start; }
   header h1 { font-size:1.3rem; margin-bottom:0.5rem; }
@@ -65,6 +92,7 @@ button:hover { transform:translateY(-3px); }
   .card-content h3 { font-size:1rem; }
   .card-content p { font-size:0.8rem; }
   button { width:90%; }
+  #cart { width:90%; top:auto; bottom:1rem; right:50%; transform:translateX(50%); max-height:60vh; }
 }
 </style>
 </head>
@@ -81,6 +109,7 @@ button:hover { transform:translateY(-3px); }
       <li><a href="index.html">Home</a></li>
       <li><a href="greenhouse.html">Greenhouse</a></li>
       <li><a href="vertical-farm.html">Vertical Farm</a></li>
+      <li><a href="indoor.html">Indoor</a></li>
     </ul>
   </nav>
 </header>
@@ -101,7 +130,6 @@ button:hover { transform:translateY(-3px); }
   </div>
   
   <div class="grid" id="productGrid">
-    <!-- Greenhouse Series -->
     <div class="card" data-price="799" data-type="greenhouse">
       <img src="https://hortibest.com/cdn/shop/products/Greenhouse-300-1000x600.jpg" alt="Greenhouse 300">
       <div class="card-content">
@@ -116,7 +144,6 @@ button:hover { transform:translateY(-3px); }
         <p>Medium-sized greenhouse ideal for backyard growers. Includes adjustable light spectrum.</p>
       </div>
     </div>
-    <!-- Jellyfish Series -->
     <div class="card" data-price="1899" data-type="jellyfish">
       <img src="https://hortibest.com/cdn/shop/products/Jellyfish-1000x600.jpg" alt="Jellyfish 1000">
       <div class="card-content">
@@ -131,7 +158,6 @@ button:hover { transform:translateY(-3px); }
         <p>Advanced greenhouse setup for professional growers. Robust design and intelligent controls.</p>
       </div>
     </div>
-    <!-- Shark X Series -->
     <div class="card" data-price="2999" data-type="sharkx">
       <img src="https://hortibest.com/cdn/shop/products/SharkX-1000-1000x600.jpg" alt="Shark X 1000">
       <div class="card-content">
@@ -152,7 +178,6 @@ button:hover { transform:translateY(-3px); }
   <button id="sendQuote">Get Quote</button>
 </section>
 
-<!-- Sticky Cart -->
 <div id="cart">
   <h3>Your Cart</h3>
   <div id="cart-items"></div>
