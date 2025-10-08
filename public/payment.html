@@ -3,69 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Make a Payment - Hortibest</title>
+<title>Checkout - Hortibest</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-<script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+<script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
 <style>
 body {
   font-family:'Montserrat', sans-serif;
-  background:#0d0d0d; color:#fff; margin:0; padding:0;
+  background:#0d0d0d;
+  color:#fff;
+  margin:0;
+  padding:0;
 }
 
-/* Header */
+/* HEADER */
 header {
-  position:fixed; top:0; width:100%; background:rgba(0,0,0,0.85);
-  display:flex; justify-content:space-between; align-items:center;
-  padding:1rem 2rem; z-index:1000; flex-wrap:wrap;
+  position:fixed;
+  top:0;
+  width:100%;
+  background:rgba(0,0,0,0.9);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1rem 2rem;
+  z-index:1000;
+  flex-wrap:wrap;
 }
-header h1 { font-weight:800; color:#fff; font-size:1.5rem; margin:0; cursor:pointer; }
-nav ul { display:inline-flex; list-style:none; gap:0.5rem; margin:0; padding:0; }
+header img {
+  height:50px;
+  cursor:pointer;
+}
+nav ul {
+  display:flex;
+  list-style:none;
+  gap:1rem;
+  padding:0;
+  margin:0;
+}
 nav ul li a {
-  color:#fff; text-decoration:none; padding:0.5rem 0.8rem;
-  background:#3498db; border-radius:6px; font-size:0.9rem;
+  background:#3498db;
+  color:#fff;
+  padding:0.6rem 1rem;
+  border-radius:8px;
+  font-weight:600;
+  text-decoration:none;
+  transition:background 0.3s;
 }
 nav ul li a:hover { background:#2980b9; }
 
-/* Section */
-section {
-  padding:6rem 1rem 3rem 1rem; max-width:700px; margin:auto;
-  text-align:center; box-sizing:border-box;
+/* MAIN CHECKOUT */
+main {
+  margin-top:120px;
+  max-width:1000px;
+  margin-inline:auto;
+  padding:2rem;
+  display:grid;
+  gap:2rem;
+  grid-template-columns:1fr 1fr;
 }
-h2 { font-size:1.8rem; font-weight:800; margin-bottom:1.5rem; }
-p { color:#ccc; font-size:0.95rem; margin-bottom:2rem; }
+h2 {
+  font-weight:800;
+  font-size:1.8rem;
+  margin-bottom:1rem;
+  color:#fff;
+}
+.section-box {
+  background:#111;
+  padding:2rem;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.6);
+}
+label {
+  display:block;
+  margin-bottom:0.3rem;
+  font-weight:600;
+}
+input, select {
+  width:100%;
+  padding:0.8rem;
+  background:#222;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  margin-bottom:1rem;
+  box-sizing:border-box;
+}
+select option { color:#000; }
 
-/* Payment box */
-.payment-box {
-  background:#111; border-radius:12px; padding:2rem;
-  box-shadow:0 8px 25px rgba(0,0,0,0.6);
-  text-align:left;
+#cart-summary h3 {
+  margin-bottom:1rem;
+  border-bottom:1px solid #333;
+  padding-bottom:0.5rem;
 }
-label { display:block; margin-bottom:0.5rem; font-weight:600; }
-input[type="text"], input[type="number"] {
-  width:100%; padding:0.8rem; border:none; border-radius:6px;
-  background:#222; color:#fff; margin-bottom:1.2rem;
-  font-size:1rem; box-sizing:border-box;
+.cart-item {
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:0.5rem;
+  color:#ccc;
 }
+.cart-total {
+  border-top:1px solid #333;
+  margin-top:1rem;
+  padding-top:0.5rem;
+  font-weight:700;
+  color:#fff;
+}
+
+/* PAYMENT METHODS */
+.payment-options {
+  display:flex;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+.payment-options button {
+  flex:1;
+  background:#333;
+  border:none;
+  color:#fff;
+  padding:0.8rem;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background 0.3s, transform 0.3s;
+  font-weight:600;
+}
+.payment-options button.active,
+.payment-options button:hover {
+  background:#3498db;
+  transform:translateY(-2px);
+}
+
 #card-container {
   margin-bottom:1.5rem;
 }
-button {
-  width:100%; background:#9b59b6; color:#fff; font-weight:600;
-  padding:0.8rem; border:none; border-radius:8px; font-size:1rem;
-  cursor:pointer; transition:transform 0.3s, background 0.3s;
+.pay-btn {
+  background:#9b59b6;
+  border:none;
+  color:#fff;
+  font-weight:700;
+  padding:0.9rem;
+  border-radius:10px;
+  width:100%;
+  cursor:pointer;
+  transition:background 0.3s, transform 0.3s;
 }
-button:hover { background:#8e44ad; transform:translateY(-2px); }
-
-/* Confirmation */
+.pay-btn:hover {
+  background:#8e44ad;
+  transform:translateY(-2px);
+}
 #payment-status {
-  margin-top:1rem; font-size:1rem; text-align:center;
+  margin-top:1rem;
+  text-align:center;
+  color:#ccc;
 }
 
-/* Responsive */
-@media(max-width:600px){
-  section { padding:5rem 1rem; }
-  .payment-box { padding:1.5rem; }
-  h2 { font-size:1.5rem; }
+/* RESPONSIVE */
+@media(max-width:900px){
+  main {
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
@@ -73,41 +167,112 @@ button:hover { background:#8e44ad; transform:translateY(-2px); }
 
 <header>
   <a href="index.html">
-    <img src="https://ueeshop.ly200-cdn.com/u_file/UPAR/UPAR370/2507/photo/235adfacf1.png"
-         alt="Hortibest Logo" style="height:50px; width:auto; cursor:pointer;">
+    <img src="https://ueeshop.ly200-cdn.com/u_file/UPAR/UPAR370/2507/photo/235adfacf1.png" alt="Hortibest Logo">
   </a>
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="greenhouse.html">Greenhouse</a></li>
       <li><a href="vertical-farm.html">Vertical Farm</a></li>
+      <li><a href="greenhouse.html">Greenhouse</a></li>
     </ul>
   </nav>
 </header>
 
-<section>
-  <h2>Make a Payment</h2>
-  <p>Securely complete your payment using Square. Enter the required details below and click “Pay Now”.</p>
-  
-  <div class="payment-box">
-    <label for="customerName">Full Name</label>
-    <input type="text" id="customerName" placeholder="John Doe" required>
+<main>
+  <!-- LEFT: SHIPPING INFO -->
+  <div class="section-box">
+    <h2>Shipping Details</h2>
+    <label for="fullName">Full Name</label>
+    <input type="text" id="fullName" placeholder="John Doe" required>
 
-    <label for="customerEmail">Email Address</label>
-    <input type="text" id="customerEmail" placeholder="johndoe@example.com" required>
+    <label for="email">Email</label>
+    <input type="text" id="email" placeholder="johndoe@example.com" required>
 
-    <label for="paymentAmount">Payment Amount (USD)</label>
-    <input type="number" id="paymentAmount" placeholder="Enter amount" required>
+    <label for="address">Shipping Address</label>
+    <input type="text" id="address" placeholder="1234 Greenhouse St" required>
+
+    <label for="city">City</label>
+    <input type="text" id="city" placeholder="Los Angeles" required>
+
+    <label for="zip">Postal Code</label>
+    <input type="text" id="zip" placeholder="90001" required>
+
+    <label for="shippingMethod">Shipping Method</label>
+    <select id="shippingMethod">
+      <option value="Standard">Standard Shipping - $15</option>
+      <option value="Express">Express Shipping - $35</option>
+      <option value="Pickup">Store Pickup - Free</option>
+    </select>
+  </div>
+
+  <!-- RIGHT: CART & PAYMENT -->
+  <div class="section-box">
+    <h2>Order Summary</h2>
+    <div id="cart-summary"></div>
+
+    <h2>Payment</h2>
+    <div class="payment-options">
+      <button id="payCard" class="active">Credit/Debit Card</button>
+      <button id="payPayPal">PayPal</button>
+    </div>
 
     <div id="card-container"></div>
-    <button id="card-button">Pay Now</button>
-
+    <button class="pay-btn" id="payNow">Pay Now</button>
     <div id="payment-status"></div>
   </div>
-</section>
+</main>
 
 <script>
-// Replace with your own Square application and location IDs
+// Load cart data from localStorage
+document.addEventListener('DOMContentLoaded', () => {
+  const cart = JSON.parse(localStorage.getItem('cartData')) || [];
+  let total = parseFloat(localStorage.getItem('checkoutTotal')) || 0;
+
+  const cartSummary = document.getElementById('cart-summary');
+  if(cart.length === 0){
+    cartSummary.innerHTML = "<p>Your cart is empty.</p>";
+  } else {
+    cartSummary.innerHTML = `
+      <h3>Items</h3>
+      ${cart.map(i => `<div class="cart-item"><span>${i.name}</span><span>$${i.price}</span></div>`).join('')}
+      <div class="cart-total">Subtotal: $${total}</div>
+    `;
+  }
+
+  // Add shipping
+  const shippingSelect = document.getElementById('shippingMethod');
+  shippingSelect.addEventListener('change', () => {
+    const method = shippingSelect.value;
+    let shippingCost = 0;
+    if(method === "Standard") shippingCost = 15;
+    else if(method === "Express") shippingCost = 35;
+    else shippingCost = 0;
+    const newTotal = total + shippingCost;
+    cartSummary.innerHTML = `
+      <h3>Items</h3>
+      ${cart.map(i => `<div class="cart-item"><span>${i.name}</span><span>$${i.price}</span></div>`).join('')}
+      <div class="cart-total">Subtotal: $${total}</div>
+      <div class="cart-total">Shipping: $${shippingCost}</div>
+      <div class="cart-total" style="font-size:1.2rem;">Total: $${newTotal}</div>
+    `;
+  });
+});
+
+// Payment selection toggle
+const payCardBtn = document.getElementById('payCard');
+const payPayPalBtn = document.getElementById('payPayPal');
+payCardBtn.addEventListener('click', () => {
+  payCardBtn.classList.add('active');
+  payPayPalBtn.classList.remove('active');
+  document.getElementById('card-container').style.display = 'block';
+});
+payPayPalBtn.addEventListener('click', () => {
+  payCardBtn.classList.remove('active');
+  payPayPalBtn.classList.add('active');
+  document.getElementById('card-container').style.display = 'none';
+});
+
+// Square (replace with real IDs)
 const appId = "REPLACE_WITH_YOUR_SQUARE_APP_ID";
 const locationId = "REPLACE_WITH_YOUR_LOCATION_ID";
 
@@ -121,25 +286,28 @@ async function initializeSquare() {
   const card = await payments.card();
   await card.attach('#card-container');
 
-  const cardButton = document.getElementById('card-button');
-  cardButton.addEventListener('click', async () => {
-    cardButton.disabled = true;
+  document.getElementById('payNow').addEventListener('click', async () => {
+    const method = document.querySelector('.payment-options button.active').id;
     const statusEl = document.getElementById('payment-status');
-    statusEl.textContent = "Processing payment...";
+    statusEl.textContent = "Processing...";
 
-    try {
-      const result = await card.tokenize();
-      if (result.status === 'OK') {
-        // Send token + amount + customer info to your backend for payment
-        console.log("Payment token:", result.token);
-        statusEl.textContent = "Payment successful! (Token logged to console)";
-      } else {
-        throw new Error(result.errors ? result.errors[0].message : "Payment failed.");
+    if(method === "payCard"){
+      try {
+        const result = await card.tokenize();
+        if (result.status === 'OK') {
+          console.log("Token:", result.token);
+          statusEl.textContent = "Payment successful! (Token logged to console)";
+        } else {
+          throw new Error(result.errors ? result.errors[0].message : "Payment failed.");
+        }
+      } catch (err) {
+        statusEl.textContent = "Error: " + err.message;
       }
-    } catch (err) {
-      statusEl.textContent = "Error: " + err.message;
+    } else {
+      statusEl.textContent = "Redirecting to PayPal...";
+      // Example redirect (replace with actual PayPal integration)
+      setTimeout(() => window.location.href = "https://www.paypal.com/checkoutnow", 1000);
     }
-    cardButton.disabled = false;
   });
 }
 
