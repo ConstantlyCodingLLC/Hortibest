@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Octopus Series - Hortibest</title>
+  <title>Moray Series - Hortibest</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -34,19 +34,41 @@
     .section-head h2 { font-size:2rem; font-weight:800; margin-bottom:0.5rem; }
     .section-head p { color:#ccc; }
 
-    /* Grid / Cards */
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; }
-    .card { background:#111; padding:1.5rem; border-radius:12px; transition: transform 0.3s, box-shadow 0.3s; text-align:center; cursor:pointer; }
-    .card:hover { transform:translateY(-5px); box-shadow:0 15px 30px rgba(0,0,0,0.5); }
-    .card h3 { margin-bottom:0.5rem; font-size:1.1rem; }
-    .card p { color:#ccc; font-size:0.9rem; margin-bottom:0.5rem; }
-    .card .price { font-weight:700; color:#3498db; font-size:1rem; }
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .dropdown select {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: var(--dark-bg);
+      color: var(--white);
+      border: 1px solid var(--purple);
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Product Details */
+    .product-details {
+      background: var(--dark-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      display: none;
+    }
+    .product-details.active { display: block; }
+    .product-details img { width: 100%; border-radius: 8px; }
+    .product-details h3 { margin-top: 1rem; font-size: 1.5rem; }
+    .product-details p { margin-top: 0.5rem; color: #ccc; }
+    .product-details .price { font-weight: 700; color: var(--blue); font-size: 1.2rem; margin-top: 1rem; }
 
     /* Responsive */
     @media(max-width:768px){
       header { padding:1rem; flex-direction:column; align-items:flex-start; }
       nav ul { flex-direction:row; flex-wrap:wrap; }
-      .grid { grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; }
     }
   </style>
 </head>
@@ -68,68 +90,55 @@
 
 <section>
   <div class="section-head">
-    <h2>Octopus Series</h2>
-    <p>Explore our range of Octopus Series LED grow lights.</p>
+    <h2>Moray Series</h2>
+    <p>Select a product to view details.</p>
   </div>
 
-  <div class="grid">
-    <!-- Octopus-F6 2600 -->
-    <div class="card">
-      <img src="https://hortibest.com/products/hortibest-octopus-f6-2600-840w" alt="Hortibest Octopus-F6 2600" style="width:100%; border-radius:8px;">
-      <h3>Hortibest Octopus-F6 2600</h3>
-      <p>4'x4' coverage area, DLC certified, Osram anti-sulfuration LEDs.</p>
-      <div class="price">$1,599.00</div>
-    </div>
+  <div class="dropdown">
+    <select id="productSelect">
+      <option value="">Select a product</option>
+      <option value="moray-t">Moray-T</option>
+      <option value="moray-h">Moray-H</option>
+      <option value="moray-m">Moray-M</option>
+    </select>
+  </div>
 
-    <!-- Octopus-0G8-2700 4'X 4' -->
-    <div class="card">
-      <img src="https://hortibest.com/products/octopus-0g8-2700-4x-4" alt="Octopus-0G8-2700 4'X 4'" style="width:100%; border-radius:8px;">
-      <h3>Octopus-0G8-2700 4'X 4'</h3>
-      <p>Dual-channel control dimming, DLC certified, 850W & 1000W options.</p>
-      <div class="price">$1,899.00</div>
-    </div>
+  <div id="moray-t" class="product-details">
+    <img src="https://hortibest.com/products/moray-t" alt="Moray-T">
+    <h3>Moray-T</h3>
+    <p>2 pcs per set. Available in daisy-chain function. Replacement of T5 fluorescent tubes. Ideal for multi-layer systems to grow leafy greens and young plants. 7 days accelerator for plant cloning.</p>
+    <div class="price">$39.00</div>
+  </div>
 
-    <!-- Octopus-H3 -->
-    <div class="card">
-      <img src="https://hortibest.com/products/octopus-h3" alt="Octopus-H3" style="width:100%; border-radius:8px;">
-      <h3>Octopus-H3</h3>
-      <p>Full spectrum FSG, suitable for all growth stages, dimming function.</p>
-      <div class="price">$699.00</div>
-    </div>
+  <div id="moray-h" class="product-details">
+    <img src="https://hortibest.com/products/moray-h" alt="Moray-H">
+    <h3>Moray-H</h3>
+    <p>Two lights per pack. Flexible and simple installation. Additional light spectrum to help achieve higher yield. Versatile for any growing environment.</p>
+    <div class="price">$549.00</div>
+  </div>
 
-    <!-- Octopus-H10L -->
-    <div class="card">
-      <img src="https://hortibest.com/products/octopus-h10l" alt="Octopus-H10L" style="width:100%; border-radius:8px;">
-      <h3>Octopus-H10L</h3>
-      <p>Comprehensive SMF spectrum, daisy chainable, high PAR value of 3.0 umol/j.</p>
-      <div class="price">$1,399.00</div>
-    </div>
-
-    <!-- Octopus-H8 Silver -->
-    <div class="card">
-      <img src="https://hortibest.com/products/octopus-h8-720w" alt="Octopus-H8 Silver" style="width:100%; border-radius:8px;">
-      <h3>Octopus-H8 Silver</h3>
-      <p>True built-in driver design, plug and play, suitable for vertical racks and grow tables.</p>
-      <div class="price">$1,199.00</div>
-    </div>
-
-    <!-- Octopus-H15L -->
-    <div class="card">
-      <img src="https://hortibest.com/products/octopus-h15l" alt="Octopus-H15L" style="width:100%; border-radius:8px;">
-      <h3>Octopus-H15L</h3>
-      <p>1500W, full spectrum, customizable light settings, energy-efficient design.</p>
-      <div class="price">$1,799.00</div>
-    </div>
-
-    <!-- Octopus-G Series OG3-1300(VEG) -->
-    <div class="card">
-      <img src="https://hortibest.com/products/octopus-g-series-og3-1300veg" alt="Octopus-G Series OG3-1300(VEG)" style="width:100%; border-radius:8px;">
-      <h3>Octopus-G Series OG3-1300(VEG)</h3>
-      <p>Designed for vegetative growth, tailored spectrum for optimal plant development.</p>
-      <div class="price">Contact for Pricing</div>
-    </div>
+  <div id="moray-m" class="product-details">
+    <img src="https://hortibest.com/products/moray-m" alt="Moray-M">
+    <h3>Moray-M</h3>
+    <p>Versatile for multi-environment cultivation. Linear and slim design to fit multi-layer racks. Powerful for all leaf green cultivation and fruit growth. Various spectrum options available.</p>
+    <div class="price">Contact for Pricing</div>
   </div>
 </section>
+
+<script>
+  const productSelect = document.getElementById('productSelect');
+  const productDetails = document.querySelectorAll('.product-details');
+
+  productSelect.addEventListener('change', function() {
+    productDetails.forEach(detail => {
+      detail.classList.remove('active');
+    });
+    const selectedProduct = document.getElementById(productSelect.value);
+    if (selectedProduct) {
+      selectedProduct.classList.add('active');
+    }
+  });
+</script>
 
 </body>
 </html>
