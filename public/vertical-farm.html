@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vertical Farm - Hortibest</title>
+<title>Vertical Farm & Accessories - Hortibest</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -45,6 +45,7 @@ section { padding:6rem 2rem; max-width:1200px; margin:auto; }
 .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; }
 .card { background:#111; padding:1.5rem; border-radius:12px; transition: transform 0.3s, box-shadow 0.3s; text-align:center; cursor:pointer; }
 .card:hover { transform:translateY(-5px); box-shadow:0 15px 30px rgba(0,0,0,0.5); }
+.card img { width:100%; border-radius:8px; margin-bottom:0.5rem; }
 .card h3 { margin-bottom:0.5rem; font-size:1.1rem; }
 .card p { color:#ccc; font-size:0.9rem; margin-bottom:0.5rem; }
 .card .price { font-weight:700; color:#3498db; font-size:1rem; }
@@ -61,7 +62,8 @@ section { padding:6rem 2rem; max-width:1200px; margin:auto; }
 
 <header>
   <a href="index.html">
-    <img src="/rethingsneedforthehortibestwebsite/Inverted_Logo.png"  alt="Hortibest Logo" style="height:50px; width:auto; cursor:pointer;">  </a>
+    <img src="/rethingsneedforthehortibestwebsite/Inverted_Logo.png" alt="Hortibest Logo" style="height:50px; width:auto; cursor:pointer;">
+  </a>
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -78,6 +80,7 @@ section { padding:6rem 2rem; max-width:1200px; margin:auto; }
   </nav>
 </header>
 
+<!-- Vertical Farm Section -->
 <section>
   <div class="section-head">
     <h2>Vertical Farm Systems</h2>
@@ -108,18 +111,74 @@ section { padding:6rem 2rem; max-width:1200px; margin:auto; }
   </div>
 </section>
 
+<!-- Grow Racks Section -->
+<section>
+  <div class="section-head">
+    <h2>Grow Racks</h2>
+    <p>Durable racks for vertical farming and indoor grow setups.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card" data-name="Grow Rack 4-Tier" data-price="299">
+      <h3>Grow Rack 4-Tier</h3>
+      <p>Compact 4-tier metal rack for small grow spaces.</p>
+      <div class="price">$299</div>
+    </div>
+    <div class="card" data-name="Grow Rack 6-Tier" data-price="499">
+      <h3>Grow Rack 6-Tier</h3>
+      <p>Medium-sized rack for multiple plant trays.</p>
+      <div class="price">$499</div>
+    </div>
+    <div class="card" data-name="Grow Rack Pro" data-price="799">
+      <h3>Grow Rack Pro</h3>
+      <p>Heavy-duty professional rack for large-scale farms.</p>
+      <div class="price">$799</div>
+    </div>
+  </div>
+</section>
+
+<!-- Controllers Section -->
+<section>
+  <div class="section-head">
+    <h2>Controllers</h2>
+    <p>Automated controllers for lighting, irrigation, and climate.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card" data-name="Controller Basic" data-price="149">
+      <h3>Controller Basic</h3>
+      <p>Entry-level controller for small indoor setups.</p>
+      <div class="price">$149</div>
+    </div>
+    <div class="card" data-name="Controller Pro" data-price="399">
+      <h3>Controller Pro</h3>
+      <p>Advanced controller for medium to large farms.</p>
+      <div class="price">$399</div>
+    </div>
+    <div class="card" data-name="Controller Elite" data-price="699">
+      <h3>Controller Elite</h3>
+      <p>Professional all-in-one automation for commercial vertical farms.</p>
+      <div class="price">$699</div>
+    </div>
+  </div>
+</section>
+
 <script>
 // Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const cartCount = document.getElementById('cartCount');
-function updateCartCount() { cartCount.textContent = cart.length; }
+
+// Update cart badge
+function updateCartCount() {
+  cartCount.textContent = cart.length;
+}
 updateCartCount();
 
 // Add items to cart
 document.querySelectorAll('.card[data-name]').forEach(card => {
   card.addEventListener('click', () => {
     const name = card.dataset.name;
-    const price = parseFloat(card.dataset.price);
+    const price = parseFloat(card.dataset.price.replace(/,/g,''));
     cart.push({ name, price });
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
