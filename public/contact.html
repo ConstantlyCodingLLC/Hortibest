@@ -12,7 +12,7 @@
   --red: #e74c3c;
   --dark-bg: #0d0d0d;
   --white: #fff;
-  --light-bg: #111;
+  --light-bg: rgba(17,17,17,0.9);
 }
 
 body {
@@ -40,9 +40,8 @@ header img { height:50px; width:auto; cursor:pointer; }
 
 /* Main Container */
 .container {
-  max-width: 1000px; /* wider container */
+  max-width: 1000px;
   margin: 4rem auto;
-  background: var(--light-bg);
   padding: 3rem 2rem;
   border-radius: 12px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.7);
@@ -50,6 +49,13 @@ header img { height:50px; width:auto; cursor:pointer; }
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  /* Background image with dark overlay */
+  background: 
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url('/rethingsneedforthehortibestwebsite/Jellyfish 2.png') no-repeat center center;
+  background-size: cover;
+  color: #fff;
 }
 
 /* Headings */
@@ -63,7 +69,7 @@ h1 {
 
 /* Contact Items */
 .contact-item {
-  background: rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.5);
   padding: 1.5rem;
   border-radius: 8px;
   transition: transform 0.3s, box-shadow 0.3s;
