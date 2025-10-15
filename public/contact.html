@@ -21,46 +21,64 @@ body {
   padding: 0;
   background: var(--dark-bg);
   color: var(--white);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   min-height: 100vh;
-  padding: 2rem;
-  position: relative;
+  overflow-x: hidden;
 }
 
-/* Container */
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0,0,0,0.85);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { height:50px; width:auto; cursor:pointer; }
+
+/* Main Container */
 .container {
-  position: relative;
+  max-width: 1000px; /* wider container */
+  margin: 4rem auto;
   background: var(--light-bg);
-  max-width: 600px;
-  width: 100%;
-  padding: 2rem;
+  padding: 3rem 2rem;
   border-radius: 12px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.7);
   border-top: 5px solid var(--purple);
-  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-@keyframes fadeIn {
-  0% { opacity:0; transform: translateY(-20px);}
-  100% { opacity:1; transform: translateY(0);}
-}
-
+/* Headings */
 h1 {
-  margin-bottom: 1rem;
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 2.2rem;
   background: linear-gradient(90deg, var(--purple), var(--blue), var(--red));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+/* Contact Items */
+.contact-item {
+  background: rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.contact-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+.contact-item strong { display:block; margin-bottom:0.5rem; font-weight:600; }
+.contact-item p { margin:0; }
+
+/* Home Button */
 .home-btn {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  padding: 0.5rem 1rem;
+  align-self: flex-end;
+  padding: 0.6rem 1rem;
   background: var(--blue);
   color: #fff;
   font-weight: 600;
@@ -74,29 +92,12 @@ h1 {
   background: var(--purple);
 }
 
-p { font-size: 1.1rem; margin: 0.5rem 0; }
-.contact-item {
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s, box-shadow 0.3s;
-  padding: 1rem;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.05);
-  cursor: default;
-}
-.contact-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-}
-
-a { color: var(--blue); text-decoration: none; font-weight: 600; transition: color 0.3s; }
-a:hover { color: var(--red); text-decoration: underline; }
-
-/* Sticky cart */
+/* Sticky Cart */
 #cart {
   position: fixed;
   top: 1rem;
   right: 1rem;
-  width: 300px;
+  width: 320px;
   max-height: 80vh;
   background: var(--light-bg);
   border-radius: 12px;
@@ -105,35 +106,29 @@ a:hover { color: var(--red); text-decoration: underline; }
   overflow-y: auto;
   z-index: 9999;
 }
-#cart h3 { margin-top: 0; margin-bottom: 1rem; font-size: 1.3rem; }
-.cart-item { display: flex; justify-content: space-between; margin-bottom: 0.8rem; }
-.cart-item button { background: var(--red); border: none; color: #fff; border-radius: 6px; padding: 0 0.5rem; cursor: pointer; }
-#checkout-btn {
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.6rem;
-  background: var(--purple);
-  border: none;
-  color: #fff;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-}
+#cart h3 { margin-top:0; margin-bottom:1rem; font-size:1.3rem; }
+.cart-item { display:flex; justify-content:space-between; margin-bottom:0.8rem; }
+.cart-item button { background: var(--red); border: none; color:#fff; border-radius:6px; padding:0 0.5rem; cursor:pointer; }
+#checkout-btn { width:100%; margin-top:1rem; padding:0.6rem; background: var(--purple); border:none; color:#fff; font-weight:600; border-radius:8px; cursor:pointer; }
 
 /* Responsive */
+@media(max-width: 1024px) {
+  .container { margin: 3rem 1rem; padding:2.5rem; }
+  #cart { width: 90%; top: auto; bottom: 1rem; right: 50%; transform: translateX(50%); max-height:60vh; }
+}
 @media(max-width: 768px) {
-  body { padding: 1rem; }
-  .container { padding: 1.5rem; }
-  h1 { font-size: 1.7rem; }
-  .home-btn { top: 1rem; right: 1rem; padding: 0.4rem 0.8rem; }
-  #cart { width: 90%; top: auto; bottom: 1rem; right: 50%; transform: translateX(50%); max-height: 60vh; }
+  h1 { font-size:1.8rem; }
+  .home-btn { padding:0.5rem 0.8rem; }
 }
 </style>
+</head>
+<body>
+
 <header>
   <a href="index.html">
-    <img src="/rethingsneedforthehortibestwebsite/Inverted_Logo.png"  alt="Hortibest Logo" style="height:50px; width:auto; cursor:pointer;">
+    <img src="/rethingsneedforthehortibestwebsite/Inverted_Logo.png" alt="Hortibest Logo">
   </a>
-<body>
+</header>
 
 <div class="container">
   <button class="home-btn" onclick="window.location.href='index.html'">Home</button>
@@ -141,7 +136,7 @@ a:hover { color: var(--red); text-decoration: underline; }
 
   <div class="contact-item">
     <strong>Address:</strong>
-    <p>2817 N. Classen Blvd,<br />Oklahoma City, OK 73106</p>
+    <p>2817 N. Classen Blvd,<br>Oklahoma City, OK 73106</p>
   </div>
 
   <div class="contact-item">
@@ -187,14 +182,7 @@ function removeItem(index) {
   renderCart();
 }
 
-// Example: Adding an item (in real pages, add dynamically)
-function addToCart(name, price) {
-  cart.push({name, price});
-  renderCart();
-}
-
 document.getElementById('checkout-btn').addEventListener('click', () => {
-  // Square Checkout Demo Link (replace with actual Square integration)
   alert('Redirecting to Square Checkout...');
 });
 
@@ -203,4 +191,3 @@ renderCart();
 
 </body>
 </html>
-
