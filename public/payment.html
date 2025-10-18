@@ -85,8 +85,7 @@ select option { color:#000; }
     <div class="payment-options">
       <button id="payCard" class="active">Credit/Debit</button>
       <button id="payPayPal">PayPal</button>
-      <button id="payCashApp">CashApp</button>
-    </div>
+         </div>
 
     <div id="card-container"></div>
     <div id="paypal-container" style="display:none;"></div>
@@ -123,7 +122,6 @@ renderCart();
 // Payment toggle
 const payCardBtn = document.getElementById('payCard');
 const payPayPalBtn = document.getElementById('payPayPal');
-const payCashBtn = document.getElementById('payCashApp');
 payCardBtn.addEventListener('click', ()=>{ payCardBtn.classList.add('active'); payPayPalBtn.classList.remove('active'); payCashBtn.classList.remove('active'); document.getElementById('card-container').style.display='block'; document.getElementById('paypal-container').style.display='none'; document.getElementById('cashapp-container').style.display='none'; });
 payPayPalBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.add('active'); payCashBtn.classList.remove('active'); document.getElementById('card-container').style.display='none'; document.getElementById('paypal-container').style.display='block'; document.getElementById('cashapp-container').style.display='none'; renderPayPal(); });
 payCashBtn.addEventListener('click', ()=>{ payCardBtn.classList.remove('active'); payPayPalBtn.classList.remove('active'); payCashBtn.classList.add('active'); document.getElementById('card-container').style.display='none'; document.getElementById('paypal-container').style.display='none'; document.getElementById('cashapp-container').style.display='block'; renderCashApp(); });
@@ -150,16 +148,7 @@ function renderPayPal(){
   }).render('#paypal-container');
 }
 
-// --- CashApp payment (demo button)
-function renderCashApp(){
-  if(document.getElementById('cashapp-container').children.length>0) return;
-  const btn = document.createElement('button');
-  btn.textContent="Pay with Cash App";
-  btn.className="pay-btn";
-  btn.onclick = ()=>{ alert('Redirect to Cash App payment (replace with real integration)'); };
-  document.getElementById('cashapp-container').appendChild(btn);
-}
-
+  
 // Pay Now button
 document.getElementById('payNow').addEventListener('click', async ()=>{
   const statusEl = document.getElementById('payment-status');
@@ -171,8 +160,7 @@ document.getElementById('payNow').addEventListener('click', async ()=>{
       if(result.status==='OK'){ statusEl.textContent="Square Payment Successful! Token logged."; console.log(result.token); } 
       else throw new Error(result.errors ? result.errors[0].message : "Payment failed");
     } else if(activeMethod==="payPayPal"){ statusEl.textContent="Use PayPal Button Above"; }
-    else if(activeMethod==="payCashApp"){ statusEl.textContent="Use Cash App Button Above"; }
-  } catch(err){ statusEl.textContent="Error: "+err.message; }
+    } catch(err){ statusEl.textContent="Error: "+err.message; }
 });
 </script>
 </body>
